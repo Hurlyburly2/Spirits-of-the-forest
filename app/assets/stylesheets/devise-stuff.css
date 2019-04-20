@@ -1,0 +1,33 @@
+.content_wrapper {
+  margin: 0 30%;
+}
+
+.signin_buttons {
+  list-style-type: none;
+  margin: 0 auto;
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.signin_buttons li {
+  text-align: center;
+  margin: 10px;
+  background-color: orange;
+}
+
+.signin_buttons a {
+  display: block;
+  color: white;
+  padding: 20px 60px;
+}
+
+.window_wrapper {
+  position: absolute;
+  top: 25%;
+  width: 40%;
+  padding: 20px;
+  background-color: white;
+}
