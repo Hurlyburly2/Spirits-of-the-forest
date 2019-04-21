@@ -21,7 +21,11 @@
     </div>
 
     <%= yield %>
-
+    
+    <% if user_signed_in? %>
+      <div id="app"></div>
+    <% end %>
+    
     <%= javascript_include_tag 'application' %>
     
     <%- if Rails.env.development? || Rails.env.test? -%> 
