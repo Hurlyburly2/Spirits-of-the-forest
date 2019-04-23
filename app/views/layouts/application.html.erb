@@ -14,8 +14,8 @@
     <div class = "topbar">
       <% if user_signed_in? %>
         <ul>
-          <a href="#"><li>My Games</li></a>
-          <a href="#"><li>Account</li></a>
+          <a href="/"><li>My Games</li></a>
+          <a href="/users"><li>Account</li></a>
           <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
         </ul>
       <% else %>
