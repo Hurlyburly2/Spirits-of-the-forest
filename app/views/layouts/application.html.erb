@@ -11,6 +11,21 @@
 </head>
 <body>
   <div class="container">  
+    <div class = "topbar">
+      <% if user_signed_in? %>
+        <ul>
+          <a href="#"><li>My Games</li></a>
+          <a href="#"><li>Account</li></a>
+          <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
+        </ul>
+      <% else %>
+        <ul>
+          <li><%= link_to 'Sign In', new_user_session_path %></li>
+          <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+        </ul>
+      <% end %>
+    </div>
+
 
     <div id="flash">
       <%- flash.each do |key, value| -%>
@@ -21,7 +36,11 @@
     </div>
 
     <%= yield %>
-
+    
+    <% if user_signed_in? %>
+      <div id="app"></div>
+    <% end %>
+    
     <%= javascript_include_tag 'application' %>
     
     <%- if Rails.env.development? || Rails.env.test? -%> 

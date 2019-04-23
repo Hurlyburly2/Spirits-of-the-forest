@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+# USE ".TO EQ" AND ".TO INCLUDE" FOR ERRORS ARRAY
 RSpec.describe User, type: :model do
   scenario "Required entries exist" do
     test_user = User.new(username: "", password: "", email: "")
