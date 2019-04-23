@@ -1,4 +1,4 @@
-https://app.codeship.com/projects/1b25e2f0-4796-0137-fe0c-7e77172cd20e/status?branch=master
+![Build Status](https://app.codeship.com/projects/1b25e2f0-4796-0137-fe0c-7e77172cd20e/status?branch=master)
 
 # README
 
