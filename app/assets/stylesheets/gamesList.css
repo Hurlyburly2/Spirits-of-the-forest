@@ -10,6 +10,7 @@
 }
 
 .gamesListButtons li {
+  max-width: 15%;
   background-color: orange;
   padding: 20px 60px;
   display: inline;
@@ -19,9 +20,4 @@
 .gamesListButtons a {
   display: inline;
   color: white;
-}
-
-.gamesContainerButtonWrapper {
-  margin: 0 auto;
-  width: 15%;
 }
