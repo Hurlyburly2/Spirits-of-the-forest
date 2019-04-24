@@ -1,0 +1,27 @@
+
+
+.gamesContainerPage {
+  text-align: center;
+}
+
+.gamesListButtons {
+  margin-top: 30px;
+  list-style-type: none;
+}
+
+.gamesListButtons li {
+  background-color: orange;
+  padding: 20px 60px;
+  display: inline;
+  margin: 0 20px 0 20px;
+}
+
+.gamesListButtons a {
+  display: inline;
+  color: white;
+}
+
+.gamesContainerButtonWrapper {
+  margin: 0 auto;
+  width: 15%;
+}

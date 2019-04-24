@@ -9,7 +9,14 @@ class MyGamesContainer extends Component {
   
   render() {
     return(
-      <h1>TEST MY GAMES CONTAINER</h1>
+      <div className="gamesContainerPage">
+        <h1>MY GAMES</h1>
+        <ul className="gamesListButtons">
+          <a href="#"><li>NEW</li></a>
+          <a href="#"><li>JOIN</li></a>
+          <a href="#"><li>DELETE</li></a>
+        </ul>
+      </div>
     )
   }
 }
