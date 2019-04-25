@@ -1,16 +1,13 @@
-
-
 .gamesContainerPage {
   text-align: center;
 }
 
 .gamesListButtons {
-  margin-top: 30px;
+  margin-top: 70px;
   list-style-type: none;
 }
 
 .gamesListButtons li {
-  max-width: 15%;
   background-color: orange;
   padding: 20px 60px;
   display: inline;
@@ -20,4 +17,15 @@
 .gamesListButtons a {
   display: inline;
   color: white;
+}
+
+.gameTile {
+  margin: 50px 20px 0 20px;
+}
+
+.gameTileLink {
+  width: 200px;
+  margin: 30px;
+  background-color: white;
+  padding: 20px 60px;
 }
