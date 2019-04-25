@@ -7,8 +7,11 @@ class MyGamesContainer extends Component {
     super(props);
     this.state = {
       myGames: [],
-      currentUser: null
+      currentUser: null,
+      errorMessage: ""
     }
+    this.handleNewGame = this.handleNewGame.bind(this)
+    this.createNewGame = this.createNewGame.bind(this)
   }
   
   componentDidMount() {
@@ -31,15 +34,42 @@ class MyGamesContainer extends Component {
     })
   }
   
-  // createNewGame() {
-  // 
-  //   fetch('/api/v1/games', {
-  //     method: 'POST',
-  //     body: JSON.stringify(newGamePayload)
-  //   })
-  // }
+  createNewGame() {
+    let newGamePayload = this.state.currentUser
+    fetch('/api/v1/games', {
+      method: 'POST',
+      body: JSON.stringify(newGamePayload),
+      credentials: 'same-origin'
+    })
+      .then(response => {
+        if (response.ok) {
+          return response
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+            error = new Error(errorMessage)
+          throw(error) 
+        }
+      })
+      .then(response => response.json())
+      .then(body => {
+        this.setState({
+          myGames: body.games
+        })
+      })
+  }
+  
+  handleNewGame() {
+    if (this.state.myGames.length < 18) {
+      this.createNewGame()
+    } else {
+      this.setState({
+        errorMessage: "You cannot create any more games!"
+      })
+    }
+  }
   
   render() {
+    debugger
     let opponent = "Waiting for Opponent"
     let games = this.state.myGames.map(game => {
       if (game.users[0].id === this.state.currentUser.id) {
@@ -68,9 +98,9 @@ class MyGamesContainer extends Component {
     return(
       <div className="gamesContainerPage">
         <h1>MY GAMES</h1>
-        <div>{games}</div>
+        <div className="gameTileContainer">{games}</div>
         <ul className="gamesListButtons">
-          <a href="#"><li>CREATE NEW GAME</li></a>
+          <a href="#" onClick={this.handleNewGame}><li>CREATE GAME</li></a>
           <a href="#"><li>JOIN A GAME</li></a>
           <a href="#"><li>DELETE A GAME</li></a>
         </ul>
