@@ -2,7 +2,7 @@
   margin: 0 30%;
 }
 
-.signin_buttons {
+.large_buttons {
   list-style-type: none;
   margin: 0 auto;
   position: absolute;
@@ -12,13 +12,13 @@
   transform: translate(-50%, -50%);
 }
 
-.signin_buttons li {
+.large_buttons li {
   text-align: center;
   margin: 10px;
   background-color: orange;
 }
 
-.signin_buttons a {
+.large_buttons a {
   display: block;
   color: white;
   padding: 20px 60px;
