@@ -7,42 +7,47 @@ class JoinGameContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentUser: null,
+      pendingGames: []
     }
   }
   
-  // componentDidMount() {
-  //   fetch('/api/v1/games')
-  //     .then(response => {
-  //     if (response.ok) {
-  //       return response
-  //     } else {
-  //       let errorMessage = `${response.status} (${response.statusText})`,
-  //         error = new Error(errorMessage)
-  //       throw(error)
-  //     }
-  //   })
-  //   .then(response => response.json())
-  //   .then(body => {
-  //     this.setState({
-  //       myGames: body.games,
-  //       currentUser: body.current_user
-  //     })
-  //   })
-  // }
+  componentDidMount() {
+    fetch('/api/v1/matches')
+      .then(response => {
+      if (response.ok) {
+        return response
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+          error = new Error(errorMessage)
+        throw(error)
+      }
+    })
+    .then(response => response.json())
+    .then(body => {
+      debugger
+      this.setState({
+        currentUser: body.current_user,
+        pendingGames: body.games
+      })
+    })
+  }
   
   render() {
     let games = "No games have been created"
-    // let opponent = ""
-    // let games = this.state.myGames.map(game => {
-    //   return(
-    //     <GameTile
-    //       key={game.id}
-    //       id={game.id}
-    //       current_player={this.currentUser}
-    //       opponent={opponent}
-    //     />
-    //   )
-    // })
+    if (this.state.pendingGames.length > 0) {
+      games = this.state.pendingGames.map(game => {
+        let opponent_text = `vs ${game.users[0].username}`
+        return(
+          <GameTile
+            key={game.id}
+            id={game.id}
+            current_player={this.state.currentUser}
+            opponent={opponent_text}
+          />
+        )
+      })
+    }
     
     return(
       <div className="gamesContainerPage">
