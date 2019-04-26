@@ -17,14 +17,9 @@ class Api::V1::GamesController < ApplicationController
     new_match = Match.new(user: User.find(data["id"]), game: new_game)
     
     if new_game.save && new_match.save
-      games = User.find(data["id"]).games
-      serialized_games = games.map do |game|
-        GameIndexSerializer.new(game)
-      end
+      new_game = GameIndexSerializer.new(new_game)
       
-      render json: {
-        games: serialized_games
-      }
+      render json: { games: new_game }
     else
       render json: { error: "ERROR, GAME NOT CREATED" }, status: :unprocessable_entity
     end

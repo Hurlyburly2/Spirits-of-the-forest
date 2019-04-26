@@ -297,4 +297,10 @@ Devise.setup do |config|  config.secret_key = Rails.application.secret_key_base
   # When set to false, does not sign a user in automatically after their password is
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
+  
+  
+  # RSpec.configure do |config|
+  #   config.include Devise::Test::ControllerHelpers, type: :controller
+  #   config.include Devise::Test::ControllerHelpers, type: :view
+  # end
 end
