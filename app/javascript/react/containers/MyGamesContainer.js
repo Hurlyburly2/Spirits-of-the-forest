@@ -53,7 +53,7 @@ class MyGamesContainer extends Component {
       .then(response => response.json())
       .then(body => {
         this.setState({
-          myGames: body.games
+          myGames: this.state.myGames.concat(body.games)
         })
       })
   }
@@ -69,7 +69,6 @@ class MyGamesContainer extends Component {
   }
   
   render() {
-    debugger
     let opponent = "Waiting for Opponent"
     let games = this.state.myGames.map(game => {
       if (game.users[0].id === this.state.currentUser.id) {
