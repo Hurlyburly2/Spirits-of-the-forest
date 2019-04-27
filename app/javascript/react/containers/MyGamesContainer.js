@@ -70,8 +70,8 @@ class MyGamesContainer extends Component {
     }
   }
   
-  handleClickTile() {
-    alert('ajsdlkfa')
+  handleClickTile(event) {
+    debugger
   }
   
   render() {

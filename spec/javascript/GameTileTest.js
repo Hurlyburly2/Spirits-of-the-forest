@@ -20,8 +20,7 @@ describe('GameTile', () => {
     expect(wrapper.find('span').text()).toBe('Game #1Waiting for Opponent')
   })
   
-  it('should invoke the passed function from props when its clicked', () => {
-    wrapper.simulate('click')
-    expect(onClick).toHaveBeenCalled()
+  it('should render with a link', () => {
+    expect(wrapper.find('a')).toBePresent();
   })
 })

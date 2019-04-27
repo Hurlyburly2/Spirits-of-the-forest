@@ -7,6 +7,11 @@ class GameplayContainer extends Component {
     this.state = {
     }
   }
+  
+  componentDidMount() {
+    
+  }
+  
   render() {
     return(
       <div>
