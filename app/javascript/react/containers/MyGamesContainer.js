@@ -1,4 +1,5 @@
 import React, { Component }  from 'react';
+import { Link } from 'react-router'
 
 import GameTile from '../components/GameTile'
 
@@ -100,7 +101,7 @@ class MyGamesContainer extends Component {
         <div className="gameTileContainer">{games}</div>
         <ul className="gamesListButtons">
           <a href="#" onClick={this.handleNewGame}><li>CREATE GAME</li></a>
-          <a href="#"><li>JOIN A GAME</li></a>
+          <Link to='/matches'><li>JOIN A GAME</li></Link>
           <a href="#"><li>DELETE A GAME</li></a>
         </ul>
       </div>
