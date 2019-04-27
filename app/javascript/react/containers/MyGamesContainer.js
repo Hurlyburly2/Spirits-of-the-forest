@@ -64,7 +64,7 @@ class MyGamesContainer extends Component {
       this.createNewGame()
     } else {
       this.setState({
-        errorMessage: "You cannot create any more games!"
+        errorMessage: "You cannot have more than 18 games! Please finish games or concede to create more"
       })
     }
   }
@@ -98,6 +98,7 @@ class MyGamesContainer extends Component {
     return(
       <div className="gamesContainerPage">
         <h1>MY GAMES</h1>
+        {this.state.errorMessage}
         <div className="gameTileContainer">{games}</div>
         <ul className="gamesListButtons">
           <a href="#" onClick={this.handleNewGame}><li>CREATE GAME</li></a>
