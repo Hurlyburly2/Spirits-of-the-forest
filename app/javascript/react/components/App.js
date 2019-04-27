@@ -4,6 +4,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import MyGamesContainer from '../containers/MyGamesContainer'
 import AccountContainer from '../containers/AccountContainer'
 import JoinGameContainer from '../containers/JoinGameContainer'
+import GameplayContainer from '../containers/GameplayContainer'
 
 export const App = (props) => {
   return(
@@ -11,6 +12,7 @@ export const App = (props) => {
       <Route path='/' component={MyGamesContainer} />
       <Route path='/Account' component={AccountContainer} />
       <Route path='/matches' component={JoinGameContainer} />
+      <Route path='/games/:id' component={GameplayContainer} />
     </Router>
   )
 }
