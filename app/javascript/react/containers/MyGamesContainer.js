@@ -13,6 +13,7 @@ class MyGamesContainer extends Component {
     }
     this.handleNewGame = this.handleNewGame.bind(this)
     this.createNewGame = this.createNewGame.bind(this)
+    this.handleClickTile = this.handleClickTile.bind(this)
   }
   
   componentDidMount() {
@@ -69,6 +70,10 @@ class MyGamesContainer extends Component {
     }
   }
   
+  handleClickTile(event) {
+    debugger
+  }
+  
   render() {
     let opponent = "Waiting for Opponent"
     let games = this.state.myGames.map(game => {
@@ -91,6 +96,7 @@ class MyGamesContainer extends Component {
           id={game.id}
           current_player={this.currentUser}
           opponent={opponent}
+          handleClickTile={this.handleClickTile}
         />
       )
     })

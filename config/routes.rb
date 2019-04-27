@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   
   resources :users, only: [:index]
   
-  resources :games, only: [:create]
+  resources :games, only: [:create, :show]
   
   resources :matches, only: [:index]
   

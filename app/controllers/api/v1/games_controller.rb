@@ -24,4 +24,8 @@ class Api::V1::GamesController < ApplicationController
       render json: { error: "ERROR, GAME NOT CREATED" }, status: :unprocessable_entity
     end
   end
+  
+  def show
+    binding.pry
+  end
 end
