@@ -6,8 +6,7 @@ class Api::V1::MatchesController < ApplicationController
     serialized_games = pending_matches_sample.map do |match|
       game = match.game
       GameIndexSerializer.new(game)
-    end
-    
+    end 
     render json: {
       current_user: current_user,
       games: serialized_games
