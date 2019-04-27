@@ -3,11 +3,9 @@ import { Link } from 'react-router';
 
 const GameTile = (props) => {
   return(
-    <div className="gameTile">
-      <a href="#" className="gameTileLink">
-        Game #{props.id}<br />
-        {props.opponent}
-      </a>
+    <div className="gameTile" onClick={props.handleClickTile}>
+        <span>Game #{props.id}<br />
+        {props.opponent}</span>
     </div>
   )
 }

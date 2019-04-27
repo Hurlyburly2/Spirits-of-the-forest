@@ -48,11 +48,9 @@ describe('MyGamesContainer', () => {
   
   it('should render a Game Tile component with the proper props', (done) => {
     setTimeout(() => {
-      expect(wrapper.find(GameTile).props()).toEqual({
-        id: 1,
-        current_player: data.currentUser,
-        opponent: "Waiting for Opponent"
-      })
+      expect(wrapper.find(GameTile).props().id).toEqual(1)
+      expect(wrapper.find(GameTile).props().current_player).toEqual(data.currentUser)
+      expect(wrapper.find(GameTile).props().opponent).toEqual("Waiting for Opponent")
       done()
     }, 0)
   })
