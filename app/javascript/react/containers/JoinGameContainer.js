@@ -8,7 +8,9 @@ class JoinGameContainer extends Component {
     super(props);
     this.state = {
       currentUser: null,
-      pendingGames: []
+      currentGameCount: 0,
+      pendingGames: [],
+      errorMessage: ""
     }
   }
   
@@ -28,9 +30,14 @@ class JoinGameContainer extends Component {
       debugger
       this.setState({
         currentUser: body.current_user,
+        currentGameCount: body.current_game_count,
         pendingGames: body.games
       })
     })
+  }
+  
+  handleJoinGame() {
+    //CHECK FOR MORE THAN 18 BEFORE LETTING THEM JOIN
   }
   
   render() {
