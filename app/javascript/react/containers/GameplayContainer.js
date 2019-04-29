@@ -2,12 +2,15 @@ import React, { Component }  from 'react';
 import { Link } from 'react-router'
 
 import CardTile from '../components/CardTile.js'
+import CardContainer from './CardContainer'
 
 class GameplayContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      gameState: null
+      gameState: null,
+      currentUser: null,
+      opponent: null
     }
   }
   
@@ -27,31 +30,32 @@ class GameplayContainer extends Component {
     })
     .then(response => response.json())
     .then(body => {
+      debugger
       this.setState({
-        gameState: body.gameState
+        gameState: body.gameState,
+        currentUser: body.currentUser,
+        opponent: body.opponent
       })
     })
   }
   
   componentWillUnmount() {
     let backgroundDiv = document.getElementById('overlay') 
-    backgroundDiv.classList.add('overlay')
+    backgroundDiv.classList.remove('overlay')
   }
   
   render() {
     let statusText
     let renderCards
-    if (this.state.gameState === "pending") {
-      statusText = "Waiting on Opponent"
-      renderCards = <CardTile 
-                      role={this.state.gameState}
-                    />
-    }
+    debugger
+    
     
     return(
       <div>
         <h1>Waiting on Opponent</h1>
-        {renderCards}
+        <CardContainer 
+          gameState={this.state.gameState}
+        />
       </div>
     )
   }

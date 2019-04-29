@@ -28,6 +28,7 @@ class Api::V1::GamesController < ApplicationController
   def show
     current_game = Game.find(params["id"])
     gameState = ""
+    opponent = nil
     
     if (current_game.users.length == 2 && current_game.users.include?(current_user))
       #IF ALREADY TWO USERS AND ONE IS CURRENT USER
@@ -39,6 +40,11 @@ class Api::V1::GamesController < ApplicationController
       #THEY SHOULD ONLY HAVE THE OPTION TO DELETE OR GO BACK
       #A FACE-DOWN DECK OF CARDS SHOULD DISPLAY AS IF READY FOR SETUP
     elsif (current_game.users.length == 1 && current_game.users[0] != current_user)
+      current_game = Game.find(params["id"])
+      new_match = Match.create(game: current_game, user: current_user)
+      user = current_user
+      opponent = current_game.users.where.not(user: current_user)
+
       #IF ONE USER AND IT IS NOT CURRENT USER
       #THIS IS A GAME THAT THE USER IS JOINING
       #ADD THE USER TO THE GAME AND CREATE A NEW GAME STATE
@@ -50,7 +56,8 @@ class Api::V1::GamesController < ApplicationController
       
     render json: {
       gameState: gameState,
-      currentUser: user
+      currentUser: user,
+      opponent: opponent
     }
   end
 end

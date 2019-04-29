@@ -96,7 +96,7 @@ class MyGamesContainer extends Component {
           id={game.id}
           current_player={this.currentUser}
           opponent={opponent}
-          handleClickTile={this.handleClickTile}
+          clickable={true}
         />
       )
     })
