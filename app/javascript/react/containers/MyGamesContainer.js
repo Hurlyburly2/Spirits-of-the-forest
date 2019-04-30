@@ -111,7 +111,6 @@ class MyGamesContainer extends Component {
         <ul className="gamesListButtons">
           <a href="#" onClick={this.handleNewGame}><li>CREATE GAME</li></a>
           <Link to='/matches'><li>JOIN A GAME</li></Link>
-          <a href="#"><li>DELETE A GAME</li></a>
         </ul>
       </div>
     )

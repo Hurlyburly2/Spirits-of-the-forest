@@ -79,7 +79,6 @@ class JoinGameContainer extends Component {
         <ul className="gamesListButtons">
           <Link to='/'><li>MY GAMES</li></Link>
           <a href="#"><li>SEE MORE</li></a>
-          <a href="#"><li>DELETE A GAME</li></a>
         </ul>
       </div>
     )
