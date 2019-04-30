@@ -49,28 +49,32 @@ class GameplayContainer extends Component {
     let currentPlayerName = ""
     let opponentName = ""
     let message = ""
+    let endGame = ""
     
-    debugger
     if (this.state.gameState === "play"){
       if (this.state.currentUser && this.state.opponent) {  
         currentPlayerName = this.state.currentUser.username
         opponentName = this.state.opponent.username
         message = `${currentPlayerName} vs ${opponentName}`
       }
+      endGame = "CONCEDE"
     } else if (this.state.gameState === "error") {
       message = "This game is no longer available"
     } else if (this.state.gameState === "pending") {
       message = "Waiting for Opponent..."
+      endGame = "DELETE GAME"
     }
     
-    
-    
     return(
-      <div>
+      <div className="gamesContainerPage">
         <h1>{message}</h1>
         <CardContainer 
           gameState={this.state.gameState}
         />
+        <ul className="gamePlayButtons">
+          <Link to='/'><li>MY GAMES</li></Link>
+          <a href="#"><li>{endGame}</li></a>
+        </ul>
       </div>
     )
   }

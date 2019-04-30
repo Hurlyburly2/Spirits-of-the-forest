@@ -49,7 +49,7 @@ class JoinGameContainer extends Component {
     this.fetchMatches()
   }
   
-  seeMoreMatches() {
+  seeMoreMatches(event) {
     this.fetchMatches()
   }
   
