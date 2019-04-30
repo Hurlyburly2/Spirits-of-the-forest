@@ -8,7 +8,7 @@ class Api::V1::MatchesController < ApplicationController
         pending_matches_where_second_player_isnt_user <<  match
       end
     end
-    pending_matches_sample = pending_matches_where_second_player_isnt_user.sample(18)
+    pending_matches_sample =   pending_matches_where_second_player_isnt_user.sample(18)
     
     serialized_games = pending_matches_sample.map do |match|
       game = match.game

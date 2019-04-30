@@ -5,9 +5,7 @@ const CardTile = (props) => {
   
   
   return(
-    <div>
-      <img src="/cardback.png" />
-    </div>
+    <img src="/cardback.png" className="card"/>
   )
 }
 
