@@ -27,12 +27,12 @@ describe('MyGamesContainer', () => {
         }
       ]
     }
-    
+
     fetchMock.get('/api/v1/games', {
       status: 200,
       body: data
     })
-    
+
     wrapper = mount(
       <MyGamesContainer/>
     )
@@ -45,7 +45,7 @@ describe('MyGamesContainer', () => {
       done()
     }, 0)
   })
-  
+
   it('should render a Game Tile component with the proper props', (done) => {
     setTimeout(() => {
       expect(wrapper.find(GameTile).props().id).toEqual(1)

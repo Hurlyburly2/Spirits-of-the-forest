@@ -3,6 +3,5 @@ class GamesController < ApplicationController
   end
   
   def show
-    #CHECK IF USER IS IN THE GAME BEFORE SENDING GAME INFO
   end
 end

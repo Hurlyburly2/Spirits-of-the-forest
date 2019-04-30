@@ -48,11 +48,13 @@ describe('JoinGameContainer', () => {
 
   it('should render a Game Tile component with the proper props', (done) => {
     setTimeout(() => {
-      expect(wrapper.find(GameTile).props()).toEqual({
-        id: 1,
-        current_player: data.current_user,
-        opponent: "vs OTHER USER"
+      expect(wrapper.find(GameTile).props().id).toEqual(1)
+      expect(wrapper.find(GameTile).props().current_player).toEqual({
+        email: "email@email.com",
+        id: 3,
+        username: "SIGNED IN USER"
       })
+      expect(wrapper.find(GameTile).props().opponent).toEqual("vs OTHER USER")
       done()
     }, 0)
   })

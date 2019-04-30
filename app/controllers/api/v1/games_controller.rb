@@ -26,6 +26,44 @@ class Api::V1::GamesController < ApplicationController
   end
   
   def show
-    binding.pry
+    current_game = Game.find(params["id"])
+    gameState = ""
+    opponent = nil
+    
+    if (current_game.users.length == 2 && current_game.users.include?(current_user))
+      #THIS IS AN IN-PROGRESS GAME
+      gameState = "play"
+      user = current_user
+      opponent = current_game.users.where.not(username: current_user.username)
+      opponent = UserSerializer.new(opponent[0])
+    elsif (current_game.users.length == 1 && current_game.users[0] == current_user)
+      gameState = "pending"
+      user = current_user
+      #THIS IS A GAME IN WHICH USER IS WAITING FOR AN OPPONENT
+      #THEY SHOULD ONLY HAVE THE OPTION TO DELETE OR GO BACK
+      #A FACE-DOWN DECK OF CARDS SHOULD DISPLAY AS IF READY FOR SETUP
+    elsif (current_game.users.length == 1 && current_game.users[0] != current_user)
+      gameState = "play"
+      current_game = Game.find(params["id"])
+      new_match = Match.create(game: current_game, user: current_user)
+      user = current_user
+      opponent = current_game.users.where.not(username: current_user.username)
+      opponent = UserSerializer.new(opponent[0])
+
+      #IF ONE USER AND IT IS NOT CURRENT USER
+      #THIS IS A GAME THAT THE USER IS JOINING
+      #ADD THE USER TO THE GAME AND CREATE A NEW GAME STATE
+      #USER TAKES THE FIRST TURN
+    else
+      gameState = "error"
+      #ELSE ALREADY TWO USERS AND NEITHER ARE CURRENT USER OR NO USERS
+      #THIS GAME NO LONGER EXISTS ERROR
+    end
+      
+    render json: {
+      gameState: gameState,
+      currentUser: user,
+      opponent: opponent
+    }
   end
 end

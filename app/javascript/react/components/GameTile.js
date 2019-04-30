@@ -2,7 +2,14 @@ import React from 'react';
 import { Link } from 'react-router';
 
 const GameTile = (props) => {
-  let url = `/games/${props.id}`
+  let url = ""
+  if (props.clickable == true) {
+    url = `/games/${props.id}`
+  } else {
+    url = ''
+  }
+  
+  
   return(
     <Link to={url}><div className="gameTile">
         <span>Game #{props.id}<br />
