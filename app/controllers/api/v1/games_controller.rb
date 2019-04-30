@@ -66,4 +66,10 @@ class Api::V1::GamesController < ApplicationController
       opponent: opponent
     }
   end
+  
+  def destroy
+    game_to_delete = Game.find(params["id"])
+    game_to_delete.destroy
+    render json: { response: "ok" }
+  end
 end
