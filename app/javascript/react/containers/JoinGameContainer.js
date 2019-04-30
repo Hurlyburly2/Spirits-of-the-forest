@@ -14,7 +14,7 @@ class JoinGameContainer extends Component {
     }
   }
   
-  componentDidMount() {
+  fetchMatches() {
     fetch('/api/v1/matches')
       .then(response => {
       if (response.ok) {
@@ -45,13 +45,18 @@ class JoinGameContainer extends Component {
     })
   }
   
-  // handleJoinGame() {
-  //   //CHECK FOR MORE THAN 18 BEFORE LETTING THEM JOIN
-  // }
+  componentDidMount() {
+    this.fetchMatches()
+  }
+  
+  seeMoreMatches() {
+    this.fetchMatches()
+  }
   
   render() {
     let games
     let clickable = true
+    let handleMoreMatches = () => { this.seeMoreMatches() }
     
     if (this.state.currentGameCount >= 18) {
       clickable = false
@@ -78,7 +83,7 @@ class JoinGameContainer extends Component {
         <div className="gameTileContainer">{games}</div>
         <ul className="gamesListButtons">
           <Link to='/'><li>MY GAMES</li></Link>
-          <a href="#"><li>SEE MORE</li></a>
+          <a href="#" onClick={handleMoreMatches}><li>SEE MORE</li></a>
         </ul>
       </div>
     )
