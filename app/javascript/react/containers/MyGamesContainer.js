@@ -29,6 +29,7 @@ class MyGamesContainer extends Component {
     })
     .then(response => response.json())
     .then(body => {
+      debugger
       this.setState({
         myGames: body.games,
         currentUser: body.current_user
@@ -87,8 +88,9 @@ class MyGamesContainer extends Component {
         opponent = game.users[0].username
       }
       if (opponent !== "Waiting for Opponent") {
-        opponent = "#{current_player} vs #{opponent}"
+        opponent = `vs ${opponent}`
       }
+      
       
       return(
         <GameTile

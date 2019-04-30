@@ -9,9 +9,7 @@ export const CardContainer = (props) => {
   if (props.gameState === "pending") {
     debugger
     statusText = "Waiting on Opponent"
-    renderCards = <CardTile 
-                    which_card="cardback"
-                  />
+    renderCards = <CardTile which_card="cardback" />
   }
   
   return(

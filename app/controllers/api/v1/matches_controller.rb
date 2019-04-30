@@ -4,7 +4,7 @@ class Api::V1::MatchesController < ApplicationController
     pending_matches_where_second_player_isnt_user = []
     pending_matches.each do |match|
       game = match.game
-      if game.users.include?(current_user) == false
+      if game.users.include?(current_user) == false && game.users.length < 2
         pending_matches_where_second_player_isnt_user <<  match
       end
     end

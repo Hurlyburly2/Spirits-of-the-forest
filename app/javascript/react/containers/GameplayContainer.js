@@ -46,13 +46,28 @@ class GameplayContainer extends Component {
   
   render() {
     let statusText
-    let renderCards
+    let currentPlayerName = ""
+    let opponentName = ""
+    let message = ""
+    
     debugger
+    if (this.state.gameState === "play"){
+      if (this.state.currentUser && this.state.opponent) {  
+        currentPlayerName = this.state.currentUser.username
+        opponentName = this.state.opponent.username
+        message = `${currentPlayerName} vs ${opponentName}`
+      }
+    } else if (this.state.gameState === "error") {
+      message = "This game is no longer available"
+    } else if (this.state.gameState === "pending") {
+      message = "Waiting for Opponent..."
+    }
+    
     
     
     return(
       <div>
-        <h1>Waiting on Opponent</h1>
+        <h1>{message}</h1>
         <CardContainer 
           gameState={this.state.gameState}
         />
