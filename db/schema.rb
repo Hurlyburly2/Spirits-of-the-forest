@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_29_035728) do
+ActiveRecord::Schema.define(version: 2019_05_01_022024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cards", force: :cascade do |t|
+    t.string "spirit", null: false
+    t.integer "spirit_points", null: false
+    t.integer "spirit_count", null: false
+    t.string "element", null: false
+    t.string "image_url", null: false
+  end
 
   create_table "games", force: :cascade do |t|
     t.datetime "created_at", null: false

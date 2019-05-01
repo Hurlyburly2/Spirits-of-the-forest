@@ -5,7 +5,7 @@ const CardTile = (props) => {
   
   
   return(
-    <img src="/cardback.png" className="card"/>
+    <img src={props.which_card} className="card"/>
   )
 }
 
