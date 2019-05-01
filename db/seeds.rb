@@ -4,7 +4,7 @@ Card.create(spirit: "branch", spirit_points: 1, spirit_count: 8, element: "none"
 
 Card.create(spirit: "branch", spirit_points: 1, spirit_count: 8, element: "moon", image_url: "/cards/branch-1m-8-x1.png")
 
-Card.create(spirit: "branch", spirit_points: 1, spirit_count: 8, element: "sun", image_url "/cards/branch-1s-8-x1.png")
+Card.create(spirit: "branch", spirit_points: 1, spirit_count: 8, element: "sun", image_url: "/cards/branch-1s-8-x1.png")
 
 Card.create(spirit: "branch", spirit_points: 1, spirit_count: 8, element: "wind", image_url: "/cards/branch-1w-8-x1.png")
 
