@@ -29,6 +29,7 @@ class Api::V1::GamesController < ApplicationController
     current_game = Game.find(params["id"])
     gameState = ""
     opponent = nil
+    cards = ""
     
     if (current_game.users.length == 2 && current_game.users.include?(current_user))
       #THIS IS AN IN-PROGRESS GAME
@@ -36,12 +37,12 @@ class Api::V1::GamesController < ApplicationController
       user = current_user
       opponent = current_game.users.where.not(username: current_user.username)
       opponent = UserSerializer.new(opponent[0])
+      cards = Card.get_game_state(current_game)
     elsif (current_game.users.length == 1 && current_game.users[0] == current_user)
       gameState = "pending"
       user = current_user
       #THIS IS A GAME IN WHICH USER IS WAITING FOR AN OPPONENT
       #THEY SHOULD ONLY HAVE THE OPTION TO DELETE OR GO BACK
-      #A FACE-DOWN DECK OF CARDS SHOULD DISPLAY AS IF READY FOR SETUP
     elsif (current_game.users.length == 1 && current_game.users[0] != current_user)
       gameState = "play"
       current_game = Game.find(params["id"])
@@ -49,7 +50,8 @@ class Api::V1::GamesController < ApplicationController
       user = current_user
       opponent = current_game.users.where.not(username: current_user.username)
       opponent = UserSerializer.new(opponent[0])
-
+      
+      cards = Card.new_game_state(current_game)
       #IF ONE USER AND IT IS NOT CURRENT USER
       #THIS IS A GAME THAT THE USER IS JOINING
       #ADD THE USER TO THE GAME AND CREATE A NEW GAME STATE
@@ -63,7 +65,8 @@ class Api::V1::GamesController < ApplicationController
     render json: {
       gameState: gameState,
       currentUser: user,
-      opponent: opponent
+      opponent: opponent,
+      cards: cards
     }
   end
   
