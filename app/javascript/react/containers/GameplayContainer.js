@@ -10,7 +10,8 @@ class GameplayContainer extends Component {
     this.state = {
       gameState: null,
       currentUser: null,
-      opponent: null
+      opponent: null,
+      whose_turn: null
     }
   }
   
@@ -35,7 +36,8 @@ class GameplayContainer extends Component {
         gameState: body.gameState,
         currentUser: body.currentUser,
         opponent: body.opponent,
-        cards: JSON.parse(body.cards)
+        cards: JSON.parse(body.cards),
+        whose_turn: body.whose_turn
       })
     })
   }
@@ -76,15 +78,23 @@ class GameplayContainer extends Component {
     let statusText
     let currentPlayerName = ""
     let opponentName = ""
+    let whose_turn = ""
     let message = ""
     let endGame = ""
     let handleDeleteGame = () => { this.deleteGame() }
+    
+    debugger
     
     if (this.state.gameState === "play"){
       if (this.state.currentUser && this.state.opponent) {  
         currentPlayerName = this.state.currentUser.username
         opponentName = this.state.opponent.username
-        message = `${currentPlayerName} vs ${opponentName}`
+        debugger
+        if (this.state.whose_turn.id === this.state.currentUser.id) {
+          message = "Your Turn"
+        } else {
+          message = `${this.state.whose_turn.username}'s Turn`
+        }
       }
       endGame = "CONCEDE"
     } else if (this.state.gameState === "error") {
@@ -96,7 +106,7 @@ class GameplayContainer extends Component {
     
     return(
       <div className="gamesContainerPage">
-        <h1>{message}</h1>
+        <h4>{currentPlayerName} {message} {opponentName}</h4>
         <CardContainer 
           gameState={this.state.gameState}
           cards={this.state.cards}
