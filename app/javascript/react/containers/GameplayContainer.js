@@ -34,7 +34,8 @@ class GameplayContainer extends Component {
       this.setState({
         gameState: body.gameState,
         currentUser: body.currentUser,
-        opponent: body.opponent
+        opponent: body.opponent,
+        cards: JSON.parse(body.cards)
       })
     })
   }
@@ -98,6 +99,7 @@ class GameplayContainer extends Component {
         <h1>{message}</h1>
         <CardContainer 
           gameState={this.state.gameState}
+          cards={this.state.cards}
         />
         <ul className="gamePlayButtons">
           <Link to='/'><li>MY GAMES</li></Link>
