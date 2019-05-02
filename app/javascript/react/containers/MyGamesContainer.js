@@ -29,7 +29,6 @@ class MyGamesContainer extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      debugger
       this.setState({
         myGames: body.games,
         currentUser: body.current_user
@@ -72,7 +71,6 @@ class MyGamesContainer extends Component {
   }
   
   handleClickTile(event) {
-    debugger
   }
   
   render() {

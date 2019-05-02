@@ -38,6 +38,7 @@ class Api::V1::GamesController < ApplicationController
       opponent = current_game.users.where.not(username: current_user.username)
       opponent = UserSerializer.new(opponent[0])
       cards = Card.get_game_state(current_game)
+      whose_turn = UserSerializer.new(User.find(current_game.whose_turn_id))
     elsif (current_game.users.length == 1 && current_game.users[0] == current_user)
       gameState = "pending"
       user = current_user
@@ -46,12 +47,15 @@ class Api::V1::GamesController < ApplicationController
     elsif (current_game.users.length == 1 && current_game.users[0] != current_user)
       gameState = "play"
       current_game = Game.find(params["id"])
+      current_game.whose_turn_id = current_user.id
       new_match = Match.create(game: current_game, user: current_user)
       user = current_user
       opponent = current_game.users.where.not(username: current_user.username)
       opponent = UserSerializer.new(opponent[0])
       
       cards = Card.new_game_state(current_game)
+      
+      whose_turn = UserSerializer.new(User.find(current_game.whose_turn_id))
       #IF ONE USER AND IT IS NOT CURRENT USER
       #THIS IS A GAME THAT THE USER IS JOINING
       #ADD THE USER TO THE GAME AND CREATE A NEW GAME STATE
@@ -66,7 +70,8 @@ class Api::V1::GamesController < ApplicationController
       gameState: gameState,
       currentUser: user,
       opponent: opponent,
-      cards: cards
+      cards: cards,
+      whose_turn: whose_turn
     }
   end
   

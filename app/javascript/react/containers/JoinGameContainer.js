@@ -27,13 +27,11 @@ class JoinGameContainer extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      debugger
       let alertText = ""
       if (body.current_game_count >= 18) {
         alertText = "You cannot have more than 18 games! Please finish or concede some to join others"
       } 
       if (body.games.length == 0) {
-        debugger
         alertText = "No other players have created any games."
       }
       this.setState({
