@@ -29,7 +29,7 @@ class Api::V1::GamesController < ApplicationController
     current_game = Game.find(params["id"])
     gameState = ""
     opponent = nil
-    cards = ""
+    cards = [].to_json
     
     if (current_game.users.length == 2 && current_game.users.include?(current_user))
       #THIS IS AN IN-PROGRESS GAME

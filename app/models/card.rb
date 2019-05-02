@@ -24,6 +24,6 @@ class Card < ApplicationRecord
     }
     game.gamestate = gamestate.to_json
     game.save
-    gamestate
+    game.gamestate
   end
 end

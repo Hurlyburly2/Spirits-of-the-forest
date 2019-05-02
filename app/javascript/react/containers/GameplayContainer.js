@@ -30,11 +30,12 @@ class GameplayContainer extends Component {
     })
     .then(response => response.json())
     .then(body => {
+      debugger
       this.setState({
         gameState: body.gameState,
         currentUser: body.currentUser,
         opponent: body.opponent,
-        cards: body.cards
+        cards: JSON.parse(body.cards)
       })
     })
   }
@@ -79,8 +80,6 @@ class GameplayContainer extends Component {
     let endGame = ""
     let handleDeleteGame = () => { this.deleteGame() }
     
-    debugger
-    
     if (this.state.gameState === "play"){
       if (this.state.currentUser && this.state.opponent) {  
         currentPlayerName = this.state.currentUser.username
@@ -100,6 +99,7 @@ class GameplayContainer extends Component {
         <h1>{message}</h1>
         <CardContainer 
           gameState={this.state.gameState}
+          cards={this.state.cards}
         />
         <ul className="gamePlayButtons">
           <Link to='/'><li>MY GAMES</li></Link>

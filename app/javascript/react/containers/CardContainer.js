@@ -18,12 +18,25 @@ export const CardContainer = (props) => {
     let counter = 0
     while (counter < 48) {
       counter ++
-        generate_layout = generate_layout.concat(<CardTile which_card="/cardback.png" key={counter} /> )
+        generate_layout = generate_layout.concat(<CardTile which_card="cardback" key={counter} /> )
     }
     row_four = generate_layout.splice(36)
     row_three = generate_layout.splice(24)
     row_two = generate_layout.splice(12)
     row_one = generate_layout
+  } else if (props.gameState === "play") {
+    props.cards.row_one.forEach((card) => {
+      row_one.push(<CardTile key={card.id} id={card.id} which_card={card} />)
+    })
+    props.cards.row_two.forEach((card) => {
+      row_two.push(<CardTile key={card.id} id={card.id} which_card={card} />)
+    })
+    props.cards.row_three.forEach((card) => {
+      row_three.push(<CardTile key={card.id} id={card.id} which_card={card} />)
+    })
+    props.cards.row_four.forEach((card) => {
+      row_four.push(<CardTile key={card.id} id={card.id} which_card={card} />)
+    })
   }
   
   return(
