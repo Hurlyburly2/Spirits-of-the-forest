@@ -11,8 +11,10 @@ class GameplayContainer extends Component {
       gameState: null,
       currentUser: null,
       opponent: null,
-      whose_turn: null
+      whose_turn: null,
+      selected: []
     }
+    this.selectCard = this.selectCard.bind(this);
   }
   
   componentDidMount() {
@@ -31,7 +33,6 @@ class GameplayContainer extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      debugger
       this.setState({
         gameState: body.gameState,
         currentUser: body.currentUser,
@@ -74,6 +75,11 @@ class GameplayContainer extends Component {
       .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
   
+  selectCard(event) {
+    debugger
+    alert('it worked!')
+  }
+  
   render() {
     let statusText
     let currentPlayerName = ""
@@ -83,13 +89,10 @@ class GameplayContainer extends Component {
     let endGame = ""
     let handleDeleteGame = () => { this.deleteGame() }
     
-    debugger
-    
     if (this.state.gameState === "play"){
       if (this.state.currentUser && this.state.opponent) {  
         currentPlayerName = this.state.currentUser.username
         opponentName = this.state.opponent.username
-        debugger
         if (this.state.whose_turn.id === this.state.currentUser.id) {
           message = "Your Turn"
         } else {
@@ -110,6 +113,7 @@ class GameplayContainer extends Component {
         <CardContainer 
           gameState={this.state.gameState}
           cards={this.state.cards}
+          handleSelectCard={this.selectCard}
         />
         <ul className="gamePlayButtons">
           <Link to='/'><li>MY GAMES</li></Link>

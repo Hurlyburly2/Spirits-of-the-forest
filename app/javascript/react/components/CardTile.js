@@ -11,7 +11,7 @@ const CardTile = (props) => {
   
   
   return(
-    <img src={display_card} className="card"/>
+    <img src={display_card} className="card" onClick={props.handleSelectCard} id={props.id} />
   )
 }
 
