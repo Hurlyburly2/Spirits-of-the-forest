@@ -13,12 +13,15 @@ class GameplayContainer extends Component {
       opponent: null,
       whose_turn: null,
       selected: [],
+      selectedSpirits: 0,
+      selectedSpiritPoints: 0,
       cards: {
         row_one: [],
         row_two: [],
         row_three: [],
         row_four: []
-      }
+      },
+      cardReference: []
     }
     this.selectCard = this.selectCard.bind(this);
     this.checkTurn = this.checkTurn.bind(this);
@@ -40,12 +43,15 @@ class GameplayContainer extends Component {
     })
     .then(response => response.json())
     .then(body => {
+      let cardReference = JSON.parse(body.cards)
+      cardReference = cardReference.row_one.concat(cardReference.row_two).concat(cardReference.row_three).concat(cardReference.row_four)
       this.setState({
         gameState: body.gameState,
         currentUser: body.currentUser,
         opponent: body.opponent,
         cards: JSON.parse(body.cards),
-        whose_turn: body.whose_turn
+        whose_turn: body.whose_turn,
+        cardReference: cardReference
       })
     })
   }
@@ -84,74 +90,79 @@ class GameplayContainer extends Component {
   
   selectCard(event) {
     let clickedCard = parseInt(event.target.id)
+    let cardStats = this.state.cardReference.find( card => card.id === clickedCard)
     if (this.state.selected.includes(clickedCard)) {
       let removeCardIndex = this.state.selected.indexOf(clickedCard)
       let newArray = this.state.selected
+      let newScore = this.state.selectedSpiritPoints - cardStats.spirit_points
       newArray.splice(removeCardIndex, 1)
       
-      if (this.state.cards.row_one[0].id === clickedCard) {
-        let deSelectPartner = this.state.cards.row_one[1].id
-        if (newArray.includes(deSelectPartner)) {
-          let removeCardIndex = newArray.indexOf(deSelectPartner)
-          newArray.splice(removeCardIndex, 1)
-        }
+      let deSelectPartner = this.state.cards.row_one[1].id
+      if (this.state.cards.row_one[0].id === clickedCard && newArray.includes(deSelectPartner)) {
+        let partnerStats = this.state.cardReference.find( card => card.id === deSelectPartner )
+        newScore = newScore - partnerStats.spirit_points
+        let removeCardIndex = newArray.indexOf(deSelectPartner)
+        newArray.splice(removeCardIndex, 1)
       }
-      if (this.state.cards.row_one[this.state.cards.row_one.length - 1].id === clickedCard) {
-        let deSelectPartner = this.state.cards.row_one[this.state.cards.row_one.length - 2].id
-        if (newArray.includes(deSelectPartner)) {
-          let removeCardIndex = newArray.indexOf(deSelectPartner)
-          newArray.splice(removeCardIndex, 1)
-        }
+      deSelectPartner = this.state.cards.row_one[this.state.cards.row_one.length - 2].id
+      if (this.state.cards.row_one[this.state.cards.row_one.length - 1].id === clickedCard && newArray.includes(deSelectPartner)) {
+        let partnerStats = this.state.cardReference.find( card => card.id === deSelectPartner )
+        newScore = newScore - partnerStats.spirit_points
+        let removeCardIndex = newArray.indexOf(deSelectPartner)
+        newArray.splice(removeCardIndex, 1)
       }
-      if (this.state.cards.row_two[0].id === clickedCard) {
-        let deSelectPartner = this.state.cards.row_two[1].id
-        if (newArray.includes(deSelectPartner)) {
-          let removeCardIndex = newArray.indexOf(deSelectPartner)
-          newArray.splice(removeCardIndex, 1)
-        }
+      deSelectPartner = this.state.cards.row_two[1].id
+      if (this.state.cards.row_two[0].id === clickedCard && newArray.includes(deSelectPartner)) {
+        let partnerStats = this.state.cardReference.find( card => card.id === deSelectPartner )
+        newScore = newScore - partnerStats.spirit_points
+        let removeCardIndex = newArray.indexOf(deSelectPartner)
+        newArray.splice(removeCardIndex, 1)
       }
-      if (this.state.cards.row_two[this.state.cards.row_two.length - 1].id === clickedCard) {
-        let deSelectPartner = this.state.cards.row_two[this.state.cards.row_two.length - 2].id
-        if (newArray.includes(deSelectPartner)) {
-          let removeCardIndex = newArray.indexOf(deSelectPartner)
-          newArray.splice(removeCardIndex, 1)
-        }
+      deSelectPartner = this.state.cards.row_two[this.state.cards.row_two.length - 2].id
+      if (this.state.cards.row_two[this.state.cards.row_two.length - 1].id === clickedCard && newArray.includes(deSelectPartner)) {
+        let partnerStats = this.state.cardReference.find( card => card.id === deSelectPartner )
+        newScore = newScore - partnerStats.spirit_points
+        let removeCardIndex = newArray.indexOf(deSelectPartner)
+        newArray.splice(removeCardIndex, 1)
       }
-      if (this.state.cards.row_three[0].id === clickedCard) {
-        let deSelectPartner = this.state.cards.row_three[1].id
-        if (newArray.includes(deSelectPartner)) {
-          let removeCardIndex = newArray.indexOf(deSelectPartner)
-          newArray.splice(removeCardIndex, 1)
-        }
+      deSelectPartner = this.state.cards.row_three[1].id
+      if (this.state.cards.row_three[0].id === clickedCard && newArray.includes(deSelectPartner)) {
+        let partnerStats = this.state.cardReference.find( card => card.id === deSelectPartner )
+        newScore = newScore - partnerStats.spirit_points
+        let removeCardIndex = newArray.indexOf(deSelectPartner)
+        newArray.splice(removeCardIndex, 1)
       }
-      if (this.state.cards.row_three[this.state.cards.row_three.length - 1].id === clickedCard) {
-        let deSelectPartner = this.state.cards.row_three[this.state.cards.row_three.length - 2].id
-        if (newArray.includes(deSelectPartner)) {
-          let removeCardIndex = newArray.indexOf(deSelectPartner)
-          newArray.splice(removeCardIndex, 1)
-        }
+      deSelectPartner = this.state.cards.row_three[this.state.cards.row_three.length - 2].id
+      if (this.state.cards.row_three[this.state.cards.row_three.length - 1].id === clickedCard && newArray.includes(deSelectPartner)) {
+        let partnerStats = this.state.cardReference.find( card => card.id === deSelectPartner )
+        newScore = newScore - partnerStats.spirit_points
+        let removeCardIndex = newArray.indexOf(deSelectPartner)
+        newArray.splice(removeCardIndex, 1)
       }
-      if (this.state.cards.row_four[0].id === clickedCard) {
-        let deSelectPartner = this.state.cards.row_four[1].id
-        if (newArray.includes(deSelectPartner)) {
-          let removeCardIndex = newArray.indexOf(deSelectPartner)
-          newArray.splice(removeCardIndex, 1)
-        }
+      deSelectPartner = this.state.cards.row_four[1].id
+      if (this.state.cards.row_four[0].id === clickedCard && newArray.includes(deSelectPartner)) {
+        let partnerStats = this.state.cardReference.find( card => card.id === deSelectPartner )
+        newScore = newScore - partnerStats.spirit_points
+        let removeCardIndex = newArray.indexOf(deSelectPartner)
+        newArray.splice(removeCardIndex, 1)
       }
-      if (this.state.cards.row_four[this.state.cards.row_four.length - 1].id === clickedCard) {
-        let deSelectPartner = this.state.cards.row_four[this.state.cards.row_four.length - 2].id
-        if (newArray.includes(deSelectPartner)) {
-          let removeCardIndex = newArray.indexOf(deSelectPartner)
-          newArray.splice(removeCardIndex, 1)
-        }
+      deSelectPartner = this.state.cards.row_four[this.state.cards.row_four.length - 2].id
+      if (this.state.cards.row_four[this.state.cards.row_four.length - 1].id === clickedCard && newArray.includes(deSelectPartner)) {
+        let partnerStats = this.state.cardReference.find( card => card.id === deSelectPartner )
+        newScore = newScore - partnerStats.spirit_points
+        let removeCardIndex = newArray.indexOf(deSelectPartner)
+        newArray.splice(removeCardIndex, 1)
       }
       
       this.setState({
-        selected: newArray
+        selected: newArray,
+        selectedSpiritPoints: newScore
       })
     } else {
+      let newScore = this.state.selectedSpiritPoints + cardStats.spirit_points
       this.setState({
-        selected: this.state.selected.concat(clickedCard)
+        selected: this.state.selected.concat(clickedCard),
+        selectedSpiritPoints: newScore
       })
     }
   }
@@ -165,7 +176,6 @@ class GameplayContainer extends Component {
   }
   
   render() {
-    debugger 
     let statusText
     let currentPlayerName = ""
     let opponentName = ""
