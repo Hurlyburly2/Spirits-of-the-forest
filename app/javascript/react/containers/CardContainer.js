@@ -24,12 +24,22 @@ export const CardContainer = (props) => {
     row_three = generate_layout.splice(24)
     row_two = generate_layout.splice(12)
     row_one = generate_layout
-  } else if (props.gameState === "play") {
+  } else if (props.gameState === "play") {  //card layout building logic
     let counter = 0
     let row_length = props.cards.row_one.length
     props.cards.row_one.forEach((card) => {
       if ((counter === 0 || counter === row_length - 1) && props.checkTurn() === true) {
-        row_one.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={props.handleSelectCard}/>)
+        let selectedClass = ""
+        if (props.selected.includes(card.id.toString())) {
+          selectedClass = "card-selected"
+        }
+        row_one.push(<CardTile
+          key={card.id}
+          id={card.id}
+          which_card={card}
+          handleSelectCard={props.handleSelectCard}
+          selectedClass={selectedClass}
+          />)
       } else {
         row_one.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={""}/>)
       }
@@ -40,7 +50,17 @@ export const CardContainer = (props) => {
     row_length = props.cards.row_two.length
     props.cards.row_two.forEach((card) => {
       if ((counter === 0 || counter === row_length - 1) && props.checkTurn() === true) {
-        row_two.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={props.handleSelectCard}/>)
+        let selectedClass = ""
+        if (props.selected.includes(card.id.toString())) {
+          selectedClass = "card-selected"
+        }
+        row_two.push(<CardTile
+          key={card.id}
+          id={card.id}
+          which_card={card}
+          handleSelectCard={props.handleSelectCard}
+          selectedClass={selectedClass}
+          />)
       } else {
         row_two.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={""}/>)
       }
@@ -51,7 +71,17 @@ export const CardContainer = (props) => {
     row_length = props.cards.row_three.length
     props.cards.row_three.forEach((card) => {
       if ((counter === 0 || counter === row_length - 1) && props.checkTurn() === true) {
-        row_three.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={props.handleSelectCard}/>)
+        let selectedClass = ""
+        if (props.selected.includes(card.id.toString())) {
+          selectedClass = "card-selected"
+        }
+        row_three.push(<CardTile
+          key={card.id}
+          id={card.id}
+          which_card={card}
+          handleSelectCard={props.handleSelectCard}
+          selectedClass={selectedClass}
+          />)
       } else {
         row_three.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={""}/>)
       }
@@ -62,7 +92,17 @@ export const CardContainer = (props) => {
     row_length = props.cards.row_four.length
     props.cards.row_four.forEach((card) => {
       if ((counter === 0 || counter === row_length - 1) && props.checkTurn() === true) {
-        row_four.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={props.handleSelectCard}/>)
+        let selectedClass = ""
+        if (props.selected.includes(card.id.toString())) {
+          selectedClass = "card-selected"
+        }
+        row_four.push(<CardTile
+          key={card.id}
+          id={card.id}
+          which_card={card}
+          handleSelectCard={props.handleSelectCard}
+          selectedClass={selectedClass}
+          />)
       } else {
         row_four.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={""}/>)
       }

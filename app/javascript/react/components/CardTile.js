@@ -9,9 +9,10 @@ const CardTile = (props) => {
     display_card = props.which_card.image_url
   }
   
+  let cardClass = `card ${props.selectedClass}`
   
   return(
-    <img src={display_card} className="card" onClick={props.handleSelectCard} id={props.id} />
+    <img src={display_card} className={cardClass} onClick={props.handleSelectCard} id={props.id} />
   )
 }
 

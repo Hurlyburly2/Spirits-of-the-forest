@@ -83,8 +83,19 @@ class GameplayContainer extends Component {
   }
   
   selectCard(event) {
-    debugger
-    alert('it worked!')
+    let clickedCard = event.target.id
+    if (this.state.selected.includes(clickedCard)) {
+      let removeCardIndex = this.state.selected.indexOf(clickedCard)
+      let newArray = this.state.selected
+      newArray.splice(removeCardIndex, 1)
+      this.setState({
+        selected: newArray
+      })
+    } else {
+      this.setState({
+        selected: this.state.selected.concat(clickedCard)
+      })
+    }
   }
   
   checkTurn() {
@@ -121,7 +132,6 @@ class GameplayContainer extends Component {
       message = "Waiting for Opponent..."
       endGame = "DELETE GAME"
     }
-    debugger
     
     return(
       <div className="gamesContainerPage">
@@ -131,6 +141,7 @@ class GameplayContainer extends Component {
           cards={this.state.cards}
           handleSelectCard={this.selectCard}
           checkTurn={this.checkTurn}
+          selected={this.state.selected}
         />
         <ul className="gamePlayButtons">
           <Link to='/'><li>MY GAMES</li></Link>
