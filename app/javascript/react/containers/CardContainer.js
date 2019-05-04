@@ -10,7 +10,6 @@ export const CardContainer = (props) => {
   let row_two = []
   let row_three = []
   let row_four = []
-  debugger 
   
   if (props.gameState === "pending") {
     statusText = "Waiting on Opponent"
@@ -25,11 +24,22 @@ export const CardContainer = (props) => {
     row_three = generate_layout.splice(24)
     row_two = generate_layout.splice(12)
     row_one = generate_layout
-  } else if (props.gameState === "play") {  //card layout building logic
+  } else if (props.gameState === "play") {
     let counter = 0
     let row_length = props.cards.row_one.length
     props.cards.row_one.forEach((card) => {
-      if ((counter === 0 || counter === row_length - 1) && props.checkTurn() === true) {
+      let isAdjacentCardSelected = false
+      if (card.id === props.cards.row_one[1].id && props.selected.includes(props.cards.row_one[0].id.toString())) {
+        debugger
+        isAdjacentCardSelected = true
+      }
+      debugger
+      if (card.id === props.cards.row_one[props.cards.row_one.length - 2].id && props.selected.includes(props.cards.row_one[props.cards.row_one.length - 1].id.toString())) {
+        debugger
+        isAdjacentCardSelected = true
+      }
+      
+      if (((counter === 0 || counter === row_length - 1) && props.checkTurn() === true) || (isAdjacentCardSelected === true && props.checkTurn() === true)) {
         let selectedClass = ""
         if (props.selected.includes(card.id.toString())) {
           selectedClass = "card-selected"
