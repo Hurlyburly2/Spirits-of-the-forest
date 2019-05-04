@@ -10,6 +10,7 @@ export const CardContainer = (props) => {
   let row_two = []
   let row_three = []
   let row_four = []
+  debugger 
   
   if (props.gameState === "pending") {
     statusText = "Waiting on Opponent"
