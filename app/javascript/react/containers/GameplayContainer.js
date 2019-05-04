@@ -96,6 +96,55 @@ class GameplayContainer extends Component {
           newArray.splice(removeCardIndex, 1)
         }
       }
+      if (this.state.cards.row_one[this.state.cards.row_one.length - 1].id === clickedCard) {
+        let deSelectPartner = this.state.cards.row_one[this.state.cards.row_one.length - 2].id
+        if (newArray.includes(deSelectPartner)) {
+          let removeCardIndex = newArray.indexOf(deSelectPartner)
+          newArray.splice(removeCardIndex, 1)
+        }
+      }
+      if (this.state.cards.row_two[0].id === clickedCard) {
+        let deSelectPartner = this.state.cards.row_two[1].id
+        if (newArray.includes(deSelectPartner)) {
+          let removeCardIndex = newArray.indexOf(deSelectPartner)
+          newArray.splice(removeCardIndex, 1)
+        }
+      }
+      if (this.state.cards.row_two[this.state.cards.row_two.length - 1].id === clickedCard) {
+        let deSelectPartner = this.state.cards.row_two[this.state.cards.row_two.length - 2].id
+        if (newArray.includes(deSelectPartner)) {
+          let removeCardIndex = newArray.indexOf(deSelectPartner)
+          newArray.splice(removeCardIndex, 1)
+        }
+      }
+      if (this.state.cards.row_three[0].id === clickedCard) {
+        let deSelectPartner = this.state.cards.row_three[1].id
+        if (newArray.includes(deSelectPartner)) {
+          let removeCardIndex = newArray.indexOf(deSelectPartner)
+          newArray.splice(removeCardIndex, 1)
+        }
+      }
+      if (this.state.cards.row_three[this.state.cards.row_three.length - 1].id === clickedCard) {
+        let deSelectPartner = this.state.cards.row_three[this.state.cards.row_three.length - 2].id
+        if (newArray.includes(deSelectPartner)) {
+          let removeCardIndex = newArray.indexOf(deSelectPartner)
+          newArray.splice(removeCardIndex, 1)
+        }
+      }
+      if (this.state.cards.row_four[0].id === clickedCard) {
+        let deSelectPartner = this.state.cards.row_four[1].id
+        if (newArray.includes(deSelectPartner)) {
+          let removeCardIndex = newArray.indexOf(deSelectPartner)
+          newArray.splice(removeCardIndex, 1)
+        }
+      }
+      if (this.state.cards.row_four[this.state.cards.row_four.length - 1].id === clickedCard) {
+        let deSelectPartner = this.state.cards.row_four[this.state.cards.row_four.length - 2].id
+        if (newArray.includes(deSelectPartner)) {
+          let removeCardIndex = newArray.indexOf(deSelectPartner)
+          newArray.splice(removeCardIndex, 1)
+        }
+      }
       
       this.setState({
         selected: newArray
