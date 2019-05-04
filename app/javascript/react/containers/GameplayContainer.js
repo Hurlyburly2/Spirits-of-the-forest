@@ -12,9 +12,16 @@ class GameplayContainer extends Component {
       currentUser: null,
       opponent: null,
       whose_turn: null,
-      selected: []
+      selected: [],
+      cards: {
+        row_one: [],
+        row_two: [],
+        row_three: [],
+        row_four: []
+      }
     }
     this.selectCard = this.selectCard.bind(this);
+    this.checkTurn = this.checkTurn.bind(this);
   }
   
   componentDidMount() {
@@ -80,6 +87,14 @@ class GameplayContainer extends Component {
     alert('it worked!')
   }
   
+  checkTurn() {
+    if (this.state.currentUser.id === this.state.whose_turn.id) {
+      return true
+    } else {
+      return false
+    }
+  }
+  
   render() {
     let statusText
     let currentPlayerName = ""
@@ -106,6 +121,7 @@ class GameplayContainer extends Component {
       message = "Waiting for Opponent..."
       endGame = "DELETE GAME"
     }
+    debugger
     
     return(
       <div className="gamesContainerPage">
@@ -114,6 +130,7 @@ class GameplayContainer extends Component {
           gameState={this.state.gameState}
           cards={this.state.cards}
           handleSelectCard={this.selectCard}
+          checkTurn={this.checkTurn}
         />
         <ul className="gamePlayButtons">
           <Link to='/'><li>MY GAMES</li></Link>

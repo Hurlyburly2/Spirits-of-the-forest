@@ -40,11 +40,15 @@ class Api::V1::GamesController < ApplicationController
       cards = Card.get_game_state(current_game)
       whose_turn = UserSerializer.new(User.find(current_game.whose_turn_id))
     elsif (current_game.users.length == 1 && current_game.users[0] == current_user)
-      gameState = "pending"
-      user = current_user
       #THIS IS A GAME IN WHICH USER IS WAITING FOR AN OPPONENT
       #THEY SHOULD ONLY HAVE THE OPTION TO DELETE OR GO BACK
+      gameState = "pending"
+      user = current_user
     elsif (current_game.users.length == 1 && current_game.users[0] != current_user)
+      #IF ONE USER AND IT IS NOT CURRENT USER
+      #THIS IS A GAME THAT THE USER IS JOINING
+      #ADD THE USER TO THE GAME AND CREATE A NEW GAME STATE
+      #USER TAKES THE FIRST TURN
       gameState = "play"
       current_game = Game.find(params["id"])
       current_game.whose_turn_id = current_user.id
@@ -56,14 +60,10 @@ class Api::V1::GamesController < ApplicationController
       cards = Card.new_game_state(current_game)
       
       whose_turn = UserSerializer.new(User.find(current_game.whose_turn_id))
-      #IF ONE USER AND IT IS NOT CURRENT USER
-      #THIS IS A GAME THAT THE USER IS JOINING
-      #ADD THE USER TO THE GAME AND CREATE A NEW GAME STATE
-      #USER TAKES THE FIRST TURN
     else
-      gameState = "error"
       #ELSE ALREADY TWO USERS AND NEITHER ARE CURRENT USER OR NO USERS
       #THIS GAME NO LONGER EXISTS ERROR
+      gameState = "error"
     end
       
     render json: {

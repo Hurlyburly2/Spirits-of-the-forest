@@ -28,7 +28,7 @@ export const CardContainer = (props) => {
     let counter = 0
     let row_length = props.cards.row_one.length
     props.cards.row_one.forEach((card) => {
-      if (counter === 0 || counter === row_length - 1) {
+      if ((counter === 0 || counter === row_length - 1) && props.checkTurn() === true) {
         row_one.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={props.handleSelectCard}/>)
       } else {
         row_one.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={""}/>)
@@ -39,7 +39,7 @@ export const CardContainer = (props) => {
     counter = 0
     row_length = props.cards.row_two.length
     props.cards.row_two.forEach((card) => {
-      if (counter === 0 || counter === row_length - 1) {
+      if ((counter === 0 || counter === row_length - 1) && props.checkTurn() === true) {
         row_two.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={props.handleSelectCard}/>)
       } else {
         row_two.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={""}/>)
@@ -50,7 +50,7 @@ export const CardContainer = (props) => {
     counter = 0
     row_length = props.cards.row_three.length
     props.cards.row_three.forEach((card) => {
-      if (counter === 0 || counter === row_length - 1) {
+      if ((counter === 0 || counter === row_length - 1) && props.checkTurn() === true) {
         row_three.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={props.handleSelectCard}/>)
       } else {
         row_three.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={""}/>)
@@ -61,7 +61,7 @@ export const CardContainer = (props) => {
     counter = 0
     row_length = props.cards.row_four.length
     props.cards.row_four.forEach((card) => {
-      if (counter === 0 || counter === row_length - 1) {
+      if ((counter === 0 || counter === row_length - 1) && props.checkTurn() === true) {
         row_four.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={props.handleSelectCard}/>)
       } else {
         row_four.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={""}/>)
