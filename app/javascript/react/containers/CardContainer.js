@@ -29,19 +29,16 @@ export const CardContainer = (props) => {
     let row_length = props.cards.row_one.length
     props.cards.row_one.forEach((card) => {
       let isAdjacentCardSelected = false
-      if (card.id === props.cards.row_one[1].id && props.selected.includes(props.cards.row_one[0].id.toString())) {
-        debugger
+      if (card.id === props.cards.row_one[1].id && props.selected.includes(props.cards.row_one[0].id)) {
         isAdjacentCardSelected = true
       }
-      debugger
-      if (card.id === props.cards.row_one[props.cards.row_one.length - 2].id && props.selected.includes(props.cards.row_one[props.cards.row_one.length - 1].id.toString())) {
-        debugger
+      if (card.id === props.cards.row_one[props.cards.row_one.length - 2].id && props.selected.includes(props.cards.row_one[props.cards.row_one.length - 1].id)) {
         isAdjacentCardSelected = true
       }
       
       if (((counter === 0 || counter === row_length - 1) && props.checkTurn() === true) || (isAdjacentCardSelected === true && props.checkTurn() === true)) {
         let selectedClass = ""
-        if (props.selected.includes(card.id.toString())) {
+        if (props.selected.includes(card.id)) {
           selectedClass = "card-selected"
         }
         row_one.push(<CardTile
@@ -60,9 +57,16 @@ export const CardContainer = (props) => {
     counter = 0
     row_length = props.cards.row_two.length
     props.cards.row_two.forEach((card) => {
-      if ((counter === 0 || counter === row_length - 1) && props.checkTurn() === true) {
+      let isAdjacentCardSelected = false
+      if (card.id === props.cards.row_two[1].id && props.selected.includes(props.cards.row_two[0].id)) {
+        isAdjacentCardSelected = true
+      }
+      if (card.id === props.cards.row_two[props.cards.row_two.length - 2].id && props.selected.includes(props.cards.row_two[props.cards.row_two.length - 1].id)) {
+        isAdjacentCardSelected = true
+      }
+      if (((counter === 0 || counter === row_length - 1) && props.checkTurn() === true) || (isAdjacentCardSelected === true && props.checkTurn() === true)) {
         let selectedClass = ""
-        if (props.selected.includes(card.id.toString())) {
+        if (props.selected.includes(card.id)) {
           selectedClass = "card-selected"
         }
         row_two.push(<CardTile
@@ -81,9 +85,16 @@ export const CardContainer = (props) => {
     counter = 0
     row_length = props.cards.row_three.length
     props.cards.row_three.forEach((card) => {
-      if ((counter === 0 || counter === row_length - 1) && props.checkTurn() === true) {
+      let isAdjacentCardSelected = false
+      if (card.id === props.cards.row_three[1].id && props.selected.includes(props.cards.row_three[0].id)) {
+        isAdjacentCardSelected = true
+      }
+      if (card.id === props.cards.row_three[props.cards.row_three.length - 2].id && props.selected.includes(props.cards.row_three[props.cards.row_three.length - 1].id)) {
+        isAdjacentCardSelected = true
+      }
+      if (((counter === 0 || counter === row_length - 1) && props.checkTurn() === true) || (isAdjacentCardSelected === true && props.checkTurn() === true)) {
         let selectedClass = ""
-        if (props.selected.includes(card.id.toString())) {
+        if (props.selected.includes(card.id)) {
           selectedClass = "card-selected"
         }
         row_three.push(<CardTile
@@ -102,9 +113,16 @@ export const CardContainer = (props) => {
     counter = 0
     row_length = props.cards.row_four.length
     props.cards.row_four.forEach((card) => {
-      if ((counter === 0 || counter === row_length - 1) && props.checkTurn() === true) {
+      let isAdjacentCardSelected = false
+      if (card.id === props.cards.row_four[1].id && props.selected.includes(props.cards.row_four[0].id)) {
+        isAdjacentCardSelected = true
+      }
+      if (card.id === props.cards.row_four[props.cards.row_four.length - 2].id && props.selected.includes(props.cards.row_four[props.cards.row_four.length - 1].id)) {
+        isAdjacentCardSelected = true
+      }
+      if (((counter === 0 || counter === row_length - 1) && props.checkTurn() === true) || (isAdjacentCardSelected === true && props.checkTurn() === true)) {
         let selectedClass = ""
-        if (props.selected.includes(card.id.toString())) {
+        if (props.selected.includes(card.id)) {
           selectedClass = "card-selected"
         }
         row_four.push(<CardTile

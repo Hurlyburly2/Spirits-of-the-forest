@@ -83,11 +83,20 @@ class GameplayContainer extends Component {
   }
   
   selectCard(event) {
-    let clickedCard = event.target.id
+    let clickedCard = parseInt(event.target.id)
     if (this.state.selected.includes(clickedCard)) {
       let removeCardIndex = this.state.selected.indexOf(clickedCard)
       let newArray = this.state.selected
       newArray.splice(removeCardIndex, 1)
+      
+      if (this.state.cards.row_one[0].id === clickedCard) {
+        let deSelectPartner = this.state.cards.row_one[1].id
+        if (newArray.includes(deSelectPartner)) {
+          let removeCardIndex = newArray.indexOf(deSelectPartner)
+          newArray.splice(removeCardIndex, 1)
+        }
+      }
+      
       this.setState({
         selected: newArray
       })
@@ -107,6 +116,7 @@ class GameplayContainer extends Component {
   }
   
   render() {
+    debugger 
     let statusText
     let currentPlayerName = ""
     let opponentName = ""
