@@ -25,6 +25,7 @@ class GameplayContainer extends Component {
     }
     this.selectCard = this.selectCard.bind(this);
     this.checkTurn = this.checkTurn.bind(this);
+    this.confirmCardSelection = this.confirmCardSelection.bind(this)
   }
   
   componentDidMount() {
@@ -52,6 +53,10 @@ class GameplayContainer extends Component {
         cardReference: body.card_reference
       })
     })
+  }
+  
+  confirmCardSelection() {
+    alert('ajslkfa')
   }
   
   componentWillUnmount() {
@@ -193,6 +198,7 @@ class GameplayContainer extends Component {
     let message = ""
     let endGame = ""
     let handleDeleteGame = () => { this.deleteGame() }
+    let handleConfirmCardSelection = () => { this.confirmCardSelection() }
     
     if (this.state.gameState === "play"){
       if (this.state.currentUser && this.state.opponent) {  
@@ -222,11 +228,12 @@ class GameplayContainer extends Component {
           checkTurn={this.checkTurn}
           selected={this.state.selected}
         />
+        <p className="errorText">{this.state.errorMessage}</p>
         <ul className="gamePlayButtons">
           <Link to='/'><li>MY GAMES</li></Link>
+          <li onClick={handleConfirmCardSelection}>CONFIRM SELECTION</li>
           <li onClick={handleDeleteGame}>{endGame}</li>
         </ul>
-        <p className="errorText">{this.state.errorMessage}</p>
       </div>
     )
   }
