@@ -23,3 +23,7 @@ h4 {
 .card-selected {
   border: 3px solid yellow;
 }
+
+.errorText {
+  color: white;
+}

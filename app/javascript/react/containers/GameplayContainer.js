@@ -13,7 +13,6 @@ class GameplayContainer extends Component {
       opponent: null,
       whose_turn: null,
       selected: [],
-      selectedSpirits: 0,
       selectedSpiritPoints: 0,
       cards: {
         row_one: [],
@@ -21,7 +20,8 @@ class GameplayContainer extends Component {
         row_three: [],
         row_four: []
       },
-      cardReference: []
+      cardReference: [],
+      errorMessage: []
     }
     this.selectCard = this.selectCard.bind(this);
     this.checkTurn = this.checkTurn.bind(this);
@@ -43,15 +43,13 @@ class GameplayContainer extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      let cardReference = JSON.parse(body.cards)
-      cardReference = cardReference.row_one.concat(cardReference.row_two).concat(cardReference.row_three).concat(cardReference.row_four)
       this.setState({
         gameState: body.gameState,
         currentUser: body.currentUser,
         opponent: body.opponent,
         cards: JSON.parse(body.cards),
         whose_turn: body.whose_turn,
-        cardReference: cardReference
+        cardReference: body.card_reference
       })
     })
   }
@@ -156,14 +154,26 @@ class GameplayContainer extends Component {
       
       this.setState({
         selected: newArray,
-        selectedSpiritPoints: newScore
+        selectedSpiritPoints: newScore,
+        errorMessage: ""
       })
     } else {
-      let newScore = this.state.selectedSpiritPoints + cardStats.spirit_points
-      this.setState({
-        selected: this.state.selected.concat(clickedCard),
-        selectedSpiritPoints: newScore
-      })
+      if (this.state.selectedSpiritPoints + cardStats.spirit_points > 2) {
+        this.setState({
+          errorMessage: "You cannot take more than two spirits!"
+        })
+      } else if (this.state.selectedSpiritPoints > 0 && this.state.cardReference.find( card => card.id === clickedCard ).spirit !== this.state.cardReference.find(card => card.id === this.state.selected[0] ).spirit) {
+        this.setState({
+          errorMessage: "You cannot select more than one type of spirit!"
+        })
+      } else {
+        let newScore = this.state.selectedSpiritPoints + cardStats.spirit_points
+        this.setState({
+          selected: this.state.selected.concat(clickedCard),
+          selectedSpiritPoints: newScore,
+          errorMessage: ""
+        })
+      }
     }
   }
   
@@ -216,6 +226,7 @@ class GameplayContainer extends Component {
           <Link to='/'><li>MY GAMES</li></Link>
           <li onClick={handleDeleteGame}>{endGame}</li>
         </ul>
+        <p className="errorText">{this.state.errorMessage}</p>
       </div>
     )
   }

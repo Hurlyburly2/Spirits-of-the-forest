@@ -71,7 +71,8 @@ class Api::V1::GamesController < ApplicationController
       currentUser: user,
       opponent: opponent,
       cards: cards,
-      whose_turn: whose_turn
+      whose_turn: whose_turn,
+      card_reference: Card.all
     }
   end
   
