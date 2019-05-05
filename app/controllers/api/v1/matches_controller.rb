@@ -18,7 +18,7 @@ class Api::V1::MatchesController < ApplicationController
     current_game_count = current_user.games.length
     
     render json: {
-      current_user: current_user,
+      currentUser: current_user,
       current_game_count: current_game_count,
       games: serialized_games
     }

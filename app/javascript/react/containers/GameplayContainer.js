@@ -25,6 +25,7 @@ class GameplayContainer extends Component {
     }
     this.selectCard = this.selectCard.bind(this);
     this.checkTurn = this.checkTurn.bind(this);
+    this.confirmCardSelection = this.confirmCardSelection.bind(this)
   }
   
   componentDidMount() {
@@ -53,6 +54,52 @@ class GameplayContainer extends Component {
       })
     })
   }
+  
+  confirmCardSelection() {
+    if (this.state.selected.length > 0) {
+      let current_game = this.props.params.id
+      let gamePayLoad = {
+        selected: this.state.selected,
+        currentUser: this.state.currentUser
+      }
+      fetch(`/api/v1/games/${current_game}`, {
+        credentials: 'same-origin',
+        method: "PATCH",
+        body: JSON.stringify(gamePayLoad),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          return response
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+          error = new Error(errorMessage)
+          throw error
+        }
+      })
+      .then(response => response.json())
+      .then(body => {
+        this.setState({
+          gameState: body.gameState,
+          currentUser: body.currentUser,
+          opponent: body.opponent,
+          cards: JSON.parse(body.cards),
+          whose_turn: body.whose_turn,
+          cardReference: body.card_reference,
+          selected: [],
+          errorMessage: body.errorMessage
+        })
+      })
+    } else {
+      this.setState({
+        errorMessage: "You have not selected any cards!"
+      })
+    }
+  }
+
   
   componentWillUnmount() {
     let backgroundDiv = document.getElementById('overlay') 
@@ -193,6 +240,8 @@ class GameplayContainer extends Component {
     let message = ""
     let endGame = ""
     let handleDeleteGame = () => { this.deleteGame() }
+    let handleConfirmCardSelection = () => { this.confirmCardSelection() }
+    let confirmButton = null
     
     if (this.state.gameState === "play"){
       if (this.state.currentUser && this.state.opponent) {  
@@ -200,6 +249,7 @@ class GameplayContainer extends Component {
         opponentName = this.state.opponent.username
         if (this.state.whose_turn.id === this.state.currentUser.id) {
           message = "Your Turn"
+          confirmButton = <li onClick={handleConfirmCardSelection}>CONFIRM SELECTION</li>
         } else {
           message = `${this.state.whose_turn.username}'s Turn`
         }
@@ -222,11 +272,12 @@ class GameplayContainer extends Component {
           checkTurn={this.checkTurn}
           selected={this.state.selected}
         />
+        <p className="errorText">{this.state.errorMessage}</p>
         <ul className="gamePlayButtons">
           <Link to='/'><li>MY GAMES</li></Link>
+          {confirmButton}
           <li onClick={handleDeleteGame}>{endGame}</li>
         </ul>
-        <p className="errorText">{this.state.errorMessage}</p>
       </div>
     )
   }

@@ -35,7 +35,7 @@ class JoinGameContainer extends Component {
         alertText = "No other players have created any games."
       }
       this.setState({
-        currentUser: body.current_user,
+        currentUser: body.currentUser,
         currentGameCount: body.current_game_count,
         pendingGames: body.games,
         errorMessage: alertText

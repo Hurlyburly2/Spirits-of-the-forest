@@ -10,7 +10,7 @@ describe('JoinGameContainer', () => {
 
   beforeEach(() => {
     data = {
-      current_user: {
+      currentUser: {
         email: "email@email.com",
         id: 3,
         username: "SIGNED IN USER"

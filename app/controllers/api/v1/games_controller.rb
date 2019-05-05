@@ -4,9 +4,8 @@ class Api::V1::GamesController < ApplicationController
     serialized_games = games.map do |game|
       GameIndexSerializer.new(game)
     end
-    
     render json: {
-      current_user: current_user,
+      currentUser: current_user,
       games: serialized_games
     }
   end
@@ -80,5 +79,75 @@ class Api::V1::GamesController < ApplicationController
     game_to_delete = Game.find(params["id"])
     game_to_delete.destroy
     render json: { response: "ok" }
+  end
+  
+  def update
+    user = User.find(params["currentUser"]["id"])
+    game = Game.find(params["id"])
+    cards = JSON.parse(game.gamestate)
+    selected_cards = params["selected"]
+    error = ""
+    opponent = game.users.where.not(username: user.username)[0]
+    
+    if game.whose_turn_id == user.id
+      cards_to_remove = params["selected"].map do |selected_card|
+        Card.find(selected_card)
+      end
+      
+      cards_to_remove.each do |card|
+       if cards["row_one"].any? { |find_card| find_card["id"] == card[:id]}
+         if cards["row_one"][0]["id"] == card[:id]
+           cards["row_one"].shift
+         elsif cards["row_one"].last["id"] == card[:id]
+           cards["row_one"].pop
+         else
+           error = "Invalid selection"
+         end
+       end
+       if cards["row_two"].any? { |find_card| find_card["id"] == card[:id]}
+         if cards["row_two"][0]["id"] == card[:id]
+           cards["row_two"].shift
+         elsif cards["row_two"].last["id"] == card[:id]
+           cards["row_two"].pop
+         else
+           error = "Invalid selection"
+         end
+       end
+       if cards["row_three"].any? { |find_card| find_card["id"] == card[:id]}
+         if cards["row_three"][0]["id"] == card[:id]
+           cards["row_three"].shift
+         elsif cards["row_three"].last["id"] == card[:id]
+           cards["row_three"].pop
+         else
+           error = "Invalid selection"
+         end
+       end
+       if cards["row_four"].any? { |find_card| find_card["id"] == card[:id]}
+         if cards["row_four"][0]["id"] == card[:id]
+           cards["row_four"].shift
+         elsif cards["row_four"].last["id"] == card[:id]
+           cards["row_four"].pop
+         else
+           error = "Invalid selection"
+         end
+       end
+     end
+    else
+      error = "It isn't your turn!"
+    end
+    
+    game.gamestate = cards.to_json
+    game.whose_turn_id = opponent.id
+    opponent = UserSerializer.new(opponent)
+    game.save
+    render json: {
+      gameState: "play",
+      currentUser: user,
+      opponent: opponent,
+      cards: cards.to_json,
+      whose_turn: opponent,
+      card_reference: Card.all,
+      errorMessage: error
+    }
   end
 end
