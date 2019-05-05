@@ -81,4 +81,8 @@ class Api::V1::GamesController < ApplicationController
     game_to_delete.destroy
     render json: { response: "ok" }
   end
+  
+  def update
+    binding.pry
+  end
 end

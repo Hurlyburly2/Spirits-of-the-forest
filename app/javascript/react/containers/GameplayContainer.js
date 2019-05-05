@@ -56,7 +56,39 @@ class GameplayContainer extends Component {
   }
   
   confirmCardSelection() {
-    alert('ajslkfa')
+    if (this.state.selected.length > 0) {
+      let current_game = this.props.params.id
+      let gamePayLoad = {
+        selected: this.state.selected,
+        currentUser: this.state.currentUser
+      }
+      fetch(`/api/v1/games/${current_game}`, {
+        credentials: "same-origin",
+        method: "PATCH",
+        body: JSON.stringify(gamePayLoad),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          return response
+        } else {
+          let errorMessage = `${response.status} (${response.statusText})`,
+          error = new Error(errorMessage)
+          throw error
+        }
+      })
+      .then(response => response.json())
+      .then(body => {
+        debugger
+      })
+    } else {
+      this.setState({
+        errorMessage: "You have not selected any cards!"
+      })
+    }
   }
   
   componentWillUnmount() {
@@ -199,6 +231,7 @@ class GameplayContainer extends Component {
     let endGame = ""
     let handleDeleteGame = () => { this.deleteGame() }
     let handleConfirmCardSelection = () => { this.confirmCardSelection() }
+    let confirmButton = null
     
     if (this.state.gameState === "play"){
       if (this.state.currentUser && this.state.opponent) {  
@@ -206,6 +239,7 @@ class GameplayContainer extends Component {
         opponentName = this.state.opponent.username
         if (this.state.whose_turn.id === this.state.currentUser.id) {
           message = "Your Turn"
+          confirmButton = <li onClick={handleConfirmCardSelection}>CONFIRM SELECTION</li>
         } else {
           message = `${this.state.whose_turn.username}'s Turn`
         }
@@ -231,7 +265,7 @@ class GameplayContainer extends Component {
         <p className="errorText">{this.state.errorMessage}</p>
         <ul className="gamePlayButtons">
           <Link to='/'><li>MY GAMES</li></Link>
-          <li onClick={handleConfirmCardSelection}>CONFIRM SELECTION</li>
+          {confirmButton}
           <li onClick={handleDeleteGame}>{endGame}</li>
         </ul>
       </div>
