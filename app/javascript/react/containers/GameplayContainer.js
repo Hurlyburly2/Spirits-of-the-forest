@@ -29,6 +29,11 @@ class GameplayContainer extends Component {
   }
   
   componentDidMount() {
+    this.refreshInterval = setInterval(() => this.getGameData(), 5000);
+    this.getGameData();
+  }
+  
+  getGameData() {
     let current_game = this.props.params.id
     let backgroundDiv = document.getElementById('overlay') 
     backgroundDiv.classList.add('overlay')
@@ -90,6 +95,7 @@ class GameplayContainer extends Component {
           whose_turn: body.whose_turn,
           cardReference: body.card_reference,
           selected: [],
+          selectedSpiritPoints: 0,
           errorMessage: body.errorMessage
         })
       })
@@ -102,6 +108,7 @@ class GameplayContainer extends Component {
 
   
   componentWillUnmount() {
+    clearInterval(this.refreshInterval);
     let backgroundDiv = document.getElementById('overlay') 
     backgroundDiv.classList.remove('overlay')
   }
