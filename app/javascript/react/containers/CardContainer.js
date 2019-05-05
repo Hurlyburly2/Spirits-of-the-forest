@@ -121,7 +121,7 @@ export const CardContainer = (props) => {
     row_length = props.cards.row_four.length
     props.cards.row_four.forEach((card) => {
       let isAdjacentCardSelected = false
-      if (props.cards.row_foru.length > 1) {
+      if (props.cards.row_four.length > 1) {
         if (card.id === props.cards.row_four[1].id && props.selected.includes(props.cards.row_four[0].id)) {
           isAdjacentCardSelected = true
         }
