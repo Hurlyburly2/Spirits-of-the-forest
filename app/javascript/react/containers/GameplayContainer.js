@@ -82,15 +82,24 @@ class GameplayContainer extends Component {
       })
       .then(response => response.json())
       .then(body => {
-        debugger
+        this.setState({
+          gameState: body.gameState,
+          currentUser: body.currentUser,
+          opponent: body.opponent,
+          cards: JSON.parse(body.cards),
+          whose_turn: body.whose_turn,
+          cardReference: body.card_reference,
+          selected: [],
+          errorMessage: body.errorMessage
+        })
       })
     } else {
       this.setState({
-        selected: [],
         errorMessage: "You have not selected any cards!"
       })
     }
   }
+
   
   componentWillUnmount() {
     let backgroundDiv = document.getElementById('overlay') 
