@@ -31,7 +31,7 @@ class MyGamesContainer extends Component {
     .then(body => {
       this.setState({
         myGames: body.games,
-        currentUser: body.current_user
+        currentUser: body.currentUser
       })
     })
   }

@@ -10,7 +10,7 @@ describe('MyGamesContainer', () => {
 
   beforeEach(() => {
     data = {
-      current_user: {
+      currentUser: {
         email: "email@email.com",
         id: 3,
         username: "SIGNED IN USER"
@@ -49,7 +49,6 @@ describe('MyGamesContainer', () => {
   it('should render a Game Tile component with the proper props', (done) => {
     setTimeout(() => {
       expect(wrapper.find(GameTile).props().id).toEqual(1)
-      expect(wrapper.find(GameTile).props().current_player).toEqual(data.currentUser)
       expect(wrapper.find(GameTile).props().opponent).toEqual("Waiting for Opponent")
       done()
     }, 0)

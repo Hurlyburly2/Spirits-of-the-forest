@@ -63,7 +63,7 @@ class GameplayContainer extends Component {
         currentUser: this.state.currentUser
       }
       fetch(`/api/v1/games/${current_game}`, {
-        credentials: "same-origin",
+        credentials: 'same-origin',
         method: "PATCH",
         body: JSON.stringify(gamePayLoad),
         headers: {
@@ -86,6 +86,7 @@ class GameplayContainer extends Component {
       })
     } else {
       this.setState({
+        selected: [],
         errorMessage: "You have not selected any cards!"
       })
     }

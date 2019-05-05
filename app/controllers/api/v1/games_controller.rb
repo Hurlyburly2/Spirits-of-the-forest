@@ -4,9 +4,8 @@ class Api::V1::GamesController < ApplicationController
     serialized_games = games.map do |game|
       GameIndexSerializer.new(game)
     end
-    
     render json: {
-      current_user: current_user,
+      currentUser: current_user,
       games: serialized_games
     }
   end
@@ -83,6 +82,48 @@ class Api::V1::GamesController < ApplicationController
   end
   
   def update
+    user = User.find(params["currentUser"]["id"])
+    game = Game.find(params["id"])
+    game_state = JSON.parse(game.gamestate)
+    selected_cards = params["selected"]
+    error = ""
     binding.pry
+    
+    if game.whose_turn_id == user.id
+      cards_to_remove = params["selected"].map do |selected_card|
+        Card.find(selected_card)
+      end
+      
+      cards_to_remove.each do |card|
+       if game_state["row_three"].any? { |find_card| find_card["id"] == card[:id]}
+         if game_state["row_three"][0]["id"] == card[:id]
+           game_state["row_three"].shift
+         elsif game_state["row_three"].last == card[:id]
+           game_state["row_three"].pop
+         else
+           error = "Invalid selection"
+         end
+       end
+     end
+    else
+      error = "It isn't your turn!"
+    end
+   
+    render json: { whatever: "test" }
+    # game.gamestate = game_state.to_json
+    # if game.save
+    #   render json: {
+    #     gameState: game_state.to_json,
+    #     currentUser: user,
+    #     opponent: opponent,
+    #     cards: cards,
+    #     whose_turn: whose_turn,
+    #     card_reference: Card.all
+    #   }
+    # else
+    #   render json: {
+    #     error = "Something went wrong!"
+    #   }
+    # end
   end
 end

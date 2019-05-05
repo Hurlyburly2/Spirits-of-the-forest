@@ -17,8 +17,8 @@ RSpec.describe Api::V1::GamesController, type: :controller do
       expect(response.status).to eq 200
       expect(response.content_type).to eq ("application/json")
 
-      expect(return_json["current_user"]["email"]).to eq("email@email.com")
-      expect(return_json["current_user"]["username"]).to eq("USERNAME")
+      expect(return_json["currentUser"]["email"]).to eq("email@email.com")
+      expect(return_json["currentUser"]["username"]).to eq("USERNAME")
 
       expect(return_json["games"].length).to eq 2
     end
