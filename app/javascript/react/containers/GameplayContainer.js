@@ -29,7 +29,8 @@ class GameplayContainer extends Component {
   }
   
   componentDidMount() {
-    this.refreshInterval = setInterval(() => this.getGameData(), 5000);
+    let refreshInterval = 100000 //This should be 5000 in release version
+    this.refreshInterval = setInterval(() => this.getGameData(), refreshInterval);
     this.getGameData();
   }
   
@@ -115,10 +116,15 @@ class GameplayContainer extends Component {
   
   deleteGame () {
     let game_id = this.props.params.id
+    let endGamePayload = {
+      game_id: game_id,
+      gameState: "concession",
+      user: this.state.currentUser
+    }
     fetch(`/api/v1/games/${game_id}`, {
       credentials: 'same-origin',
       method: 'DELETE',
-      body: JSON.stringify(game_id),
+      body: JSON.stringify(endGamePayload),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
