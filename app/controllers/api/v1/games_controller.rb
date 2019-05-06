@@ -20,7 +20,7 @@ class Api::V1::GamesController < ApplicationController
   def create
     data = JSON.parse(request.body.read)
     new_game = Game.new
-    new_match = Match.new(user: User.find(data["id"]), game: new_game)
+    new_match = Match.new(user: User.find(data["id"]), game: new_game, selected_cards: [])
     if new_game.save && new_match.save
       new_game = GameIndexSerializer.new(new_game)
       
@@ -31,7 +31,6 @@ class Api::V1::GamesController < ApplicationController
   end
   
   def show
-    
     current_game = Game.find(params["id"])
     gameState = ""
     opponent = nil
@@ -64,11 +63,10 @@ class Api::V1::GamesController < ApplicationController
       #IF ONE USER AND IT IS NOT CURRENT USER
       #THIS IS A GAME THAT THE USER IS JOINING
       #ADD THE USER TO THE GAME AND CREATE A NEW GAME STATE
-      #USER TAKES THE FIRST TURN
       gameState = "play"
       current_game = Game.find(params["id"])
       current_game.whose_turn_id = current_user.id
-      new_match = Match.create(game: current_game, user: current_user)
+      new_match = Match.create(game: current_game, user: current_user, selected_cards: [])
       user = current_user
       opponent = current_game.users.where.not(username: current_user.username)
       opponent = UserSerializer.new(opponent[0])
@@ -81,7 +79,7 @@ class Api::V1::GamesController < ApplicationController
       #THIS GAME NO LONGER EXISTS ERROR
       gameState = "error"
     end
-    
+  
     render json: {
       gameState: gameState,
       currentUser: user,
@@ -89,7 +87,9 @@ class Api::V1::GamesController < ApplicationController
       cards: cards,
       whose_turn: whose_turn,
       card_reference: Card.all,
-      winner: winner
+      winner: winner,
+      yourcards: current_game.matches.where(user: current_user)[0].selected_cards,
+      opponentcards: current_game.matches.where.not(user: current_user)[0].selected_cards
     }
   end
   
@@ -104,8 +104,6 @@ class Api::V1::GamesController < ApplicationController
       game_to_concede.whose_turn_id = nil
       game_to_concede.gamestate = nil
       game_to_concede.save
-      
-      
       winner = UserSerializer.new(winner[0])
     elsif params["gameState"] == "deleteWithoutLoss"
       game_to_delete = Game.find(params["id"])
@@ -137,6 +135,7 @@ class Api::V1::GamesController < ApplicationController
     selected_cards = params["selected"]
     error = ""
     opponent = game.users.where.not(username: user.username)[0]
+    current_match = game.matches.where(user: user)[0]
     
     if game.whose_turn_id == user.id
       cards_to_remove = params["selected"].map do |selected_card|
@@ -181,6 +180,10 @@ class Api::V1::GamesController < ApplicationController
          end
        end
      end
+     previously_selected_cards = JSON.parse(current_match.selected_cards)
+     all_selected_cards = previously_selected_cards + cards_to_remove
+     current_match.selected_cards = all_selected_cards.to_json
+     current_match.save
     else
       error = "It isn't your turn!"
     end
@@ -198,6 +201,7 @@ class Api::V1::GamesController < ApplicationController
     game.gamestate = cards.to_json
     game.whose_turn_id = opponent.id
     opponent = UserSerializer.new(opponent)
+    opponent_cards = game.matches.where.not(user: user)[0].selected_cards
     game.save
     render json: {
       gameState: gameState,
@@ -207,7 +211,9 @@ class Api::V1::GamesController < ApplicationController
       whose_turn: opponent,
       card_reference: Card.all,
       errorMessage: error,
-      winner: winner
+      winner: winner,
+      yourcards: current_match.selected_cards,
+      opponentcards: opponent_cards
     }
   end
 end
