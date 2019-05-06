@@ -95,6 +95,7 @@ class Api::V1::GamesController < ApplicationController
   
   def destroy
     winner = nil
+    returnGameState = "done"
     if params["gameState"] == "concession"
       game_to_concede = Game.find(params["id"])
       user = params["user"]
@@ -109,6 +110,7 @@ class Api::V1::GamesController < ApplicationController
     elsif params["gameState"] == "deleteWithoutLoss"
       game_to_delete = Game.find(params["id"])
       game_to_delete.destroy
+      returnGameState = "endGameConfirmed"
     elsif params["gameState"] == "confirmGameOver"
       game_to_delete = Game.find(params["id"])
       current_player_match = game_to_delete.matches.where(user_id: params["user"]["id"])[0]
@@ -119,10 +121,11 @@ class Api::V1::GamesController < ApplicationController
       if both_matches[0].endgame_confirm == true && both_matches[1].endgame_confirm == true
         game_to_delete.destroy
       end
+      returnGameState = "endGameConfirmed"
     end
     
     render json: { 
-      gameState: "done",
+      gameState: returnGameState,
       winner: winner
     }
   end
@@ -182,18 +185,29 @@ class Api::V1::GamesController < ApplicationController
       error = "It isn't your turn!"
     end
     
+    gameState = "play"
+    winner = nil
+    if cards["row_one"].length + cards["row_two"].length + cards["row_three"].length + cards["row_four"].length == 0
+      gameState = "complete"
+      game.gamestate = nil
+      game.whose_turn_id = nil
+      game.winner_id = game.users[0].id
+      #FIGURE OUT A WINNER HERE!!!!
+    end
+    
     game.gamestate = cards.to_json
     game.whose_turn_id = opponent.id
     opponent = UserSerializer.new(opponent)
     game.save
     render json: {
-      gameState: "play",
+      gameState: gameState,
       currentUser: user,
       opponent: opponent,
       cards: cards.to_json,
       whose_turn: opponent,
       card_reference: Card.all,
-      errorMessage: error
+      errorMessage: error,
+      winner: winner
     }
   end
 end
