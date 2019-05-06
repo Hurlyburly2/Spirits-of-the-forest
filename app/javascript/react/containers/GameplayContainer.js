@@ -21,7 +21,8 @@ class GameplayContainer extends Component {
         row_four: []
       },
       cardReference: [],
-      errorMessage: []
+      errorMessage: [],
+      winner: null
     }
     this.selectCard = this.selectCard.bind(this);
     this.checkTurn = this.checkTurn.bind(this);
@@ -29,7 +30,8 @@ class GameplayContainer extends Component {
   }
   
   componentDidMount() {
-    this.refreshInterval = setInterval(() => this.getGameData(), 5000);
+    let refreshInterval = 100000 //This should be 5000 in release version
+    this.refreshInterval = setInterval(() => this.getGameData(), refreshInterval);
     this.getGameData();
   }
   
@@ -55,7 +57,8 @@ class GameplayContainer extends Component {
         opponent: body.opponent,
         cards: JSON.parse(body.cards),
         whose_turn: body.whose_turn,
-        cardReference: body.card_reference
+        cardReference: body.card_reference,
+        winner: body.winner
       })
     })
   }
@@ -115,10 +118,24 @@ class GameplayContainer extends Component {
   
   deleteGame () {
     let game_id = this.props.params.id
+    let gamestateToSend
+    debugger
+    if (this.state.gameState === "pending") {
+      gamestateToSend = "deleteWithoutLoss"
+    } else if (this.state.gameState === "play") {
+      gamestateToSend = "concession"
+    } else if (this.state.gameState === "complete") {
+      gamestateToSend = "confirmGameOver"
+    }
+    let endGamePayload = {
+      game_id: game_id,
+      gameState: gamestateToSend,
+      user: this.state.currentUser
+    }
     fetch(`/api/v1/games/${game_id}`, {
       credentials: 'same-origin',
       method: 'DELETE',
-      body: JSON.stringify(game_id),
+      body: JSON.stringify(endGamePayload),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -249,6 +266,9 @@ class GameplayContainer extends Component {
     let handleDeleteGame = () => { this.deleteGame() }
     let handleConfirmCardSelection = () => { this.confirmCardSelection() }
     let confirmButton = null
+    let completeScreen
+    let deleteButton
+    let backButton = <Link to='/'><li>MY GAMES</li></Link>
     
     if (this.state.gameState === "play"){
       if (this.state.currentUser && this.state.opponent) {  
@@ -261,17 +281,24 @@ class GameplayContainer extends Component {
           message = `${this.state.whose_turn.username}'s Turn`
         }
       }
+      deleteButton = <li onClick={handleDeleteGame}>CONCEDE</li>
       endGame = "CONCEDE"
     } else if (this.state.gameState === "error") {
       message = "This game is no longer available"
+      
     } else if (this.state.gameState === "pending") {
       message = "Waiting for Opponent..."
-      endGame = "DELETE GAME"
+      deleteButton = <li onClick={handleDeleteGame}>DELETE GAME</li>
+      
+    } else if (this.state.gameState === "complete") {
+      backButton = <li onClick={handleDeleteGame}>OK</li>
+      completeScreen = <h1>GAME OVER YOU DUMMY</h1>
     }
     
     return(
       <div className="gamesContainerPage">
         <h4>{currentPlayerName} {message} {opponentName}</h4>
+        {completeScreen}
         <CardContainer 
           gameState={this.state.gameState}
           cards={this.state.cards}
@@ -281,9 +308,9 @@ class GameplayContainer extends Component {
         />
         <p className="errorText">{this.state.errorMessage}</p>
         <ul className="gamePlayButtons">
-          <Link to='/'><li>MY GAMES</li></Link>
+          {backButton}
           {confirmButton}
-          <li onClick={handleDeleteGame}>{endGame}</li>
+          {deleteButton}
         </ul>
       </div>
     )
