@@ -22,7 +22,9 @@ class GameplayContainer extends Component {
       },
       cardReference: [],
       errorMessage: [],
-      winner: null
+      winner: null,
+      yourCards: [],
+      opponentCards: []
     }
     this.selectCard = this.selectCard.bind(this);
     this.checkTurn = this.checkTurn.bind(this);
@@ -30,7 +32,7 @@ class GameplayContainer extends Component {
   }
   
   componentDidMount() {
-    let refreshInterval = 3000 //This should be 5000 in release version
+    let refreshInterval = 1000000 //This should be 5000 in release version
     this.refreshInterval = setInterval(() => this.getGameData(), refreshInterval);
     this.getGameData();
   }
@@ -58,7 +60,9 @@ class GameplayContainer extends Component {
         cards: JSON.parse(body.cards),
         whose_turn: body.whose_turn,
         cardReference: body.card_reference,
-        winner: body.winner
+        winner: body.winner,
+        yourCards: JSON.parse(body.yourcards),
+        opponentCards: JSON.parse(body.opponentcards)
       })
     })
   }
@@ -90,6 +94,7 @@ class GameplayContainer extends Component {
       })
       .then(response => response.json())
       .then(body => {
+        debugger
         this.setState({
           gameState: body.gameState,
           currentUser: body.currentUser,
@@ -99,6 +104,8 @@ class GameplayContainer extends Component {
           cardReference: body.card_reference,
           selected: [],
           selectedSpiritPoints: 0,
+          yourCards: JSON.parse(body.yourcards),
+          opponentCards: JSON.parse(body.opponentcards),
           errorMessage: body.errorMessage
         })
       })
@@ -153,6 +160,9 @@ class GameplayContainer extends Component {
       .then(response => response.json())
       .then(body => {
         if (body.gameState === "done") {
+          this.setState({
+            gameState: "complete"
+          })
         } else if (body.gameState === "endGameConfirmed") {
           return window.location.href = "/"
         }
