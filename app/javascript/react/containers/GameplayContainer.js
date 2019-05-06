@@ -30,7 +30,7 @@ class GameplayContainer extends Component {
   }
   
   componentDidMount() {
-    let refreshInterval = 100000 //This should be 5000 in release version
+    let refreshInterval = 3000 //This should be 5000 in release version
     this.refreshInterval = setInterval(() => this.getGameData(), refreshInterval);
     this.getGameData();
   }
@@ -152,7 +152,10 @@ class GameplayContainer extends Component {
       })
       .then(response => response.json())
       .then(body => {
-        return window.location.href = "/"
+        if (body.gameState === "done") {
+        } else if (body.gameState === "endGameConfirmed") {
+          return window.location.href = "/"
+        }
       })
       .catch(error => console.error(`Error in fetch: ${error.message}`));
   }
