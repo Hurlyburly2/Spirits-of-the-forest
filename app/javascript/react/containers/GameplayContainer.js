@@ -116,9 +116,15 @@ class GameplayContainer extends Component {
   
   deleteGame () {
     let game_id = this.props.params.id
+    let gamestateToSend
+    if (this.state.gameState === "pending") {
+      gamestateToSend = "deleteWithoutLoss"
+    } else if (this.state.gameState === "play") {
+      gamestateToSend = "concession"
+    }
     let endGamePayload = {
       game_id: game_id,
-      gameState: "concession",
+      gameState: gamestateToSend,
       user: this.state.currentUser
     }
     fetch(`/api/v1/games/${game_id}`, {

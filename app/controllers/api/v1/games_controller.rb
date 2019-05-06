@@ -1,6 +1,6 @@
 class Api::V1::GamesController < ApplicationController
   def index
-    games = current_user.games.where(winner: nil)
+    games = current_user.games.where(winner_id: nil)
     serialized_games = games.map do |game|
       GameIndexSerializer.new(game)
     end
@@ -76,6 +76,7 @@ class Api::V1::GamesController < ApplicationController
   end
   
   def destroy
+    binding.pry
     winner = nil
     if params["gameState"] == "concession"
       game_to_concede = Game.find(params["id"])
@@ -88,7 +89,7 @@ class Api::V1::GamesController < ApplicationController
       
       binding.pry
       winner = UserSerializer.new(winner[0])
-    elsif params["gameState"] == "pending"
+    elsif params["gameState"] == "deleteWithoutLoss"
       game_to_delete = Game.find(params["id"])
       game_to_delete.destroy
     end
