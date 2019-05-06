@@ -189,8 +189,8 @@ class Api::V1::GamesController < ApplicationController
     winner = nil
     if cards["row_one"].length + cards["row_two"].length + cards["row_three"].length + cards["row_four"].length == 0
       gameState = "complete"
-      game.gameState = nil
-      game.whose_turn = nil
+      game.gamestate = nil
+      game.whose_turn_id = nil
       game.winner_id = game.users[0].id
       #FIGURE OUT A WINNER HERE!!!!
     end
