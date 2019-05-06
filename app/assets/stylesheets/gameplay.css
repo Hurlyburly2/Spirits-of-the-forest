@@ -27,3 +27,20 @@ h4 {
 .errorText {
   color: white;
 }
+
+/* COLLECTED CARDS POPUP TILE */
+
+.collected-cards-tile-wrapper {
+  background-color: #111B36;
+  padding: 100px;
+  position: absolute;
+  text-align: left;
+}
+
+.opponent-collected {
+  right: 0
+}
+
+.collected-card {
+  width: 7%;
+}

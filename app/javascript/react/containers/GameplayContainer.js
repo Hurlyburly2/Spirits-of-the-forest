@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 
 import CardTile from '../components/CardTile.js'
 import CardContainer from './CardContainer'
+import CollectedCardsTile from '../components/CollectedCardsTile'
 
 class GameplayContainer extends Component {
   constructor(props) {
@@ -24,15 +25,18 @@ class GameplayContainer extends Component {
       errorMessage: [],
       winner: null,
       yourCards: [],
-      opponentCards: []
+      opponentCards: [],
+      showCollectedTile: false
     }
     this.selectCard = this.selectCard.bind(this);
     this.checkTurn = this.checkTurn.bind(this);
     this.confirmCardSelection = this.confirmCardSelection.bind(this)
+    this.togglePlayerCollectedTile = this.togglePlayerCollectedTile.bind(this)
+    this.toggleOpponentCollectedTile = this.toggleOpponentCollectedTile.bind(this)
   }
   
   componentDidMount() {
-    let refreshInterval = 1000000 //This should be 5000 in release version
+    let refreshInterval = 3000 //This should be 5000 in release version
     this.refreshInterval = setInterval(() => this.getGameData(), refreshInterval);
     this.getGameData();
   }
@@ -269,9 +273,34 @@ class GameplayContainer extends Component {
     }
   }
   
+  togglePlayerCollectedTile(event) {
+    if (this.state.showCollectedTile === false) {
+      this.setState({
+        showCollectedTile: "player"
+      })
+    } else {
+      this.setState({
+        showCollectedTile: false
+      })
+    }
+  }
+  
+  toggleOpponentCollectedTile(event) {
+    if (this.state.showCollectedTile === false) {
+      this.setState({
+        showCollectedTile: "opponent"
+      })
+    } else {
+      this.setState({
+        showCollectedTile: false
+      })
+    }
+  }
+  
   render() {
     let statusText
     let currentPlayerName = ""
+    let showCollectedCards
     let opponentName = ""
     let whose_turn = ""
     let message = ""
@@ -285,8 +314,25 @@ class GameplayContainer extends Component {
     
     if (this.state.gameState === "play"){
       if (this.state.currentUser && this.state.opponent) {  
-        currentPlayerName = this.state.currentUser.username
-        opponentName = this.state.opponent.username
+        
+        currentPlayerName = <span onClick={this.togglePlayerCollectedTile}>{this.state.currentUser.username}</span>
+        opponentName = <span onClick={this.toggleOpponentCollectedTile}>{this.state.opponent.username}</span>
+        if (this.state.showCollectedTile === "player") {
+          showCollectedCards = <CollectedCardsTile 
+            whose="player"
+            toggleAppearance={this.togglePlayerCollectedTile}
+            name={this.state.currentUser.username}
+            cards={this.state.yourCards}
+          />
+        } else if (this.state.showCollectedTile === "opponent") {
+          showCollectedCards = <CollectedCardsTile
+            whose="opponent"
+            toggleAppearance={this.toggleOpponentCollectedTile}
+            name={this.state.opponent.username}
+            cards={this.state.opponentCards}
+          />
+        }
+        
         if (this.state.whose_turn.id === this.state.currentUser.id) {
           message = "Your Turn"
           confirmButton = <li onClick={handleConfirmCardSelection}>CONFIRM SELECTION</li>
@@ -310,6 +356,7 @@ class GameplayContainer extends Component {
     
     return(
       <div className="gamesContainerPage">
+        {showCollectedCards}
         <h4>{currentPlayerName} {message} {opponentName}</h4>
         {completeScreen}
         <CardContainer 
