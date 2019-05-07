@@ -4,6 +4,7 @@ import { Link } from 'react-router'
 import CardTile from '../components/CardTile.js'
 import CardContainer from './CardContainer'
 import CollectedCardsTile from '../components/CollectedCardsTile'
+import EndGameTile from '../components/EndGameTile'
 
 class GameplayContainer extends Component {
   constructor(props) {
@@ -26,7 +27,8 @@ class GameplayContainer extends Component {
       winner: null,
       yourCards: [],
       opponentCards: [],
-      showCollectedTile: false
+      showCollectedTile: false,
+      score: null
     }
     this.selectCard = this.selectCard.bind(this);
     this.checkTurn = this.checkTurn.bind(this);
@@ -36,7 +38,7 @@ class GameplayContainer extends Component {
   }
   
   componentDidMount() {
-    let refreshInterval = 3000 //This should be 5000 in release version
+    let refreshInterval = 1000000 //This should be 5000 in release version
     this.refreshInterval = setInterval(() => this.getGameData(), refreshInterval);
     this.getGameData();
   }
@@ -66,7 +68,8 @@ class GameplayContainer extends Component {
         cardReference: body.card_reference,
         winner: body.winner,
         yourCards: JSON.parse(body.yourcards),
-        opponentCards: JSON.parse(body.opponentcards)
+        opponentCards: JSON.parse(body.opponentcards),
+        score: JSON.parse(body.score)
       })
     })
   }
@@ -110,7 +113,8 @@ class GameplayContainer extends Component {
           selectedSpiritPoints: 0,
           yourCards: JSON.parse(body.yourcards),
           opponentCards: JSON.parse(body.opponentcards),
-          errorMessage: body.errorMessage
+          errorMessage: body.errorMessage,
+          score: JSON.parse(body.score)
         })
       })
     } else {
@@ -351,7 +355,7 @@ class GameplayContainer extends Component {
       
     } else if (this.state.gameState === "complete") {
       backButton = <li onClick={handleDeleteGame}>OK</li>
-      completeScreen = <h1>GAME OVER YOU DUMMY</h1>
+      completeScreen = <EndGameTile />
     }
     
     return(

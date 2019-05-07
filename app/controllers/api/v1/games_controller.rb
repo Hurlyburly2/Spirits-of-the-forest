@@ -36,12 +36,14 @@ class Api::V1::GamesController < ApplicationController
     opponent = nil
     winner = nil
     cards = [].to_json
+    score = nil
     if (current_game.users.length == 2 && current_game.users.include?(current_user))
       #THIS IS AN IN-PROGRESS GAME OR A COMPLETED/CONCEDED GAME
       if current_game.winner_id == nil
         gameState = "play"
         user = current_user
         opponent = current_game.users.where.not(username: current_user.username)
+        score = getScore(user, opponent[0], game)
         opponent = UserSerializer.new(opponent[0])
         cards = Card.get_game_state(current_game)
         whose_turn = UserSerializer.new(User.find(current_game.whose_turn_id))
@@ -49,6 +51,7 @@ class Api::V1::GamesController < ApplicationController
         gameState = "complete"
         user = current_user
         opponent = current_game.users.where.not(username: current_user.username)
+        score = getScore(user, opponent[0], current_game)
         opponent = UserSerializer.new(opponent[0])
         cards = nil
         whose_turn = nil
@@ -79,7 +82,7 @@ class Api::V1::GamesController < ApplicationController
       #THIS GAME NO LONGER EXISTS ERROR
       gameState = "error"
     end
-  
+    
     render json: {
       gameState: gameState,
       currentUser: user,
@@ -89,7 +92,8 @@ class Api::V1::GamesController < ApplicationController
       card_reference: Card.all,
       winner: winner,
       yourcards: current_game.matches.where(user: current_user)[0].selected_cards,
-      opponentcards: current_game.matches.where.not(user: current_user)[0].selected_cards
+      opponentcards: current_game.matches.where.not(user: current_user)[0].selected_cards,
+      score: score.to_json
     }
   end
   
@@ -136,6 +140,7 @@ class Api::V1::GamesController < ApplicationController
     error = ""
     opponent = game.users.where.not(username: user.username)[0]
     current_match = game.matches.where(user: user)[0]
+    score = nil
     
     if game.whose_turn_id == user.id
       cards_to_remove = params["selected"].map do |selected_card|
@@ -191,11 +196,14 @@ class Api::V1::GamesController < ApplicationController
     gameState = "play"
     winner = nil
     if cards["row_one"].length + cards["row_two"].length + cards["row_three"].length + cards["row_four"].length == 0
+      binding.pry
       gameState = "complete"
       game.gamestate = nil
       game.whose_turn_id = nil
+      
+      score = getScore(user, opponent, game)
       game.winner_id = game.users[0].id
-      #FIGURE OUT A WINNER HERE!!!!
+      binding.pry
     end
     
     game.gamestate = cards.to_json
@@ -213,7 +221,187 @@ class Api::V1::GamesController < ApplicationController
       errorMessage: error,
       winner: winner,
       yourcards: current_match.selected_cards,
-      opponentcards: opponent_cards
+      opponentcards: opponent_cards,
+      score: score.to_json
     }
+  end
+  
+  def getScore(current_player, opponent, current_game)
+    score = {
+      "user" => {
+        "branch" => 0,
+        "dew" => 0,
+        "flower" => 0,
+        "fruit" => 0,
+        "leaf" => 0,
+        "moss" => 0,
+        "mushroom" => 0,
+        "spider" => 0,
+        "vine" => 0,
+        "moon" => 0,
+        "sun" => 0,
+        "wind" => 0,
+        "total" => 0
+      },
+      "opponent" => {
+        "branch" => 0,
+        "dew" => 0,
+        "flower" => 0,
+        "fruit" => 0,
+        "leaf" => 0,
+        "moss" => 0,
+        "mushroom" => 0,
+        "spider" => 0,
+        "vine" => 0,
+        "moon" => 0,
+        "sun" => 0,
+        "wind" => 0,
+        "total" => 0
+      },
+      "winning" => nil
+    }
+    
+    current_player_cards = JSON.parse(current_game.matches.where(user: current_player)[0].selected_cards)
+    opponent_cards = JSON.parse(current_game.matches.where(user: opponent)[0].selected_cards)
+    
+    current_player_cards.each do |card|
+      score["user"][card["spirit"]] += card["spirit_points"]
+      if card["element"] == "sun"
+        score["user"]["sun"] += 1
+      elsif card["element"] == "moon"
+        score["user"]["moon"] += 1
+      elsif card["element"] == "wind"
+        score["user"]["wind"] += 1
+      end
+    end
+    
+    opponent_cards.each do |card|
+      score["opponent"][card["spirit"]] += card["spirit_points"]
+      if card["element"] == "sun"
+        score["opponent"]["sun"] += 1
+      elsif card["element"] == "moon"
+        score["opponent"]["moon"] += 1
+      elsif card["element"] == "wind"
+        score["opponent"]["wind"] += 1
+      end
+    end
+    
+    if score["user"]["branch"] > score["opponent"]["branch"]
+      score["user"]["total"] += score["user"]["branch"]
+    elsif score["user"]["branch"] < score["opponent"]["branch"]
+      score["opponent"]["total"] += score["opponent"]["branch"]
+    else
+      score["user"]["total"] += score["user"]["branch"]
+      score["opponent"]["total"] += score["opponent"]["branch"]
+    end
+    
+    if score["user"]["dew"] > score["opponent"]["dew"]
+      score["user"]["total"] += score["user"]["dew"]
+    elsif score["user"]["dew"] < score["opponent"]["dew"]
+      score["opponent"]["total"] += score["opponent"]["dew"]
+    else
+      score["user"]["total"] += score["user"]["dew"]
+      score["opponent"]["total"] += score["opponent"]["dew"]
+    end
+    
+    if score["user"]["flower"] > score["opponent"]["flower"]
+      score["user"]["total"] += score["user"]["flower"]
+    elsif score["user"]["flower"] < score["opponent"]["flower"]
+      score["opponent"]["total"] += score["opponent"]["flower"]
+    else
+      score["user"]["total"] += score["user"]["flower"]
+      score["opponent"]["total"] += score["opponent"]["flower"]
+    end
+    
+    if score["user"]["fruit"] > score["opponent"]["fruit"]
+      score["user"]["total"] += score["user"]["fruit"]
+    elsif score["user"]["fruit"] < score["opponent"]["fruit"]
+      score["opponent"]["total"] += score["opponent"]["fruit"]
+    else
+      score["user"]["total"] += score["user"]["fruit"]
+      score["opponent"]["total"] += score["opponent"]["fruit"]
+    end
+    
+    if score["user"]["leaf"] > score["opponent"]["leaf"]
+      score["user"]["total"] += score["user"]["leaf"]
+    elsif score["user"]["leaf"] < score["opponent"]["leaf"]
+      score["opponent"]["total"] += score["opponent"]["leaf"]
+    else
+      score["user"]["total"] += score["user"]["leaf"]
+      score["opponent"]["total"] += score["opponent"]["leaf"]
+    end
+      
+    if score["user"]["moss"] > score["opponent"]["moss"]
+      score["user"]["total"] += score["user"]["moss"]
+    elsif score["user"]["moss"] < score["opponent"]["moss"]
+      score["opponent"]["total"] += score["opponent"]["moss"]
+    else
+      score["user"]["total"] += score["user"]["moss"]
+      score["opponent"]["total"] += score["opponent"]["moss"]
+    end
+    
+    if score["user"]["mushroom"] > score["opponent"]["mushroom"]
+      score["user"]["total"] += score["user"]["mushroom"]
+    elsif score["user"]["mushroom"] < score["opponent"]["mushroom"]
+      score["opponent"]["total"] += score["opponent"]["mushroom"]
+    else
+      score["user"]["total"] += score["user"]["mushroom"]
+      score["opponent"]["total"] += score["opponent"]["mushroom"]
+    end
+    
+    if score["user"]["spider"] > score["opponent"]["spider"]
+      score["user"]["total"] += score["user"]["spider"]
+    elsif score["user"]["spider"] < score["opponent"]["spider"]
+      score["opponent"]["total"] += score["opponent"]["spider"]
+    else
+      score["user"]["total"] += score["user"]["spider"]
+      score["opponent"]["total"] += score["opponent"]["spider"]
+    end
+    
+    if score["user"]["vine"] > score["opponent"]["vine"]
+      score["user"]["total"] += score["user"]["vine"]
+    elsif score["user"]["vine"] < score["opponent"]["vine"]
+      score["opponent"]["total"] += score["opponent"]["vine"]
+    else
+      score["user"]["total"] += score["user"]["vine"]
+      score["opponent"]["total"] += score["opponent"]["vine"]
+    end
+    
+    if score["user"]["moon"] > score["opponent"]["moon"]
+      score["user"]["total"] += score["user"]["moon"]
+    elsif score["user"]["moon"] < score["opponent"]["moon"]
+      score["opponent"]["total"] += score["opponent"]["moon"]
+    else
+      score["user"]["total"] += score["user"]["moon"]
+      score["opponent"]["total"] += score["opponent"]["moon"]
+    end
+    
+    if score["user"]["sun"] > score["opponent"]["sun"]
+      score["user"]["total"] += score["user"]["sun"]
+    elsif score["user"]["sun"] < score["opponent"]["sun"]
+      score["opponent"]["total"] += score["opponent"]["sun"]
+    else
+      score["user"]["total"] += score["user"]["sun"]
+      score["opponent"]["total"] += score["opponent"]["sun"]
+    end
+    
+    if score["user"]["wind"] > score["opponent"]["wind"]
+      score["user"]["total"] += score["user"]["wind"]
+    elsif score["user"]["wind"] < score["opponent"]["wind"]
+      score["opponent"]["total"] += score["opponent"]["wind"]
+    else
+      score["user"]["total"] += score["user"]["wind"]
+      score["opponent"]["total"] += score["opponent"]["wind"]
+    end
+    
+    if score["user"]["total"] > score["opponent"]["total"]
+      score["winning"] = "user"
+    elsif score["user"]["total"] < score["opponent"]["total"]
+      score["winning"] = "opponent"
+    else
+      score["winning"] = "tie"
+    end
+    
+    return score
   end
 end
