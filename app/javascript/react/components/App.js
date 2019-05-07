@@ -13,6 +13,7 @@ export const App = (props) => {
       <Route path='/Account' component={AccountContainer} />
       <Route path='/matches' component={JoinGameContainer} />
       <Route path='/games/:id' component={GameplayContainer} />
+      <Route path='/users' />
     </Router>
   )
 }

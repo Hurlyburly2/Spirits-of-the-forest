@@ -1,0 +1,58 @@
+.accountpage-wrapper {
+  margin: 0 20% 0 20%;
+}
+
+.accountpage-info-window {
+  background-color: white;
+}
+
+.accountpage-info-window h1 {
+  color: black;
+}
+
+.accountpage-progressbar {
+  margin: 0 5% 0 5%;
+  background-color: black;
+  height: 30px;
+}
+
+.accountpage-progressbar-int {
+  background-color: blue;
+  height: 30px;
+}
+
+.accountpage-winlossgrid {
+  text-align: center;
+  color: white;
+  display: grid;
+  grid-template-columns: 50px 5px 50px;
+  grid-template-rows: auto 5px 40px;
+  grid-template-areas: 
+  "win-header . loss-header"
+  "win-amount slash loss-amount"
+}
+
+.accountpage-winlossgrid-winheader {
+  color: black;
+  grid-area: win-header;
+}
+
+.accountpage-winlossgrid-lossheader {
+  color: black;
+  grid-area: loss-header;
+}
+
+.accountpage-winlossgrid-wins {
+  color: black;
+  grid-area: win-amount;
+}
+
+.accountpage-winlossgrid-slash {
+  color: black;
+  grid-area: slash
+}
+
+.accountpage-winlossgrid-losses {
+  color: black;
+  grid-area: loss-amount;
+}
