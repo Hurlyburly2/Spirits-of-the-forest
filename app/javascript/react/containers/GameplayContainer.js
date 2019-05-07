@@ -355,7 +355,13 @@ class GameplayContainer extends Component {
       
     } else if (this.state.gameState === "complete") {
       backButton = <li onClick={handleDeleteGame}>OK</li>
-      completeScreen = <EndGameTile />
+      completeScreen = <EndGameTile 
+                          yourCards={this.state.yourCards}
+                          opponentCards={this.state.opponentCards}
+                          currentUser={this.state.currentUser}
+                          opponent={this.state.opponent}
+                          score={this.state.score}
+                        />
     }
     
     return(

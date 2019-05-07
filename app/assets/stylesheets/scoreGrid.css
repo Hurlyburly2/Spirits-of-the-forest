@@ -1,0 +1,86 @@
+.score-grid-wrapper {
+  margin: 0 5% 0 5%;
+}
+
+.score-grid {
+  text-align: left;
+  color: white;
+  display: grid;
+  grid-template-columns: 18% 3% 38% 3% 38%;
+  grid-template-rows: auto;
+  grid-template-areas: 
+  ". . player-one . player-two"
+  "branch-icon . player-one-branch . player-two-branch"
+  "dew-icon . player-one-dew . player-two-dew"
+  "flower-icon . player-one-flower . player-two-flower"
+  "fruit-icon . player-one-fruit . player-two-fruit"
+  "leaf-icon . player-one-leaf . player-two-leaf"
+  "moss-icon . player-one-moss . player-two-moss"
+  "mushroom-icon . player-one-mushroom . player-two-mushroom"
+  "spider-icon . player-one-spider . player-two-spiderh"
+  "vine-icon . player-one-vine . player-two-vine"
+  "sun-icon . player-one-sun . player-two-sun"
+  "moon-icon . player-one-moon . player-twomoonbranch"
+  "wind-icon . player-one-wind . player-two-wind"
+  "total-icon . player-one-total . player-two-total"
+}
+
+.score-player-one-name {
+  grid-area: player-one;
+}
+
+.score-player-two-name {
+  grid-area: player-two;
+}
+
+.score-icon-branch {
+  grid-area: branch-icon;
+}
+
+.score-icon-dew {
+  grid-area: dew-icon;
+}
+
+.score-icon-flower {
+  grid-area: flower-icon;
+}
+
+.score-icon-fruit {
+  grid-area: fruit-icon;
+}
+
+.score-icon-leaf {
+  grid-area: leaf-icon;
+}
+
+.score-icon-moss {
+  grid-area: moss-icon;
+}
+
+.score-icon-mushroom {
+  grid-area: mushroom-icon;
+}
+
+.score-icon-spider {
+  grid-area: spider-icon;
+}
+
+.score-icon-vine {
+  grid-area: vine-icon;
+}
+
+.score-icon-sun {
+  grid-area: sun-icon;
+}
+
+.score-icon-moon {
+  grid-area: moon-icon;
+}
+
+.score-icon-wind {
+  grid-area: wind-icon;
+}
+
+.score-icon-total {
+  grid-area: total-icon;
+}
