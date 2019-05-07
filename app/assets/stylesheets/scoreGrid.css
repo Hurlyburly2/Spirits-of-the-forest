@@ -1,0 +1,173 @@
+.score-grid-wrapper {
+  margin: 0 5% 0 5%;
+}
+
+.score-card {
+  width: 10%;
+  margin-right: 10px;
+}
+
+.score-grid {
+  text-align: left;
+  color: white;
+  display: grid;
+  grid-template-columns: 18% 3% 38% 3% 38%;
+  grid-template-rows: 20px;
+  grid-template-areas: 
+  ". . player-one . player-two"
+  "branch-icon . player-one-branch . player-two-branch"
+  "dew-icon . player-one-dew . player-two-dew"
+  "flower-icon . player-one-flower . player-two-flower"
+  "fruit-icon . player-one-fruit . player-two-fruit"
+  "leaf-icon . player-one-leaf . player-two-leaf"
+  "moss-icon . player-one-moss . player-two-moss"
+  "mushroom-icon . player-one-mushroom . player-two-mushroom"
+  "spider-icon . player-one-spider . player-two-spider"
+  "vine-icon . player-one-vine . player-two-vine"
+  "sun-icon . player-one-sun . player-two-sun"
+  "moon-icon . player-one-moon . player-two-moon"
+  "wind-icon . player-one-wind . player-two-wind"
+  "total-icon . player-one-total . player-two-total"
+}
+
+.score-player-one-name {
+  grid-area: player-one;
+}
+.score-player-two-name {
+  grid-area: player-two;
+}
+
+.score-icon-branch {
+  grid-area: branch-icon;
+}
+.score-user-branch {
+  grid-area: player-one-branch;
+}
+.score-opponent-branch {
+  grid-area: player-two-branch;
+}
+
+.score-icon-dew {
+  grid-area: dew-icon;
+}
+.score-user-dew {
+  grid-area: player-one-dew;
+}
+.score-opponent-dew {
+  grid-area: player-two-dew;
+}
+
+.score-icon-flower {
+  grid-area: flower-icon;
+}
+.score-user-flower {
+  grid-area: player-one-flower;
+}
+.score-opponent-flower {
+  grid-area: player-two-flower;
+}
+
+.score-icon-fruit {
+  grid-area: fruit-icon;
+}
+.score-user-fruit {
+  grid-area: player-one-fruit;
+}
+.score-opponent-fruit {
+  grid-area: player-two-fruit;
+}
+
+.score-icon-leaf {
+  grid-area: leaf-icon;
+}
+.score-user-leaf {
+  grid-area: player-one-leaf;
+}
+.score-opponent-leaf {
+  grid-area: player-two-leaf;
+}
+
+.score-icon-moss {
+  grid-area: moss-icon;
+}
+.score-user-moss {
+  grid-area: player-one-moss;
+}
+.score-opponent-moss {
+  grid-area: player-two-moss;
+}
+
+.score-icon-mushroom {
+  grid-area: mushroom-icon;
+}
+.score-user-mushroom {
+  grid-area: player-one-mushroom;
+}
+.score-opponent-mushroom {
+  grid-area: player-two-mushroom;
+}
+
+.score-icon-spider {
+  grid-area: spider-icon;
+}
+.score-user-spider {
+  grid-area: player-one-spider;
+}
+.score-opponent-spider {
+  grid-area: player-two-spider;
+}
+
+
+.score-icon-vine {
+  grid-area: vine-icon;
+}
+.score-user-vine {
+  grid-area: player-one-vine;
+}
+.score-opponent-vine {
+  grid-area: player-two-vine;
+}
+
+.score-icon-sun {
+  grid-area: sun-icon;
+}
+.score-user-sun {
+  grid-area: player-one-sun;
+}
+.score-opponent-sun {
+  grid-area: player-two-sun;
+}
+
+.score-icon-moon {
+  grid-area: moon-icon;
+}
+.score-user-moon {
+  grid-area: player-one-moon;
+}
+.score-opponent-moon {
+  grid-area: player-two-moon;
+}
+
+.score-icon-wind {
+  grid-area: wind-icon;
+}
+.score-user-wind {
+  grid-area: player-one-wind;
+}
+.score-opponent-wind {
+  grid-area: player-two-wind;
+}
+
+.score-icon-total {
+  grid-area: total-icon;
+}
+.score-user-total {
+  grid-area: player-one-total;
+}
+.score-opponent-total {
+  grid-area: player-two-total;
+}
+
+.score-winner {
+  background-color: rgba(255, 255, 255, 0.2);
+}
