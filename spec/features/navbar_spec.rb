@@ -10,7 +10,7 @@ feature 'User signed in, and navbar links are clicked' do
 
     visit root_path
     click_link 'Account'
-    expect(page).to have_content('USERS PAGE')
+    expect(page).to have_content(user.username)
 
     click_link 'My Games'
     expect(page).to have_content('My Games Account Sign Out')
