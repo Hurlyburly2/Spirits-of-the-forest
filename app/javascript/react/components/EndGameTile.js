@@ -15,6 +15,7 @@ const EndGameTile = (props) => {
     />)
   })
   
+  debugger
   let opponentBranchCards = props.opponentCards.filter(card => card.spirit === "branch")
   let opponentBranchCardTiles = opponentBranchCards.map((card) => {
     return (<CardTile

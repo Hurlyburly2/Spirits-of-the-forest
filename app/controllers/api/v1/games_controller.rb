@@ -43,7 +43,7 @@ class Api::V1::GamesController < ApplicationController
         gameState = "play"
         user = current_user
         opponent = current_game.users.where.not(username: current_user.username)
-        score = getScore(user, opponent[0], game)
+        score = getScore(user, opponent[0], current_game)
         opponent = UserSerializer.new(opponent[0])
         cards = Card.get_game_state(current_game)
         whose_turn = UserSerializer.new(User.find(current_game.whose_turn_id))
@@ -83,6 +83,11 @@ class Api::V1::GamesController < ApplicationController
       gameState = "error"
     end
     
+    opponent_cards = "none"
+    if opponent
+      opponent_cards = current_game.matches.where.not(user: current_user)[0].selected_cards
+    end
+
     render json: {
       gameState: gameState,
       currentUser: user,
@@ -92,7 +97,7 @@ class Api::V1::GamesController < ApplicationController
       card_reference: Card.all,
       winner: winner,
       yourcards: current_game.matches.where(user: current_user)[0].selected_cards,
-      opponentcards: current_game.matches.where.not(user: current_user)[0].selected_cards,
+      opponentcards: opponent_cards,
       score: score.to_json
     }
   end
@@ -196,14 +201,26 @@ class Api::V1::GamesController < ApplicationController
     gameState = "play"
     winner = nil
     if cards["row_one"].length + cards["row_two"].length + cards["row_three"].length + cards["row_four"].length == 0
-      binding.pry
       gameState = "complete"
       game.gamestate = nil
       game.whose_turn_id = nil
       
       score = getScore(user, opponent, game)
+      if score["user"]["total"] > score["opponent"]["total"]
+        user.wins = user.wins + 1
+        opponent.losses = opponent.losses + 1
+      elsif score["user"]["total"] < score["opponent"]["total"]
+        user.losses = user.losses + 1
+        opponent.wins = opponent.wins + 1
+      else
+        user.wins = user.wins + 1
+        opponent.wins = opponent.wins + 1
+      end
+      ranking_change(user)
+      ranking_change(opponent)
+      user.save
+      opponent.save
       game.winner_id = game.users[0].id
-      binding.pry
     end
     
     game.gamestate = cards.to_json
@@ -403,5 +420,9 @@ class Api::V1::GamesController < ApplicationController
     end
     
     return score
+  end
+  
+  def ranking_change(player)
+    binding.pry
   end
 end
