@@ -209,15 +209,20 @@ class Api::V1::GamesController < ApplicationController
       if score["user"]["total"] > score["opponent"]["total"]
         user.wins = user.wins + 1
         opponent.losses = opponent.losses + 1
+        user = ranking_change(user, "win")
+        opponent = ranking_change(opponent, "loss")
       elsif score["user"]["total"] < score["opponent"]["total"]
         user.losses = user.losses + 1
         opponent.wins = opponent.wins + 1
+        user = ranking_change(user, "loss")
+        opponent = ranking_change(opponent, "win")
       else
         user.wins = user.wins + 1
         opponent.wins = opponent.wins + 1
+        user = ranking_change(user, "win")
+        opponent = ranking_change(opponent, "win")
       end
-      ranking_change(user)
-      ranking_change(opponent)
+      
       user.save
       opponent.save
       game.winner_id = game.users[0].id
@@ -422,7 +427,54 @@ class Api::V1::GamesController < ApplicationController
     return score
   end
   
-  def ranking_change(player)
-    binding.pry
+  def ranking_change(player, game_result)
+    if player.rank == "bronze"
+      if game_result == "loss"
+        player.rankup_score = player.rankup_score - 3
+        if player.rankup_score < 0
+          player.rankup_score = 0
+        end
+      else
+        player.rankup_score = player.rankup_score + 10
+      end
+    elsif player.rank == "silver"
+      if game_result == "loss"
+        player.rankup_score = player.rankup_score - 4
+      else
+        player.rankup_score = player.rankup_score + 10
+      end
+    elsif player.rank == "gold"
+      if game_result == "loss"
+        player.rankup_score = player.rankup_score - 5
+      else
+        player.rankup_score = player.rankup_score + 10
+      end
+    elsif player.rank == "diamond"
+      if game_result == "loss"
+        player.rankup_score = player.rankup_score - 7
+      else
+        player.rankup_score = player.rankup_score + 10
+      end
+    else
+      if game_result == "loss"
+        player.rankup_score = player.rankup_score - 9
+      else
+        player.rankup_score = player.rankup_score + 10
+      end
+    end
+    
+    if player.rankup_score >= 0 && player.rankup_score < 100
+      player.rank = "bronze"
+    elsif player.rankup_score >= 100 && player.rankup_score < 200
+      player.rank = "silver"
+    elsif player.rankup_score >= 200 && player.rankup_score < 300
+      player.rank = "gold"
+    elsif player.rankup_score >= 300 && player.rankup_score < 400
+      player.rank = "diamond"
+    else
+      player.rank = "master"
+    end
+    player.save
+    player
   end
 end
