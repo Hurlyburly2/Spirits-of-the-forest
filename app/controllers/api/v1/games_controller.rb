@@ -111,17 +111,22 @@ class Api::V1::GamesController < ApplicationController
     if params["gameState"] == "concession"
       game_to_concede = Game.find(params["id"])
       user = params["user"]
-      winner = game_to_concede.users.where.not(id: user["id"])
-      game_to_concede.winner_id = winner[0].id
+      winner = game_to_concede.users.where.not(id: user["id"])[0]
+      loser = game_to_concede.users.where(id: user["id"])[0]
+      winner.wins += 1
+      loser.losses += 1
+      winner = ranking_change(winner, "win")
+      loser = ranking_change(loser, "loss")
+      winner.save
+      loser.save
+      
+      game_to_concede.winner_id = winner.id
       game_to_concede.whose_turn_id = nil
       game_to_concede.gamestate = nil
       game_to_concede.concession = true
       game_to_concede.save
-      winner = UserSerializer.new(winner[0])
+      winner = UserSerializer.new(winner)
       concession = true
-      #add scoring in here
-      
-      
     elsif params["gameState"] == "deleteWithoutLoss"
       game_to_delete = Game.find(params["id"])
       game_to_delete.destroy
