@@ -20,7 +20,7 @@ class Api::V1::GamesController < ApplicationController
   def create
     data = JSON.parse(request.body.read)
     new_game = Game.new
-    new_match = Match.new(user: User.find(data["id"]), game: new_game, selected_cards: [])
+    new_match = Match.new(user: User.find(data["id"]), game: new_game, selected_cards: [], tokens: [])
     if new_game.save && new_match.save
       new_game = GameIndexSerializer.new(new_game)
       
@@ -38,6 +38,8 @@ class Api::V1::GamesController < ApplicationController
     cards = [].to_json
     score = nil
     concession = current_game.concession
+    your_tokens = []
+    opponent_tokens = []
     if (current_game.users.length == 2 && current_game.users.include?(current_user))
       #THIS IS AN IN-PROGRESS GAME OR A COMPLETED/CONCEDED GAME
       if current_game.winner_id == nil
@@ -47,6 +49,8 @@ class Api::V1::GamesController < ApplicationController
         score = getScore(user, opponent[0], current_game)
         opponent = UserSerializer.new(opponent[0])
         cards = Card.get_game_state(current_game)
+        your_tokens = current_game.matches.where(user: current_user)[0].tokens
+        opponent_tokens = current_game.matches.where.not(user: current_user)[0].tokens
         whose_turn = UserSerializer.new(User.find(current_game.whose_turn_id))
       else
         gameState = "complete"
@@ -56,6 +60,8 @@ class Api::V1::GamesController < ApplicationController
         opponent = UserSerializer.new(opponent[0])
         cards = nil
         whose_turn = nil
+        your_tokens = current_game.matches.where(user: current_user)[0].tokens
+        opponent_tokens = current_game.matches.where.not(user: current_user)[0].tokens
         winner = UserSerializer.new(User.find(current_game.winner_id))
       end
     elsif (current_game.users.length == 1 && current_game.users[0] == current_user)
@@ -70,7 +76,7 @@ class Api::V1::GamesController < ApplicationController
       gameState = "play"
       current_game = Game.find(params["id"])
       current_game.whose_turn_id = current_user.id
-      new_match = Match.create(game: current_game, user: current_user, selected_cards: [])
+      new_match = Match.create(game: current_game, user: current_user, selected_cards: [], tokens: [])
       user = current_user
       opponent = current_game.users.where.not(username: current_user.username)
       opponent = UserSerializer.new(opponent[0])
@@ -101,7 +107,9 @@ class Api::V1::GamesController < ApplicationController
       opponentcards: opponent_cards,
       score: score.to_json,
       concession: concession,
-      token_reference: Token.all
+      token_reference: Token.all,
+      yourTokens: your_tokens,
+      opponentTokens: opponent_tokens
     }
   end
   
@@ -234,10 +242,10 @@ class Api::V1::GamesController < ApplicationController
        end
      end
      
-     binding.pry
      previously_selected_cards = JSON.parse(current_match.selected_cards)
      all_selected_cards = previously_selected_cards + cards_to_remove
      current_match.selected_cards = all_selected_cards.to_json
+     current_match.tokens = tokens.to_json
      current_match.save
     else
       error = "It isn't your turn!"
@@ -289,7 +297,8 @@ class Api::V1::GamesController < ApplicationController
       winner: winner,
       yourcards: current_match.selected_cards,
       opponentcards: opponent_cards,
-      score: score.to_json
+      score: score.to_json,
+      tokens: current_match.tokens
     }
   end
   

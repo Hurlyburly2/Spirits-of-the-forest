@@ -29,7 +29,10 @@ class GameplayContainer extends Component {
       opponentCards: [],
       showCollectedTile: false,
       score: null,
-      concession: false
+      concession: false,
+      yourTokens: [],
+      opponentTokens: [],
+      something: "jfalsjl"
     }
     this.selectCard = this.selectCard.bind(this);
     this.checkTurn = this.checkTurn.bind(this);
@@ -39,7 +42,7 @@ class GameplayContainer extends Component {
   }
   
   componentDidMount() {
-    let refreshInterval = 100000000 //This should be 5000 in release version
+    let refreshInterval = 100000 //This should be 5000 in release version
     this.refreshInterval = setInterval(() => this.getGameData(), refreshInterval);
     this.getGameData();
   }
@@ -64,6 +67,7 @@ class GameplayContainer extends Component {
       if (opponentCardJSON === "none") {
         opponentCardJSON = []
       }
+      debugger
       this.setState({
         gameState: body.gameState,
         currentUser: body.currentUser,
@@ -76,7 +80,9 @@ class GameplayContainer extends Component {
         opponentCards: opponentCardJSON,
         score: JSON.parse(body.score),
         concession: body.concession,
-        tokenReference: body.token_reference
+        tokenReference: body.token_reference,
+        yourTokens: JSON.parse(body.yourTokens),
+        opponentTokens: JSON.parse(body.opponentTokens)
       })
     })
   }
