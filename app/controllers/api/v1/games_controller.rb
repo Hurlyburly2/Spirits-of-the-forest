@@ -37,6 +37,7 @@ class Api::V1::GamesController < ApplicationController
     winner = nil
     cards = [].to_json
     score = nil
+    concession = current_game.concession
     if (current_game.users.length == 2 && current_game.users.include?(current_user))
       #THIS IS AN IN-PROGRESS GAME OR A COMPLETED/CONCEDED GAME
       if current_game.winner_id == nil
@@ -98,22 +99,34 @@ class Api::V1::GamesController < ApplicationController
       winner: winner,
       yourcards: current_game.matches.where(user: current_user)[0].selected_cards,
       opponentcards: opponent_cards,
-      score: score.to_json
+      score: score.to_json,
+      concession: concession
     }
   end
   
   def destroy
     winner = nil
     returnGameState = "done"
+    concession = false
     if params["gameState"] == "concession"
       game_to_concede = Game.find(params["id"])
       user = params["user"]
-      winner = game_to_concede.users.where.not(id: user["id"])
-      game_to_concede.winner_id = winner[0].id
+      winner = game_to_concede.users.where.not(id: user["id"])[0]
+      loser = game_to_concede.users.where(id: user["id"])[0]
+      winner.wins += 1
+      loser.losses += 1
+      winner = ranking_change(winner, "win")
+      loser = ranking_change(loser, "loss")
+      winner.save
+      loser.save
+      
+      game_to_concede.winner_id = winner.id
       game_to_concede.whose_turn_id = nil
       game_to_concede.gamestate = nil
+      game_to_concede.concession = true
       game_to_concede.save
-      winner = UserSerializer.new(winner[0])
+      winner = UserSerializer.new(winner)
+      concession = true
     elsif params["gameState"] == "deleteWithoutLoss"
       game_to_delete = Game.find(params["id"])
       game_to_delete.destroy
@@ -133,7 +146,8 @@ class Api::V1::GamesController < ApplicationController
     
     render json: { 
       gameState: returnGameState,
-      winner: winner
+      winner: winner,
+      concession: concession
     }
   end
   

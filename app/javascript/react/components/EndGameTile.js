@@ -395,12 +395,20 @@ const EndGameTile = (props) => {
     }
     
     let endGameMessage
-    if (props.score.user.total > props.score.opponent.total) {
-      endGameMessage = "You Win!"
-    } else if (props.score.user.total < props.score.opponent.total) {
-      endGameMessage = "You Lose"
+    if (props.concession === false) {
+      if (props.score.user.total > props.score.opponent.total) {
+        endGameMessage = "You Win!"
+      } else if (props.score.user.total < props.score.opponent.total) {
+        endGameMessage = "You Lose"
+      } else {
+        endGameMessage = "Tie Game!"
+      }
     } else {
-      endGameMessage = "Tie Game!"
+      if (props.currentUser.username === props.winner.username) {
+        endGameMessage = "Opponent Conceded- You Win!"
+      } else {
+        endGameMessage = "You Conceded- Opponent Wins"
+      }
     }
   
   return(

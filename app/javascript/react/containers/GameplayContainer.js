@@ -28,7 +28,8 @@ class GameplayContainer extends Component {
       yourCards: [],
       opponentCards: [],
       showCollectedTile: false,
-      score: null
+      score: null,
+      concession: false
     }
     this.selectCard = this.selectCard.bind(this);
     this.checkTurn = this.checkTurn.bind(this);
@@ -73,7 +74,8 @@ class GameplayContainer extends Component {
         winner: body.winner,
         yourCards: JSON.parse(body.yourcards),
         opponentCards: opponentCardJSON,
-        score: JSON.parse(body.score)
+        score: JSON.parse(body.score),
+        concession: body.concession
       })
     })
   }
@@ -147,7 +149,8 @@ class GameplayContainer extends Component {
     let endGamePayload = {
       game_id: game_id,
       gameState: gamestateToSend,
-      user: this.state.currentUser
+      user: this.state.currentUser,
+      winner: this.state.winner
     }
     fetch(`/api/v1/games/${game_id}`, {
       credentials: 'same-origin',
@@ -169,9 +172,12 @@ class GameplayContainer extends Component {
       })
       .then(response => response.json())
       .then(body => {
+        debugger
         if (body.gameState === "done") {
           this.setState({
-            gameState: "complete"
+            gameState: "complete",
+            concession: body.concession,
+            winner: body.winner
           })
         } else if (body.gameState === "endGameConfirmed") {
           return window.location.href = "/"
@@ -365,6 +371,8 @@ class GameplayContainer extends Component {
                           currentUser={this.state.currentUser}
                           opponent={this.state.opponent}
                           score={this.state.score}
+                          winner={this.state.winner}
+                          concession={this.state.concession}
                         />
     }
     
