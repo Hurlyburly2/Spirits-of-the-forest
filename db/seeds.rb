@@ -111,3 +111,7 @@ Card.create(spirit: "vine", spirit_points: 1, spirit_count: 8, element: "wind", 
 Card.create(spirit: "vine", spirit_points: 2, spirit_count: 8, element: "none", image_url: "/cards/vines-2-8-x2.png")
 
 Card.create(spirit: "vine", spirit_points: 2, spirit_count: 8, element: "none", image_url: "/cards/vines-2-8-x2.png")
+
+
+
+#TOKEN SEEDER
