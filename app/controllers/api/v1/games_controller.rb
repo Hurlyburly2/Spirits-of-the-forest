@@ -83,7 +83,7 @@ class Api::V1::GamesController < ApplicationController
       gameState = "error"
     end
     
-    opponent_cards = "none"
+    opponent_cards = "none".to_json
     if opponent
       opponent_cards = current_game.matches.where.not(user: current_user)[0].selected_cards
     end
