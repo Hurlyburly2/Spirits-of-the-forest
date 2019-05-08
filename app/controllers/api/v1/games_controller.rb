@@ -88,7 +88,7 @@ class Api::V1::GamesController < ApplicationController
     if opponent
       opponent_cards = current_game.matches.where.not(user: current_user)[0].selected_cards
     end
-
+    
     render json: {
       gameState: gameState,
       currentUser: user,
@@ -100,7 +100,8 @@ class Api::V1::GamesController < ApplicationController
       yourcards: current_game.matches.where(user: current_user)[0].selected_cards,
       opponentcards: opponent_cards,
       score: score.to_json,
-      concession: concession
+      concession: concession,
+      token_reference: Token.all
     }
   end
   

@@ -22,6 +22,18 @@ class Card < ApplicationRecord
       row_three: row_three,
       row_four: row_four
     }
+    tokens = Token.all.shuffle
+    gamestate = gamestate.to_json
+    gamestate = JSON.parse(gamestate)
+    gamestate["row_one"][1]["token"] = tokens.pop
+    gamestate["row_one"][10]["token"] = tokens.pop
+    gamestate["row_two"][2]["token"] = tokens.pop
+    gamestate["row_two"][9]["token"] = tokens.pop
+    gamestate["row_three"][3]["token"] = tokens.pop
+    gamestate["row_three"][8]["token"] = tokens.pop
+    gamestate["row_four"][4]["token"] = tokens.pop
+    gamestate["row_four"][7]["token"] = tokens.pop
+    
     game.gamestate = gamestate.to_json
     game.save
     game.gamestate
