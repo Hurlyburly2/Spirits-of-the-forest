@@ -294,9 +294,10 @@ const EndGameTile = (props) => {
   
   let userSunCards = props.yourCards.filter(card => card.element === "sun")
   let userSunCardTiles = userSunCards.map((card) => {
+    let sunCardId = `sun${card.id}`
     return (<CardTile
-      key={card.id}
-      id={card.id}
+      key={sunCardId}
+      id={sunCardId}
       which_card={card}
       handleSelectCard=""
       selectedClass="score-card"
@@ -305,9 +306,10 @@ const EndGameTile = (props) => {
   
   let opponentSunCards = props.opponentCards.filter(card => card.element === "sun")
   let opponentSunCardTiles = opponentSunCards.map((card) => {
+    let sunCardId = `sun${card.id}`
     return (<CardTile
-      key={card.id}
-      id={card.id}
+      key={sunCardId}
+      id={sunCardId}
       which_card={card}
       handleSelectCard=""
       selectedClass="score-card"
@@ -326,9 +328,10 @@ const EndGameTile = (props) => {
   
   let userMoonCards = props.yourCards.filter(card => card.element === "moon")
   let userMoonCardTiles = userMoonCards.map((card) => {
+    let moonCardId = `moon${card.id}`
     return (<CardTile
-      key={card.id}
-      id={card.id}
+      key={moonCardId}
+      id={moonCardId}
       which_card={card}
       handleSelectCard=""
       selectedClass="score-card"
@@ -337,9 +340,10 @@ const EndGameTile = (props) => {
   
   let opponentMoonCards = props.opponentCards.filter(card => card.element === "moon")
   let opponentMoonCardTiles = opponentMoonCards.map((card) => {
+    let moonCardId = `moon${card.id}`
     return (<CardTile
-      key={card.id}
-      id={card.id}
+      key={moonCardId}
+      id={moonCardId}
       which_card={card}
       handleSelectCard=""
       selectedClass="score-card"
@@ -358,9 +362,10 @@ const EndGameTile = (props) => {
   
   let userWindCards = props.yourCards.filter(card => card.element === "wind")
   let userWindCardTiles = userWindCards.map((card) => {
+    let windCardId = `wind${card.id}`
     return (<CardTile
-      key={card.id}
-      id={card.id}
+      key={windCardId}
+      id={windCardId}
       which_card={card}
       handleSelectCard=""
       selectedClass="score-card"
@@ -369,9 +374,10 @@ const EndGameTile = (props) => {
   
   let opponentWindCards = props.opponentCards.filter(card => card.element === "wind")
   let opponentWindCardTiles = opponentWindCards.map((card) => {
+    let windCardId = `wind${card.id}`
     return (<CardTile
-      key={card.id}
-      id={card.id}
+      key={windCardId}
+      id={windCardId}
       which_card={card}
       handleSelectCard=""
       selectedClass="score-card"

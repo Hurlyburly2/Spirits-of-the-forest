@@ -38,7 +38,7 @@ class GameplayContainer extends Component {
   }
   
   componentDidMount() {
-    let refreshInterval = 1000000 //This should be 5000 in release version
+    let refreshInterval = 2000 //This should be 5000 in release version
     this.refreshInterval = setInterval(() => this.getGameData(), refreshInterval);
     this.getGameData();
   }
@@ -59,6 +59,10 @@ class GameplayContainer extends Component {
     })
     .then(response => response.json())
     .then(body => {
+      let opponentCardJSON = JSON.parse(body.opponentcards)
+      if (opponentCardJSON === "none") {
+        opponentCardJSON = []
+      }
       this.setState({
         gameState: body.gameState,
         currentUser: body.currentUser,
@@ -68,7 +72,7 @@ class GameplayContainer extends Component {
         cardReference: body.card_reference,
         winner: body.winner,
         yourCards: JSON.parse(body.yourcards),
-        opponentCards: JSON.parse(body.opponentcards),
+        opponentCards: opponentCardJSON,
         score: JSON.parse(body.score)
       })
     })
@@ -101,7 +105,6 @@ class GameplayContainer extends Component {
       })
       .then(response => response.json())
       .then(body => {
-        debugger
         this.setState({
           gameState: body.gameState,
           currentUser: body.currentUser,
@@ -134,7 +137,6 @@ class GameplayContainer extends Component {
   deleteGame () {
     let game_id = this.props.params.id
     let gamestateToSend
-    debugger
     if (this.state.gameState === "pending") {
       gamestateToSend = "deleteWithoutLoss"
     } else if (this.state.gameState === "play") {
@@ -315,6 +317,7 @@ class GameplayContainer extends Component {
     let completeScreen
     let deleteButton
     let backButton = <Link to='/'><li>MY GAMES</li></Link>
+    let errorMessage
     
     if (this.state.gameState === "play"){
       if (this.state.currentUser && this.state.opponent) {  
@@ -346,13 +349,14 @@ class GameplayContainer extends Component {
       }
       deleteButton = <li onClick={handleDeleteGame}>CONCEDE</li>
       endGame = "CONCEDE"
+      errorMessage = this.state.errorMessage
     } else if (this.state.gameState === "error") {
       message = "This game is no longer available"
-      
+      errorMessage = this.state.errorMessage
     } else if (this.state.gameState === "pending") {
       message = "Waiting for Opponent..."
       deleteButton = <li onClick={handleDeleteGame}>DELETE GAME</li>
-      
+      errorMessage = this.state.errorMessage
     } else if (this.state.gameState === "complete") {
       backButton = <li onClick={handleDeleteGame}>OK</li>
       completeScreen = <EndGameTile 

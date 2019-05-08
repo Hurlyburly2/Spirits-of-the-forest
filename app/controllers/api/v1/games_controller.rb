@@ -43,7 +43,7 @@ class Api::V1::GamesController < ApplicationController
         gameState = "play"
         user = current_user
         opponent = current_game.users.where.not(username: current_user.username)
-        score = getScore(user, opponent[0], game)
+        score = getScore(user, opponent[0], current_game)
         opponent = UserSerializer.new(opponent[0])
         cards = Card.get_game_state(current_game)
         whose_turn = UserSerializer.new(User.find(current_game.whose_turn_id))
@@ -83,6 +83,11 @@ class Api::V1::GamesController < ApplicationController
       gameState = "error"
     end
     
+    opponent_cards = "none".to_json
+    if opponent
+      opponent_cards = current_game.matches.where.not(user: current_user)[0].selected_cards
+    end
+
     render json: {
       gameState: gameState,
       currentUser: user,
@@ -92,7 +97,7 @@ class Api::V1::GamesController < ApplicationController
       card_reference: Card.all,
       winner: winner,
       yourcards: current_game.matches.where(user: current_user)[0].selected_cards,
-      opponentcards: current_game.matches.where.not(user: current_user)[0].selected_cards,
+      opponentcards: opponent_cards,
       score: score.to_json
     }
   end
@@ -196,14 +201,31 @@ class Api::V1::GamesController < ApplicationController
     gameState = "play"
     winner = nil
     if cards["row_one"].length + cards["row_two"].length + cards["row_three"].length + cards["row_four"].length == 0
-      binding.pry
       gameState = "complete"
       game.gamestate = nil
       game.whose_turn_id = nil
       
       score = getScore(user, opponent, game)
+      if score["user"]["total"] > score["opponent"]["total"]
+        user.wins = user.wins + 1
+        opponent.losses = opponent.losses + 1
+        user = ranking_change(user, "win")
+        opponent = ranking_change(opponent, "loss")
+      elsif score["user"]["total"] < score["opponent"]["total"]
+        user.losses = user.losses + 1
+        opponent.wins = opponent.wins + 1
+        user = ranking_change(user, "loss")
+        opponent = ranking_change(opponent, "win")
+      else
+        user.wins = user.wins + 1
+        opponent.wins = opponent.wins + 1
+        user = ranking_change(user, "win")
+        opponent = ranking_change(opponent, "win")
+      end
+      
+      user.save
+      opponent.save
       game.winner_id = game.users[0].id
-      binding.pry
     end
     
     game.gamestate = cards.to_json
@@ -403,5 +425,56 @@ class Api::V1::GamesController < ApplicationController
     end
     
     return score
+  end
+  
+  def ranking_change(player, game_result)
+    if player.rank == "bronze"
+      if game_result == "loss"
+        player.rankup_score = player.rankup_score - 3
+        if player.rankup_score < 0
+          player.rankup_score = 0
+        end
+      else
+        player.rankup_score = player.rankup_score + 10
+      end
+    elsif player.rank == "silver"
+      if game_result == "loss"
+        player.rankup_score = player.rankup_score - 4
+      else
+        player.rankup_score = player.rankup_score + 10
+      end
+    elsif player.rank == "gold"
+      if game_result == "loss"
+        player.rankup_score = player.rankup_score - 5
+      else
+        player.rankup_score = player.rankup_score + 10
+      end
+    elsif player.rank == "diamond"
+      if game_result == "loss"
+        player.rankup_score = player.rankup_score - 7
+      else
+        player.rankup_score = player.rankup_score + 10
+      end
+    else
+      if game_result == "loss"
+        player.rankup_score = player.rankup_score - 9
+      else
+        player.rankup_score = player.rankup_score + 10
+      end
+    end
+    
+    if player.rankup_score >= 0 && player.rankup_score < 100
+      player.rank = "bronze"
+    elsif player.rankup_score >= 100 && player.rankup_score < 200
+      player.rank = "silver"
+    elsif player.rankup_score >= 200 && player.rankup_score < 300
+      player.rank = "gold"
+    elsif player.rankup_score >= 300 && player.rankup_score < 400
+      player.rank = "diamond"
+    else
+      player.rank = "master"
+    end
+    player.save
+    player
   end
 end
