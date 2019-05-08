@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import CardTile from './CardTile'
+import ScoreCardTile from './ScoreCardTile'
 
 const EndGameTile = (props) => {
   let userBranchCards = props.yourCards.filter(card => card.spirit === "branch")
   let userBranchCardTiles = userBranchCards.map((card) => {
-    return (<CardTile
+    return (<ScoreCardTile
       key={card.id}
       id={card.id}
       which_card={card}
@@ -17,7 +17,7 @@ const EndGameTile = (props) => {
   
   let opponentBranchCards = props.opponentCards.filter(card => card.spirit === "branch")
   let opponentBranchCardTiles = opponentBranchCards.map((card) => {
-    return (<CardTile
+    return (<ScoreCardTile
       key={card.id}
       id={card.id}
       which_card={card}
@@ -38,7 +38,7 @@ const EndGameTile = (props) => {
   
   let userDewCards = props.yourCards.filter(card => card.spirit === "dew")
   let userDewCardTiles = userDewCards.map((card) => {
-    return (<CardTile
+    return (<ScoreCardTile
       key={card.id}
       id={card.id}
       which_card={card}
@@ -49,7 +49,7 @@ const EndGameTile = (props) => {
   
   let opponentDewCards = props.opponentCards.filter(card => card.spirit === "dew")
   let opponentDewCardTiles = opponentDewCards.map((card) => {
-    return (<CardTile
+    return (<ScoreCardTile
       key={card.id}
       id={card.id}
       which_card={card}
@@ -70,7 +70,7 @@ const EndGameTile = (props) => {
   
   let userFlowerCards = props.yourCards.filter(card => card.spirit === "flower")
   let userFlowerCardTiles = userFlowerCards.map((card) => {
-    return (<CardTile
+    return (<ScoreCardTile
       key={card.id}
       id={card.id}
       which_card={card}
@@ -81,7 +81,7 @@ const EndGameTile = (props) => {
   
   let opponentFlowerCards = props.opponentCards.filter(card => card.spirit === "flower")
   let opponentFlowerCardTiles = opponentFlowerCards.map((card) => {
-    return (<CardTile
+    return (<ScoreCardTile
       key={card.id}
       id={card.id}
       which_card={card}
@@ -102,7 +102,7 @@ const EndGameTile = (props) => {
   
   let userFruitCards = props.yourCards.filter(card => card.spirit === "fruit")
   let userFruitCardTiles = userFruitCards.map((card) => {
-    return (<CardTile
+    return (<ScoreCardTile
       key={card.id}
       id={card.id}
       which_card={card}
@@ -113,7 +113,7 @@ const EndGameTile = (props) => {
   
   let opponentFruitCards = props.opponentCards.filter(card => card.spirit === "fruit")
   let opponentFruitCardTiles = opponentFruitCards.map((card) => {
-    return (<CardTile
+    return (<ScoreCardTile
       key={card.id}
       id={card.id}
       which_card={card}
@@ -134,7 +134,7 @@ const EndGameTile = (props) => {
   
   let userLeafCards = props.yourCards.filter(card => card.spirit === "leaf")
   let userLeafCardTiles = userLeafCards.map((card) => {
-    return (<CardTile
+    return (<ScoreCardTile
       key={card.id}
       id={card.id}
       which_card={card}
@@ -145,7 +145,7 @@ const EndGameTile = (props) => {
   
   let opponentLeafCards = props.opponentCards.filter(card => card.spirit === "leaf")
   let opponentLeafCardTiles = opponentLeafCards.map((card) => {
-    return (<CardTile
+    return (<ScoreCardTile
       key={card.id}
       id={card.id}
       which_card={card}
@@ -166,7 +166,7 @@ const EndGameTile = (props) => {
   
   let userMossCards = props.yourCards.filter(card => card.spirit === "moss")
   let userMossCardTiles = userMossCards.map((card) => {
-    return (<CardTile
+    return (<ScoreCardTile
       key={card.id}
       id={card.id}
       which_card={card}
@@ -177,7 +177,7 @@ const EndGameTile = (props) => {
   
   let opponentMossCards = props.opponentCards.filter(card => card.spirit === "moss")
   let opponentMossCardTiles = opponentMossCards.map((card) => {
-    return (<CardTile
+    return (<ScoreCardTile
       key={card.id}
       id={card.id}
       which_card={card}
@@ -198,7 +198,7 @@ const EndGameTile = (props) => {
   
   let userMushroomCards = props.yourCards.filter(card => card.spirit === "mushroom")
   let userMushroomCardTiles = userMushroomCards.map((card) => {
-    return (<CardTile
+    return (<ScoreCardTile
       key={card.id}
       id={card.id}
       which_card={card}
@@ -209,7 +209,7 @@ const EndGameTile = (props) => {
   
   let opponentMushroomCards = props.opponentCards.filter(card => card.spirit === "mushroom")
   let opponentMushroomCardTiles = opponentMushroomCards.map((card) => {
-    return (<CardTile
+    return (<ScoreCardTile
       key={card.id}
       id={card.id}
       which_card={card}
@@ -230,7 +230,7 @@ const EndGameTile = (props) => {
   
   let userSpiderCards = props.yourCards.filter(card => card.spirit === "spider")
   let userSpiderCardTiles = userSpiderCards.map((card) => {
-    return (<CardTile
+    return (<ScoreCardTile
       key={card.id}
       id={card.id}
       which_card={card}
@@ -241,7 +241,7 @@ const EndGameTile = (props) => {
   
   let opponentSpiderCards = props.opponentCards.filter(card => card.spirit === "spider")
   let opponentSpiderCardTiles = opponentSpiderCards.map((card) => {
-    return (<CardTile
+    return (<ScoreCardTile
       key={card.id}
       id={card.id}
       which_card={card}
@@ -262,7 +262,7 @@ const EndGameTile = (props) => {
   
   let userVineCards = props.yourCards.filter(card => card.spirit === "vine")
   let userVineCardTiles = userVineCards.map((card) => {
-    return (<CardTile
+    return (<ScoreCardTile
       key={card.id}
       id={card.id}
       which_card={card}
@@ -273,7 +273,7 @@ const EndGameTile = (props) => {
   
   let opponentVineCards = props.opponentCards.filter(card => card.spirit === "vine")
   let opponentVineCardTiles = opponentVineCards.map((card) => {
-    return (<CardTile
+    return (<ScoreCardTile
       key={card.id}
       id={card.id}
       which_card={card}
@@ -295,7 +295,7 @@ const EndGameTile = (props) => {
   let userSunCards = props.yourCards.filter(card => card.element === "sun")
   let userSunCardTiles = userSunCards.map((card) => {
     let sunCardId = `sun${card.id}`
-    return (<CardTile
+    return (<ScoreCardTile
       key={sunCardId}
       id={sunCardId}
       which_card={card}
@@ -307,7 +307,7 @@ const EndGameTile = (props) => {
   let opponentSunCards = props.opponentCards.filter(card => card.element === "sun")
   let opponentSunCardTiles = opponentSunCards.map((card) => {
     let sunCardId = `sun${card.id}`
-    return (<CardTile
+    return (<ScoreCardTile
       key={sunCardId}
       id={sunCardId}
       which_card={card}
@@ -329,7 +329,7 @@ const EndGameTile = (props) => {
   let userMoonCards = props.yourCards.filter(card => card.element === "moon")
   let userMoonCardTiles = userMoonCards.map((card) => {
     let moonCardId = `moon${card.id}`
-    return (<CardTile
+    return (<ScoreCardTile
       key={moonCardId}
       id={moonCardId}
       which_card={card}
@@ -341,7 +341,7 @@ const EndGameTile = (props) => {
   let opponentMoonCards = props.opponentCards.filter(card => card.element === "moon")
   let opponentMoonCardTiles = opponentMoonCards.map((card) => {
     let moonCardId = `moon${card.id}`
-    return (<CardTile
+    return (<ScoreCardTile
       key={moonCardId}
       id={moonCardId}
       which_card={card}
@@ -363,7 +363,7 @@ const EndGameTile = (props) => {
   let userWindCards = props.yourCards.filter(card => card.element === "wind")
   let userWindCardTiles = userWindCards.map((card) => {
     let windCardId = `wind${card.id}`
-    return (<CardTile
+    return (<ScoreCardTile
       key={windCardId}
       id={windCardId}
       which_card={card}
@@ -375,7 +375,7 @@ const EndGameTile = (props) => {
   let opponentWindCards = props.opponentCards.filter(card => card.element === "wind")
   let opponentWindCardTiles = opponentWindCards.map((card) => {
     let windCardId = `wind${card.id}`
-    return (<CardTile
+    return (<ScoreCardTile
       key={windCardId}
       id={windCardId}
       which_card={card}

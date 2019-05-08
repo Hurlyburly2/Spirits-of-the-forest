@@ -161,6 +161,7 @@ class Api::V1::GamesController < ApplicationController
     opponent = game.users.where.not(username: user.username)[0]
     current_match = game.matches.where(user: user)[0]
     score = nil
+    tokens = []
     
     if game.whose_turn_id == user.id
       cards_to_remove = params["selected"].map do |selected_card|
@@ -170,41 +171,70 @@ class Api::V1::GamesController < ApplicationController
       cards_to_remove.each do |card|
        if cards["row_one"].any? { |find_card| find_card["id"] == card[:id]}
          if cards["row_one"][0]["id"] == card[:id]
+           if cards["row_one"][0]["token"]
+             tokens << cards["row_one"][0]["token"]
+           end
            cards["row_one"].shift
          elsif cards["row_one"].last["id"] == card[:id]
+           if cards["row_one"].last["token"]
+             tokens << cards["row_one"].last["token"]
+           end
            cards["row_one"].pop
          else
            error = "Invalid selection"
          end
        end
+       
        if cards["row_two"].any? { |find_card| find_card["id"] == card[:id]}
          if cards["row_two"][0]["id"] == card[:id]
+           if cards["row_two"][0]["token"]
+             tokens << cards["row_two"][0]["token"]
+           end
            cards["row_two"].shift
          elsif cards["row_two"].last["id"] == card[:id]
+           if cards["row_two"].last["token"]
+             tokens << cards["row_two"].last["token"]
+           end
            cards["row_two"].pop
          else
            error = "Invalid selection"
          end
        end
+       
        if cards["row_three"].any? { |find_card| find_card["id"] == card[:id]}
          if cards["row_three"][0]["id"] == card[:id]
+           if cards["row_three"][0]["token"]
+             tokens << cards["row_three"][0]["token"]
+           end
            cards["row_three"].shift
          elsif cards["row_three"].last["id"] == card[:id]
+           if cards["row_three"].last["token"]
+             tokens << cards["row_three"].last["token"]
+           end
            cards["row_three"].pop
          else
            error = "Invalid selection"
          end
        end
+       
        if cards["row_four"].any? { |find_card| find_card["id"] == card[:id]}
          if cards["row_four"][0]["id"] == card[:id]
+           if cards["row_four"][0]["token"]
+             tokens << cards["row_four"][0]["token"]
+           end
            cards["row_four"].shift
          elsif cards["row_four"].last["id"] == card[:id]
+           if cards["row_four"].last["token"]
+             tokens << cards["row_four"].last["token"]
+           end
            cards["row_four"].pop
          else
            error = "Invalid selection"
          end
        end
      end
+     
+     binding.pry
      previously_selected_cards = JSON.parse(current_match.selected_cards)
      all_selected_cards = previously_selected_cards + cards_to_remove
      current_match.selected_cards = all_selected_cards.to_json
