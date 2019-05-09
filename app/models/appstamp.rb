@@ -15,27 +15,21 @@ class Appstamp < ApplicationRecord
         user = User.find(game.whose_turn_id)
         current_match = game.matches.where(user: user)[0]
         if user.reminders == true
-          binding.pry
           if (Time.now - game.updated_at) / 1.hour > game_idle_duration && current_match.reminded == false
-            binding.pry
             idle_games << game
             current_match.reminded = true
             current_match.save
             #REMINDER
           elsif (Time.now - game.updated_at) / 1.hour > game_idle_duration && current_match.reminded == true
-            binding.pry
             Game.concede_game_timeout(game)
             #CONCEDE GAME IN HERE
           end
         else
-          binding.pry
           if (Time.now - game.updated_at) / 1.hour > game_idle_duration && current_match.reminded == false
-            binding.pry
             current_match.reminded = true
             current_match.save
             #NO REMINDER, BUT ONE STEP CLOSER TO CONCESSION
           elsif (Time.now - game.updated_at) / 1.hour > game_idle_duration && current_match.reminded == true
-            binding.pry
             Game.concede_game_timeout(game)
             #CONCEDE GAME IN HERE
           end

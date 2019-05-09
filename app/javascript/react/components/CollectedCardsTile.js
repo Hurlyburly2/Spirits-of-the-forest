@@ -122,7 +122,6 @@ const CollectedCardsTile = (props) => {
     )
   })
   
-  debugger
   let collectedTokens = props.tokens.map((token) => {
     return(<TokenTile token={token} type="CollectedCardsDisplay" whose={props.whose}/>)
   })
