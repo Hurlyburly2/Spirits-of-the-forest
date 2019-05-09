@@ -42,7 +42,7 @@ class GameplayContainer extends Component {
   }
   
   componentDidMount() {
-    let refreshInterval = 100000000 //This should be 5000 in release version
+    let refreshInterval = 1000 //This should be 5000 in release version
     this.refreshInterval = setInterval(() => this.getGameData(), refreshInterval);
     this.getGameData();
   }
@@ -67,7 +67,6 @@ class GameplayContainer extends Component {
       if (opponentCardJSON === "none") {
         opponentCardJSON = []
       }
-      debugger
       this.setState({
         gameState: body.gameState,
         currentUser: body.currentUser,
@@ -82,7 +81,9 @@ class GameplayContainer extends Component {
         concession: body.concession,
         tokenReference: body.token_reference,
         yourTokens: JSON.parse(body.yourTokens),
-        opponentTokens: JSON.parse(body.opponentTokens)
+        yourGems: body.yourGems,
+        opponentTokens: JSON.parse(body.opponentTokens),
+        opponentGems: body.opponentGems
       })
     })
   }
