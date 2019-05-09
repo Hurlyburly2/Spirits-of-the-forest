@@ -29,7 +29,10 @@ class GameplayContainer extends Component {
       opponentCards: [],
       showCollectedTile: false,
       score: null,
-      concession: false
+      concession: false,
+      yourTokens: [],
+      opponentTokens: [],
+      something: "jfalsjl"
     }
     this.selectCard = this.selectCard.bind(this);
     this.checkTurn = this.checkTurn.bind(this);
@@ -39,7 +42,7 @@ class GameplayContainer extends Component {
   }
   
   componentDidMount() {
-    let refreshInterval = 2000 //This should be 5000 in release version
+    let refreshInterval = 100000000 //This should be 5000 in release version
     this.refreshInterval = setInterval(() => this.getGameData(), refreshInterval);
     this.getGameData();
   }
@@ -75,7 +78,10 @@ class GameplayContainer extends Component {
         yourCards: JSON.parse(body.yourcards),
         opponentCards: opponentCardJSON,
         score: JSON.parse(body.score),
-        concession: body.concession
+        concession: body.concession,
+        tokenReference: body.token_reference,
+        yourTokens: JSON.parse(body.yourTokens),
+        opponentTokens: JSON.parse(body.opponentTokens)
       })
     })
   }
@@ -119,7 +125,8 @@ class GameplayContainer extends Component {
           yourCards: JSON.parse(body.yourcards),
           opponentCards: JSON.parse(body.opponentcards),
           errorMessage: body.errorMessage,
-          score: JSON.parse(body.score)
+          score: JSON.parse(body.score),
+          yourTokens: JSON.parse(body.tokens)
         })
       })
     } else {
@@ -172,7 +179,6 @@ class GameplayContainer extends Component {
       })
       .then(response => response.json())
       .then(body => {
-        debugger
         if (body.gameState === "done") {
           this.setState({
             gameState: "complete",
@@ -194,63 +200,75 @@ class GameplayContainer extends Component {
       let newArray = this.state.selected
       let newScore = this.state.selectedSpiritPoints - cardStats.spirit_points
       newArray.splice(removeCardIndex, 1)
+      let deSelectPartner
       
-      let deSelectPartner = this.state.cards.row_one[1].id
-      if (this.state.cards.row_one[0].id === clickedCard && newArray.includes(deSelectPartner)) {
-        let partnerStats = this.state.cardReference.find( card => card.id === deSelectPartner )
-        newScore = newScore - partnerStats.spirit_points
-        let removeCardIndex = newArray.indexOf(deSelectPartner)
-        newArray.splice(removeCardIndex, 1)
+      if (this.state.cards.row_one.length > 1) {
+        let deSelectPartner = this.state.cards.row_one[1].id
+        if (this.state.cards.row_one[0].id === clickedCard && newArray.includes(deSelectPartner)) {
+          let partnerStats = this.state.cardReference.find( card => card.id === deSelectPartner )
+          newScore = newScore - partnerStats.spirit_points
+          let removeCardIndex = newArray.indexOf(deSelectPartner)
+          newArray.splice(removeCardIndex, 1)
+        }
+        deSelectPartner = this.state.cards.row_one[this.state.cards.row_one.length - 2].id
+        if (this.state.cards.row_one[this.state.cards.row_one.length - 1].id === clickedCard && newArray.includes(deSelectPartner)) {
+          let partnerStats = this.state.cardReference.find( card => card.id === deSelectPartner )
+          newScore = newScore - partnerStats.spirit_points
+          let removeCardIndex = newArray.indexOf(deSelectPartner)
+          newArray.splice(removeCardIndex, 1)
+        }
       }
-      deSelectPartner = this.state.cards.row_one[this.state.cards.row_one.length - 2].id
-      if (this.state.cards.row_one[this.state.cards.row_one.length - 1].id === clickedCard && newArray.includes(deSelectPartner)) {
-        let partnerStats = this.state.cardReference.find( card => card.id === deSelectPartner )
-        newScore = newScore - partnerStats.spirit_points
-        let removeCardIndex = newArray.indexOf(deSelectPartner)
-        newArray.splice(removeCardIndex, 1)
+      
+      if (this.state.cards.row_two.length > 1) {
+        deSelectPartner = this.state.cards.row_two[1].id
+        if (this.state.cards.row_two[0].id === clickedCard && newArray.includes(deSelectPartner)) {
+          let partnerStats = this.state.cardReference.find( card => card.id === deSelectPartner )
+          newScore = newScore - partnerStats.spirit_points
+          let removeCardIndex = newArray.indexOf(deSelectPartner)
+          newArray.splice(removeCardIndex, 1)
+        }
+        deSelectPartner = this.state.cards.row_two[this.state.cards.row_two.length - 2].id
+        if (this.state.cards.row_two[this.state.cards.row_two.length - 1].id === clickedCard && newArray.includes(deSelectPartner)) {
+          let partnerStats = this.state.cardReference.find( card => card.id === deSelectPartner )
+          newScore = newScore - partnerStats.spirit_points
+          let removeCardIndex = newArray.indexOf(deSelectPartner)
+          newArray.splice(removeCardIndex, 1)
+        }
       }
-      deSelectPartner = this.state.cards.row_two[1].id
-      if (this.state.cards.row_two[0].id === clickedCard && newArray.includes(deSelectPartner)) {
-        let partnerStats = this.state.cardReference.find( card => card.id === deSelectPartner )
-        newScore = newScore - partnerStats.spirit_points
-        let removeCardIndex = newArray.indexOf(deSelectPartner)
-        newArray.splice(removeCardIndex, 1)
+      
+      if (this.state.cards.row_three.length > 1) {
+        deSelectPartner = this.state.cards.row_three[1].id
+        if (this.state.cards.row_three[0].id === clickedCard && newArray.includes(deSelectPartner)) {
+          let partnerStats = this.state.cardReference.find( card => card.id === deSelectPartner )
+          newScore = newScore - partnerStats.spirit_points
+          let removeCardIndex = newArray.indexOf(deSelectPartner)
+          newArray.splice(removeCardIndex, 1)
+        }
+        deSelectPartner = this.state.cards.row_three[this.state.cards.row_three.length - 2].id
+        if (this.state.cards.row_three[this.state.cards.row_three.length - 1].id === clickedCard && newArray.includes(deSelectPartner)) {
+          let partnerStats = this.state.cardReference.find( card => card.id === deSelectPartner )
+          newScore = newScore - partnerStats.spirit_points
+          let removeCardIndex = newArray.indexOf(deSelectPartner)
+          newArray.splice(removeCardIndex, 1)
+        }
       }
-      deSelectPartner = this.state.cards.row_two[this.state.cards.row_two.length - 2].id
-      if (this.state.cards.row_two[this.state.cards.row_two.length - 1].id === clickedCard && newArray.includes(deSelectPartner)) {
-        let partnerStats = this.state.cardReference.find( card => card.id === deSelectPartner )
-        newScore = newScore - partnerStats.spirit_points
-        let removeCardIndex = newArray.indexOf(deSelectPartner)
-        newArray.splice(removeCardIndex, 1)
-      }
-      deSelectPartner = this.state.cards.row_three[1].id
-      if (this.state.cards.row_three[0].id === clickedCard && newArray.includes(deSelectPartner)) {
-        let partnerStats = this.state.cardReference.find( card => card.id === deSelectPartner )
-        newScore = newScore - partnerStats.spirit_points
-        let removeCardIndex = newArray.indexOf(deSelectPartner)
-        newArray.splice(removeCardIndex, 1)
-      }
-      deSelectPartner = this.state.cards.row_three[this.state.cards.row_three.length - 2].id
-      if (this.state.cards.row_three[this.state.cards.row_three.length - 1].id === clickedCard && newArray.includes(deSelectPartner)) {
-        let partnerStats = this.state.cardReference.find( card => card.id === deSelectPartner )
-        newScore = newScore - partnerStats.spirit_points
-        let removeCardIndex = newArray.indexOf(deSelectPartner)
-        newArray.splice(removeCardIndex, 1)
-      }
-      deSelectPartner = this.state.cards.row_four[1].id
-      if (this.state.cards.row_four[0].id === clickedCard && newArray.includes(deSelectPartner)) {
-        let partnerStats = this.state.cardReference.find( card => card.id === deSelectPartner )
-        newScore = newScore - partnerStats.spirit_points
-        let removeCardIndex = newArray.indexOf(deSelectPartner)
-        newArray.splice(removeCardIndex, 1)
-      }
-      deSelectPartner = this.state.cards.row_four[this.state.cards.row_four.length - 2].id
-      if (this.state.cards.row_four[this.state.cards.row_four.length - 1].id === clickedCard && newArray.includes(deSelectPartner)) {
-        let partnerStats = this.state.cardReference.find( card => card.id === deSelectPartner )
-        newScore = newScore - partnerStats.spirit_points
-        let removeCardIndex = newArray.indexOf(deSelectPartner)
-        newArray.splice(removeCardIndex, 1)
-      }
+      
+      if (this.state.cards.row_four.length > 1) {
+        deSelectPartner = this.state.cards.row_four[1].id
+        if (this.state.cards.row_four[0].id === clickedCard && newArray.includes(deSelectPartner)) {
+          let partnerStats = this.state.cardReference.find( card => card.id === deSelectPartner )
+          newScore = newScore - partnerStats.spirit_points
+          let removeCardIndex = newArray.indexOf(deSelectPartner)
+          newArray.splice(removeCardIndex, 1)
+        }
+        deSelectPartner = this.state.cards.row_four[this.state.cards.row_four.length - 2].id
+        if (this.state.cards.row_four[this.state.cards.row_four.length - 1].id === clickedCard && newArray.includes(deSelectPartner)) {
+          let partnerStats = this.state.cardReference.find( card => card.id === deSelectPartner )
+          newScore = newScore - partnerStats.spirit_points
+          let removeCardIndex = newArray.indexOf(deSelectPartner)
+          newArray.splice(removeCardIndex, 1)
+        }
+      }  
       
       this.setState({
         selected: newArray,
@@ -336,6 +354,7 @@ class GameplayContainer extends Component {
             toggleAppearance={this.togglePlayerCollectedTile}
             name={this.state.currentUser.username}
             cards={this.state.yourCards}
+            tokens={this.state.yourTokens}
           />
         } else if (this.state.showCollectedTile === "opponent") {
           showCollectedCards = <CollectedCardsTile
@@ -343,6 +362,7 @@ class GameplayContainer extends Component {
             toggleAppearance={this.toggleOpponentCollectedTile}
             name={this.state.opponent.username}
             cards={this.state.opponentCards}
+            tokens={this.state.opponentTokens}
           />
         }
         
@@ -367,7 +387,9 @@ class GameplayContainer extends Component {
       backButton = <li onClick={handleDeleteGame}>OK</li>
       completeScreen = <EndGameTile 
                           yourCards={this.state.yourCards}
+                          yourTokens={this.state.yourTokens}
                           opponentCards={this.state.opponentCards}
+                          opponentTokens={this.state.opponentTokens}
                           currentUser={this.state.currentUser}
                           opponent={this.state.opponent}
                           score={this.state.score}

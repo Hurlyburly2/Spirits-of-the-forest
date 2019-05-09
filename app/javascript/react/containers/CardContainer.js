@@ -38,6 +38,7 @@ export const CardContainer = (props) => {
         }
       }
       
+      let token = card.token
       if (((counter === 0 || counter === row_length - 1) && props.checkTurn() === true) || (isAdjacentCardSelected === true && props.checkTurn() === true)) {
         let selectedClass = ""
         if (props.selected.includes(card.id)) {
@@ -49,9 +50,11 @@ export const CardContainer = (props) => {
           which_card={card}
           handleSelectCard={props.handleSelectCard}
           selectedClass={selectedClass}
+          token={token}
+          type="card-in-game"
           />)
         } else {
-          row_one.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={""}/>)
+          row_one.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={""} token={token} type="card-in-game"/>)
         }
       counter++
     })
@@ -69,6 +72,8 @@ export const CardContainer = (props) => {
           isAdjacentCardSelected = true
         }
       }
+      
+      let token = card.token
       if (((counter === 0 || counter === row_length - 1) && props.checkTurn() === true) || (isAdjacentCardSelected === true && props.checkTurn() === true)) {
         let selectedClass = ""
         if (props.selected.includes(card.id)) {
@@ -80,9 +85,11 @@ export const CardContainer = (props) => {
           which_card={card}
           handleSelectCard={props.handleSelectCard}
           selectedClass={selectedClass}
+          token={token}
+          type="card-in-game"
           />)
       } else {
-        row_two.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={""}/>)
+        row_two.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={""} token={token} type="card-in-game"/>)
       }
       counter++
     })
@@ -99,6 +106,8 @@ export const CardContainer = (props) => {
           isAdjacentCardSelected = true
         }
       }
+      
+      let token = card.token
       if (((counter === 0 || counter === row_length - 1) && props.checkTurn() === true) || (isAdjacentCardSelected === true && props.checkTurn() === true)) {
         let selectedClass = ""
         if (props.selected.includes(card.id)) {
@@ -110,9 +119,11 @@ export const CardContainer = (props) => {
           which_card={card}
           handleSelectCard={props.handleSelectCard}
           selectedClass={selectedClass}
+          token={token}
+          type="card-in-game"
           />)
       } else {
-        row_three.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={""}/>)
+        row_three.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={""} token={token} type="card-in-game"/>)
       }
       counter++
     })
@@ -129,6 +140,8 @@ export const CardContainer = (props) => {
           isAdjacentCardSelected = true
         }
       }
+      
+      let token = card.token
       if (((counter === 0 || counter === row_length - 1) && props.checkTurn() === true) || (isAdjacentCardSelected === true && props.checkTurn() === true)) {
         let selectedClass = ""
         if (props.selected.includes(card.id)) {
@@ -140,9 +153,11 @@ export const CardContainer = (props) => {
           which_card={card}
           handleSelectCard={props.handleSelectCard}
           selectedClass={selectedClass}
+          token={token}
+          type="card-in-game"
           />)
       } else {
-        row_four.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={""}/>)
+        row_four.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={""} token={token} type="card-in-game"/>)
       }
       counter++
     })

@@ -7,6 +7,10 @@
   margin-right: 10px;
 }
 
+.endGameDisplay-Token {
+  width: 15%;
+}
+
 .score-grid {
   text-align: left;
   color: white;

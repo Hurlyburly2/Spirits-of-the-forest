@@ -111,3 +111,35 @@ Card.create(spirit: "vine", spirit_points: 1, spirit_count: 8, element: "wind", 
 Card.create(spirit: "vine", spirit_points: 2, spirit_count: 8, element: "none", image_url: "/cards/vines-2-8-x2.png")
 
 Card.create(spirit: "vine", spirit_points: 2, spirit_count: 8, element: "none", image_url: "/cards/vines-2-8-x2.png")
+
+
+
+#TOKEN SEEDER
+
+Token.create(spirit: "branch", image_url: "/tokens/BranchToken.png")
+
+Token.create(spirit: "dew", image_url: "/tokens/DewToken.png")
+
+Token.create(spirit: "flower", image_url: "/tokens/FlowerToken.png")
+
+Token.create(spirit: "fruit", image_url: "/tokens/FruitToken.png")
+
+Token.create(spirit: "leaf", image_url: "/tokens/LeafToken.png")
+
+Token.create(spirit: "moon", image_url: "/tokens/MoonToken.png")
+
+Token.create(spirit: "moss", image_url: "/tokens/MossToken.png")
+
+Token.create(spirit: "mushroom", image_url: "/tokens/MushroomToken.png")
+
+# Token.create(spirit: "plus-1", image_url: "/tokens/PlusToken1.png")
+# 
+# Token.create(spirit: "plus-2", image_url: "/tokens/PlusToken2.png")
+
+Token.create(spirit: "spider", image_url: "/tokens/SpiderToken.png")
+
+Token.create(spirit: "sun", image_url: "/tokens/SunToken.png")
+
+Token.create(spirit: "vine", image_url: "/tokens/VineToken.png")
+
+Token.create(spirit: "wind", image_url: "/tokens/WindToken.png")

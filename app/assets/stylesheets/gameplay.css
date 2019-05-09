@@ -5,10 +5,23 @@ h4 {
 .card {
   width: 6.2%;
   margin: 2.2px 3px;
+  display: inline-block;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.card-token {
+  width: 50%;
+  top: 75%;
+  left: 55%;
+  position: absolute;
+  filter: drop-shadow(2px 2px 2px #111111);
 }
 
 .card:hover {
   transform: scale(2,2);
+  z-index: 500;
 }
 
 .gamePlayButtons li {
@@ -35,6 +48,7 @@ h4 {
   padding: 100px;
   position: absolute;
   text-align: left;
+  z-index: 1000;
 }
 
 .opponent-collected {
@@ -42,5 +56,9 @@ h4 {
 }
 
 .collected-card {
+  width: 7%;
+}
+
+.collectedCards-Token {
   width: 7%;
 }
