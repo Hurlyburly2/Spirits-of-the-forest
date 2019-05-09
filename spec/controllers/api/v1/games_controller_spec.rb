@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::GamesController, type: :controller do
   describe 'GET#index' do
     it "should get all of the user's games" do
+      Appstamp.create(last_activity_check: DateTime.now)
       user = User.create(email: "email@email.com", password: "password", username: "USERNAME")
       sign_in user
 
