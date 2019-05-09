@@ -2,6 +2,17 @@ h4 {
   color: white;
 }
 
+.gemMode {
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  overflow: auto;
+  top: 0px;
+  left: 0px;
+  background: radial-gradient(ellipse at center, rgba(5,10,20,0.75) 0%,rgba(1,5,15,1) 100%);
+}
+
 .card {
   width: 6.2%;
   margin: 2.2px 3px;
@@ -39,6 +50,10 @@ h4 {
 
 .errorText {
   color: white;
+}
+
+.gems-in-hand {
+  width: 5%
 }
 
 /* COLLECTED CARDS POPUP TILE */

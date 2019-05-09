@@ -42,6 +42,10 @@ class Api::V1::GamesController < ApplicationController
     concession = current_game.concession
     your_tokens = [].to_json
     opponent_tokens = [].to_json
+    your_gems = 0
+    your_total_gems = 0
+    opponent_gems = 0
+    opponent_total_gems = 0
     if (current_game.users.length == 2 && current_game.users.include?(current_user))
       #THIS IS AN IN-PROGRESS GAME OR A COMPLETED/CONCEDED GAME
       if current_game.winner_id == nil
@@ -52,7 +56,11 @@ class Api::V1::GamesController < ApplicationController
         opponent = UserSerializer.new(opponent[0])
         cards = Card.get_game_state(current_game)
         your_tokens = current_game.matches.where(user: current_user)[0].tokens
+        your_gems = current_game.matches.where(user: current_user)[0].gems_possessed
+        your_total_gems = current_game.matches.where(user: current_user)[0].gems_total
         opponent_tokens = current_game.matches.where.not(user: current_user)[0].tokens
+        opponent_gems = current_game.matches.where.not(user: current_user)[0].gems_possessed
+        opponent_total_gems = current_game.matches.where.not(user: current_user)[0].gems_total
         whose_turn = UserSerializer.new(User.find(current_game.whose_turn_id))
       else
         gameState = "complete"
@@ -63,7 +71,11 @@ class Api::V1::GamesController < ApplicationController
         cards = nil
         whose_turn = nil
         your_tokens = current_game.matches.where(user: current_user)[0].tokens
+        your_gems = current_game.matches.where(user: current_user)[0].gems_possessed
+        your_total_gems = current_game.matches.where(user: current_user)[0].gems_total
         opponent_tokens = current_game.matches.where.not(user: current_user)[0].tokens
+        opponent_gems = current_game.matches.where.not(user: current_user)[0].gems_possessed
+        opponent_total_gems = current_game.matches.where.not(user: current_user)[0].gems_total
         winner = UserSerializer.new(User.find(current_game.winner_id))
       end
     elsif (current_game.users.length == 1 && current_game.users[0] == current_user)
@@ -110,7 +122,11 @@ class Api::V1::GamesController < ApplicationController
       concession: concession,
       token_reference: Token.all,
       yourTokens: your_tokens,
-      opponentTokens: opponent_tokens
+      yourGems: your_gems,
+      yourTotalGems: your_total_gems,
+      opponentTokens: opponent_tokens,
+      opponentGems: opponent_gems,
+      opponentTotalGems: opponent_total_gems
     }
   end
   

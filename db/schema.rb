@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_09_153049) do
+ActiveRecord::Schema.define(version: 2019_05_09_194701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,8 @@ ActiveRecord::Schema.define(version: 2019_05_09_153049) do
     t.text "selected_cards"
     t.text "tokens"
     t.boolean "reminded", default: false
+    t.integer "gems_possessed", default: 3
+    t.integer "gems_total", default: 3
     t.index ["game_id"], name: "index_matches_on_game_id"
     t.index ["user_id"], name: "index_matches_on_user_id"
   end

@@ -5,6 +5,7 @@ import CardTile from '../components/CardTile.js'
 import CardContainer from './CardContainer'
 import CollectedCardsTile from '../components/CollectedCardsTile'
 import EndGameTile from '../components/EndGameTile'
+import GemTile from '../components/GemTile'
 
 class GameplayContainer extends Component {
   constructor(props) {
@@ -32,25 +33,27 @@ class GameplayContainer extends Component {
       concession: false,
       yourTokens: [],
       opponentTokens: [],
-      something: "jfalsjl"
+      something: "jfalsjl",
+      gemMode: false
     }
     this.selectCard = this.selectCard.bind(this);
     this.checkTurn = this.checkTurn.bind(this);
     this.confirmCardSelection = this.confirmCardSelection.bind(this)
     this.togglePlayerCollectedTile = this.togglePlayerCollectedTile.bind(this)
     this.toggleOpponentCollectedTile = this.toggleOpponentCollectedTile.bind(this)
+    this.gemPlacement = this.gemPlacement.bind(this)
   }
   
   componentDidMount() {
-    let refreshInterval = 100000000 //This should be 5000 in release version
+    let backgroundDiv = document.getElementById('overlay') 
+    backgroundDiv.classList.add('overlay')
+    let refreshInterval = 5000 //This should be 5000 in release version
     this.refreshInterval = setInterval(() => this.getGameData(), refreshInterval);
     this.getGameData();
   }
   
   getGameData() {
     let current_game = this.props.params.id
-    let backgroundDiv = document.getElementById('overlay') 
-    backgroundDiv.classList.add('overlay')
     fetch(`/api/v1/games/${current_game}`)
       .then(response => {
       if (response.ok) {
@@ -67,7 +70,6 @@ class GameplayContainer extends Component {
       if (opponentCardJSON === "none") {
         opponentCardJSON = []
       }
-      debugger
       this.setState({
         gameState: body.gameState,
         currentUser: body.currentUser,
@@ -82,7 +84,11 @@ class GameplayContainer extends Component {
         concession: body.concession,
         tokenReference: body.token_reference,
         yourTokens: JSON.parse(body.yourTokens),
-        opponentTokens: JSON.parse(body.opponentTokens)
+        yourGems: body.yourGems,
+        yourTotalGems: body.yourTotalGems,
+        opponentTokens: JSON.parse(body.opponentTokens),
+        opponentGems: body.opponentGems,
+        opponentTotalGems: body.opponentTotalGems
       })
     })
   }
@@ -328,6 +334,24 @@ class GameplayContainer extends Component {
     }
   }
   
+  gemPlacement() {
+    if (this.state.gemMode === true) {
+      let backgroundDiv = document.getElementById('overlay') 
+      backgroundDiv.classList.remove('gemMode')
+      backgroundDiv.classList.add('overlay')
+      this.setState({
+        gemMode: false
+      })
+    } else {
+      let backgroundDiv = document.getElementById('overlay') 
+      backgroundDiv.classList.remove('overlay')
+      backgroundDiv.classList.add('gemMode')
+      this.setState({
+        gemMode: true
+      })
+    }
+  }
+  
   render() {
     let statusText
     let currentPlayerName = ""
@@ -343,6 +367,10 @@ class GameplayContainer extends Component {
     let deleteButton
     let backButton = <Link to='/'><li>MY GAMES</li></Link>
     let errorMessage
+    let yourGems = []
+    let opponentGems = []
+    let gemButton
+    let handleGemPlacement = () => { this.gemPlacement() }
     
     if (this.state.gameState === "play"){
       if (this.state.currentUser && this.state.opponent) {  
@@ -377,6 +405,28 @@ class GameplayContainer extends Component {
       deleteButton = <li onClick={handleDeleteGame}>CONCEDE</li>
       endGame = "CONCEDE"
       errorMessage = this.state.errorMessage
+      
+      if (this.state.yourTotalGems > 0 && this.state.gemMode === false) {
+        gemButton = <li onClick={handleGemPlacement}>Place Gems</li>
+      } else if (this.state.yourTotalGems > 0 && this.state.gemMode === true) {
+        gemButton = <li onClick={handleGemPlacement}>Pick Cards</li>
+      }
+      if (this.state.yourGems > 0) {
+        let counter = this.state.yourGems
+        while (counter > 0) {
+          let gemKey = `YourGem${counter}`
+          yourGems.push(<GemTile key={gemKey} location="in-hand" player="user"/>)
+          counter--
+        }
+      }
+      if (this.state.opponentGems > 0) {
+        let counter = this.state.yourGems
+        while (counter > 0) {
+          let gemKey = `OpponentGem${counter}`
+          opponentGems.push(<GemTile key={gemKey} location="in-hand" player="opponent"/>)
+          counter--
+        }
+      }
     } else if (this.state.gameState === "error") {
       message = "This game is no longer available"
       errorMessage = this.state.errorMessage
@@ -402,7 +452,7 @@ class GameplayContainer extends Component {
     return(
       <div className="gamesContainerPage">
         {showCollectedCards}
-        <h4>{currentPlayerName} {message} {opponentName}</h4>
+        <h4>{yourGems} {currentPlayerName} {message} {opponentName} {opponentGems}</h4>
         {completeScreen}
         <CardContainer 
           gameState={this.state.gameState}
@@ -415,6 +465,7 @@ class GameplayContainer extends Component {
         <ul className="gamePlayButtons">
           {backButton}
           {confirmButton}
+          {gemButton}
           {deleteButton}
         </ul>
       </div>
