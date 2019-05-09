@@ -48,7 +48,7 @@ class GameplayContainer extends Component {
   componentDidMount() {
     let backgroundDiv = document.getElementById('overlay') 
     backgroundDiv.classList.add('overlay')
-    let refreshInterval = 5000 //This should be 5000 in release version
+    let refreshInterval = 10000000 //This should be 5000 in release version
     this.refreshInterval = setInterval(() => this.getGameData(), refreshInterval);
     this.getGameData();
   }
@@ -98,6 +98,7 @@ class GameplayContainer extends Component {
     if (this.state.selected.length > 0) {
       let current_game = this.props.params.id
       let gamePayLoad = {
+        type: "card-selection",
         selected: this.state.selected,
         currentUser: this.state.currentUser
       }
@@ -354,7 +355,36 @@ class GameplayContainer extends Component {
   }
   
   gemPlacement(event) {
-    alert(event.target.id)
+    let current_game = this.props.params.id
+    let gamePayLoad = {
+      type: "gem-placement",
+      currentUser: this.state.currentUser,
+      currentGame: current_game
+    }
+    fetch(`/api/v1/games/${current_game}`, {
+      credentials: 'same-origin',
+      method: "PATCH",
+      body: JSON.stringify(gamePayLoad),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        return response
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+        error = new Error(errorMessage)
+        throw error
+      }
+    })
+    .then(response => response.json())
+    .then(body => {
+      this.setState({
+
+      })
+    })
   }
   
   render() {
