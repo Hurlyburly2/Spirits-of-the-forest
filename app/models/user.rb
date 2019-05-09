@@ -8,8 +8,4 @@ class User < ApplicationRecord
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-         
-   def after_database_authentication
-     Appstamp.check_for_inactive_games
-   end
 end

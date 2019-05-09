@@ -1,5 +1,7 @@
 class Api::V1::GamesController < ApplicationController
   def index
+    Appstamp.check_for_inactive_games
+    
     games = current_user.games
     serialized_games = games.map do |game|
       match = game.matches.where(user: current_user)[0]
