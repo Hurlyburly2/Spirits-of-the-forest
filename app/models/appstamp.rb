@@ -8,9 +8,18 @@ class Appstamp < ApplicationRecord
     if (Time.now - last_check) / 1.minute > idle_duration
       games_to_check = Game.all
       idle_games = []
+      concede_games = []
       games_to_check.each do |game|
-        if (Time.now - game.updated_at) / 1.minute > idle_duration
+        user = User.find(game.whose_turn_id)
+        current_match = game.matches.where(user: user)[0]
+        if (Time.now - game.updated_at) / 1.minute > idle_duration && current_match.reminded == false
           idle_games << game
+          current_match.reminded = true
+          current_match.save
+          binding.pry
+        elsif (Time.now - game.updated_at) / 1.minute > idle_duration && current_match.reminded == true
+          binding.pry
+          #CONCEDE GAME IN HERE
         end
       end
       
