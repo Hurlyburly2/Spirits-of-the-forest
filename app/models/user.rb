@@ -10,6 +10,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
          
    def after_database_authentication
-     binding.pry
+     Appstamp.check_for_inactive_games
    end
 end
