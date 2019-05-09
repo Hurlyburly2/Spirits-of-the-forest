@@ -10,6 +10,7 @@ export const CardContainer = (props) => {
   let row_two = []
   let row_three = []
   let row_four = []
+  //props.GemMode
   
   if (props.gameState === "pending") {
     statusText = "Waiting on Opponent"
@@ -44,17 +45,27 @@ export const CardContainer = (props) => {
         if (props.selected.includes(card.id)) {
           selectedClass = "card-selected"
         }
+        let cardFunction
+        if (props.gemMode === false) {
+          cardFunction = props.handleSelectCard
+        } else if (props.gemMode === true) {
+          cardFunction = props.handleGemPlacement
+        }
         row_one.push(<CardTile
           key={card.id}
           id={card.id}
           which_card={card}
-          handleSelectCard={props.handleSelectCard}
+          handleSelectCard={cardFunction}
           selectedClass={selectedClass}
           token={token}
           type="card-in-game"
           />)
         } else {
-          row_one.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={""} token={token} type="card-in-game"/>)
+          let cardFunction = ""
+          if (props.gemMode === true) {
+            cardFunction = props.handleGemPlacement
+          }
+          row_one.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={cardFunction} token={token} type="card-in-game"/>)
         }
       counter++
     })
@@ -79,17 +90,27 @@ export const CardContainer = (props) => {
         if (props.selected.includes(card.id)) {
           selectedClass = "card-selected"
         }
+        let cardFunction
+        if (props.gemMode === false) {
+          cardFunction = props.handleSelectCard
+        } else if (props.gemMode === true) {
+          cardFunction = props.handleGemPlacement
+        }
         row_two.push(<CardTile
           key={card.id}
           id={card.id}
           which_card={card}
-          handleSelectCard={props.handleSelectCard}
+          handleSelectCard={cardFunction}
           selectedClass={selectedClass}
           token={token}
           type="card-in-game"
           />)
       } else {
-        row_two.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={""} token={token} type="card-in-game"/>)
+        let cardFunction = ""
+        if (props.gemMode === true) {
+          cardFunction = props.handleGemPlacement
+        }
+        row_two.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={cardFunction} token={token} type="card-in-game"/>)
       }
       counter++
     })
@@ -113,17 +134,27 @@ export const CardContainer = (props) => {
         if (props.selected.includes(card.id)) {
           selectedClass = "card-selected"
         }
+        let cardFunction
+        if (props.gemMode === false) {
+          cardFunction = props.handleSelectCard
+        } else if (props.gemMode === true) {
+          cardFunction = props.handleGemPlacement
+        }
         row_three.push(<CardTile
           key={card.id}
           id={card.id}
           which_card={card}
-          handleSelectCard={props.handleSelectCard}
+          handleSelectCard={cardFunction}
           selectedClass={selectedClass}
           token={token}
           type="card-in-game"
           />)
       } else {
-        row_three.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={""} token={token} type="card-in-game"/>)
+        let cardFunction = ""
+        if (props.gemMode === true) {
+          cardFunction = props.handleGemPlacement
+        }
+        row_three.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={cardFunction} token={token} type="card-in-game"/>)
       }
       counter++
     })
@@ -147,17 +178,27 @@ export const CardContainer = (props) => {
         if (props.selected.includes(card.id)) {
           selectedClass = "card-selected"
         }
+        let cardFunction
+        if (props.gemMode === false) {
+          cardFunction = props.handleSelectCard
+        } else if (props.gemMode === true) {
+          cardFunction = props.handleGemPlacement
+        }
         row_four.push(<CardTile
           key={card.id}
           id={card.id}
           which_card={card}
-          handleSelectCard={props.handleSelectCard}
+          handleSelectCard={cardFunction}
           selectedClass={selectedClass}
           token={token}
           type="card-in-game"
           />)
       } else {
-        row_four.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={""} token={token} type="card-in-game"/>)
+        let cardFunction = ""
+        if (props.gemMode === true) {
+          cardFunction = props.handleGemPlacement
+        }
+        row_four.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={cardFunction} token={token} type="card-in-game"/>)
       }
       counter++
     })

@@ -41,6 +41,7 @@ class GameplayContainer extends Component {
     this.confirmCardSelection = this.confirmCardSelection.bind(this)
     this.togglePlayerCollectedTile = this.togglePlayerCollectedTile.bind(this)
     this.toggleOpponentCollectedTile = this.toggleOpponentCollectedTile.bind(this)
+    this.gemModeToggle = this.gemModeToggle.bind(this)
     this.gemPlacement = this.gemPlacement.bind(this)
   }
   
@@ -334,7 +335,7 @@ class GameplayContainer extends Component {
     }
   }
   
-  gemPlacement() {
+  gemModeToggle() {
     if (this.state.gemMode === true) {
       let backgroundDiv = document.getElementById('overlay') 
       backgroundDiv.classList.remove('gemMode')
@@ -350,6 +351,10 @@ class GameplayContainer extends Component {
         gemMode: true
       })
     }
+  }
+  
+  gemPlacement(event) {
+    alert(event.target.id)
   }
   
   render() {
@@ -370,6 +375,7 @@ class GameplayContainer extends Component {
     let yourGems = []
     let opponentGems = []
     let gemButton
+    let handleGemToggle = () => { this.gemModeToggle() }
     let handleGemPlacement = () => { this.gemPlacement() }
     
     if (this.state.gameState === "play"){
@@ -398,6 +404,12 @@ class GameplayContainer extends Component {
         if (this.state.whose_turn.id === this.state.currentUser.id) {
           message = "Your Turn"
           confirmButton = <li onClick={handleConfirmCardSelection}>CONFIRM SELECTION</li>
+          
+          if (this.state.yourTotalGems > 0 && this.state.gemMode === false) {
+            gemButton = <li onClick={handleGemToggle}>Place Gems</li>
+          } else if (this.state.yourTotalGems > 0 && this.state.gemMode === true) {
+            gemButton = <li onClick={handleGemToggle}>Pick Cards</li>
+          }
         } else {
           message = `${this.state.whose_turn.username}'s Turn`
         }
@@ -406,11 +418,6 @@ class GameplayContainer extends Component {
       endGame = "CONCEDE"
       errorMessage = this.state.errorMessage
       
-      if (this.state.yourTotalGems > 0 && this.state.gemMode === false) {
-        gemButton = <li onClick={handleGemPlacement}>Place Gems</li>
-      } else if (this.state.yourTotalGems > 0 && this.state.gemMode === true) {
-        gemButton = <li onClick={handleGemPlacement}>Pick Cards</li>
-      }
       if (this.state.yourGems > 0) {
         let counter = this.state.yourGems
         while (counter > 0) {
@@ -460,6 +467,8 @@ class GameplayContainer extends Component {
           handleSelectCard={this.selectCard}
           checkTurn={this.checkTurn}
           selected={this.state.selected}
+          gemMode={this.state.gemMode}
+          handleGemPlacement={this.gemPlacement}
         />
         <p className="errorText">{this.state.errorMessage}</p>
         <ul className="gamePlayButtons">
