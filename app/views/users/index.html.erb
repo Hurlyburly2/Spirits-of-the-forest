@@ -26,6 +26,17 @@
     <% end %>
     </ul>
     
+    
+    <%= form_for(@user) do |f| %>
+     
+    <%= f.label :reminders, "Email Reminders:" %>
+    <%= f.collection_radio_buttons(:reminders, @options, :first, :last)  %>
+
+     <div class="actions">
+       <%= f.submit "Update Email Preferences" %>
+     </div>
+    <% end %>
+    
   </div>
 
 </div>

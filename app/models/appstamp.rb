@@ -16,9 +16,7 @@ class Appstamp < ApplicationRecord
           idle_games << game
           current_match.reminded = true
           current_match.save
-          binding.pry
         elsif (Time.now - game.updated_at) / 1.minute > idle_duration && current_match.reminded == true
-          binding.pry
           #CONCEDE GAME IN HERE
         end
       end
