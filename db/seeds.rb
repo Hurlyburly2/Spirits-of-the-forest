@@ -143,3 +143,5 @@ Token.create(spirit: "sun", image_url: "/tokens/SunToken.png")
 Token.create(spirit: "vine", image_url: "/tokens/VineToken.png")
 
 Token.create(spirit: "wind", image_url: "/tokens/WindToken.png")
+
+Appstamp.create(last_activity_check: DateTime.now)

@@ -1,5 +1,7 @@
 class Api::V1::GamesController < ApplicationController
   def index
+    Appstamp.check_for_inactive_games
+    
     games = current_user.games
     serialized_games = games.map do |game|
       match = game.matches.where(user: current_user)[0]
@@ -38,8 +40,8 @@ class Api::V1::GamesController < ApplicationController
     cards = [].to_json
     score = nil
     concession = current_game.concession
-    your_tokens = []
-    opponent_tokens = []
+    your_tokens = [].to_json
+    opponent_tokens = [].to_json
     if (current_game.users.length == 2 && current_game.users.include?(current_user))
       #THIS IS AN IN-PROGRESS GAME OR A COMPLETED/CONCEDED GAME
       if current_game.winner_id == nil
