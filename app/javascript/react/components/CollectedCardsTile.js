@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 
 import CardTile from './CardTile'
+import TokenTile from './TokenTile'
 
 const CollectedCardsTile = (props) => {
   let whoseClassName
@@ -121,6 +122,11 @@ const CollectedCardsTile = (props) => {
     )
   })
   
+  debugger
+  let collectedTokens = props.tokens.map((token) => {
+    return(<TokenTile token={token} type="CollectedCardsDisplay" whose={props.whose}/>)
+  })
+  
   
   return(
     <div className ={whoseClassName} onClick={props.toggleAppearance}>
@@ -134,6 +140,7 @@ const CollectedCardsTile = (props) => {
       {mushroomCardTiles}
       {spiderCardTiles}
       {vineCardTiles}
+      {collectedTokens}
     </div>
   )
 }

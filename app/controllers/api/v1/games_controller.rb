@@ -20,7 +20,7 @@ class Api::V1::GamesController < ApplicationController
   def create
     data = JSON.parse(request.body.read)
     new_game = Game.new
-    new_match = Match.new(user: User.find(data["id"]), game: new_game, selected_cards: [], tokens: [])
+    new_match = Match.new(user: User.find(data["id"]), game: new_game, selected_cards: [], tokens: [].to_json)
     if new_game.save && new_match.save
       new_game = GameIndexSerializer.new(new_game)
       
@@ -76,7 +76,7 @@ class Api::V1::GamesController < ApplicationController
       gameState = "play"
       current_game = Game.find(params["id"])
       current_game.whose_turn_id = current_user.id
-      new_match = Match.create(game: current_game, user: current_user, selected_cards: [], tokens: [])
+      new_match = Match.create(game: current_game, user: current_user, selected_cards: [], tokens: [].to_json)
       user = current_user
       opponent = current_game.users.where.not(username: current_user.username)
       opponent = UserSerializer.new(opponent[0])
@@ -94,7 +94,6 @@ class Api::V1::GamesController < ApplicationController
     if opponent
       opponent_cards = current_game.matches.where.not(user: current_user)[0].selected_cards
     end
-    
     render json: {
       gameState: gameState,
       currentUser: user,
@@ -241,11 +240,15 @@ class Api::V1::GamesController < ApplicationController
          end
        end
      end
-     
      previously_selected_cards = JSON.parse(current_match.selected_cards)
      all_selected_cards = previously_selected_cards + cards_to_remove
      current_match.selected_cards = all_selected_cards.to_json
-     current_match.tokens = tokens.to_json
+     
+     previous_tokens = JSON.parse(current_match.tokens)
+     tokens.each do |token|
+       previous_tokens << token
+     end
+     current_match.tokens = previous_tokens.to_json
      current_match.save
     else
       error = "It isn't your turn!"
@@ -336,9 +339,11 @@ class Api::V1::GamesController < ApplicationController
       },
       "winning" => nil
     }
-    
     current_player_cards = JSON.parse(current_game.matches.where(user: current_player)[0].selected_cards)
+    current_player_tokens = JSON.parse(current_game.matches.where(user:current_player)[0].tokens)
+    
     opponent_cards = JSON.parse(current_game.matches.where(user: opponent)[0].selected_cards)
+    opponent_tokens = JSON.parse(current_game.matches.where(user: opponent)[0].tokens)
     
     current_player_cards.each do |card|
       score["user"][card["spirit"]] += card["spirit_points"]
@@ -351,6 +356,10 @@ class Api::V1::GamesController < ApplicationController
       end
     end
     
+    current_player_tokens.each do |token|
+      score["user"][token["spirit"]] += 1
+    end
+    
     opponent_cards.each do |card|
       score["opponent"][card["spirit"]] += card["spirit_points"]
       if card["element"] == "sun"
@@ -360,6 +369,10 @@ class Api::V1::GamesController < ApplicationController
       elsif card["element"] == "wind"
         score["opponent"]["wind"] += 1
       end
+    end
+    
+    opponent_tokens.each do |token|
+      score["opponent"][token["spirit"]] += 1
     end
     
     if score["user"]["branch"] > score["opponent"]["branch"]

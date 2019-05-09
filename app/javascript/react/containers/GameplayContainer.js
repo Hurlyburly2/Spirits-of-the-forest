@@ -42,7 +42,7 @@ class GameplayContainer extends Component {
   }
   
   componentDidMount() {
-    let refreshInterval = 100000 //This should be 5000 in release version
+    let refreshInterval = 100000000 //This should be 5000 in release version
     this.refreshInterval = setInterval(() => this.getGameData(), refreshInterval);
     this.getGameData();
   }
@@ -67,7 +67,6 @@ class GameplayContainer extends Component {
       if (opponentCardJSON === "none") {
         opponentCardJSON = []
       }
-      debugger
       this.setState({
         gameState: body.gameState,
         currentUser: body.currentUser,
@@ -126,7 +125,8 @@ class GameplayContainer extends Component {
           yourCards: JSON.parse(body.yourcards),
           opponentCards: JSON.parse(body.opponentcards),
           errorMessage: body.errorMessage,
-          score: JSON.parse(body.score)
+          score: JSON.parse(body.score),
+          yourTokens: JSON.parse(body.tokens)
         })
       })
     } else {
@@ -354,6 +354,7 @@ class GameplayContainer extends Component {
             toggleAppearance={this.togglePlayerCollectedTile}
             name={this.state.currentUser.username}
             cards={this.state.yourCards}
+            tokens={this.state.yourTokens}
           />
         } else if (this.state.showCollectedTile === "opponent") {
           showCollectedCards = <CollectedCardsTile
@@ -361,6 +362,7 @@ class GameplayContainer extends Component {
             toggleAppearance={this.toggleOpponentCollectedTile}
             name={this.state.opponent.username}
             cards={this.state.opponentCards}
+            tokens={this.state.opponentTokens}
           />
         }
         
@@ -385,7 +387,9 @@ class GameplayContainer extends Component {
       backButton = <li onClick={handleDeleteGame}>OK</li>
       completeScreen = <EndGameTile 
                           yourCards={this.state.yourCards}
+                          yourTokens={this.state.yourTokens}
                           opponentCards={this.state.opponentCards}
+                          opponentTokens={this.state.opponentTokens}
                           currentUser={this.state.currentUser}
                           opponent={this.state.opponent}
                           score={this.state.score}
