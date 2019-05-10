@@ -98,6 +98,10 @@ class Api::V1::GamesController < ApplicationController
       cards = Card.new_game_state(current_game)
       
       whose_turn = UserSerializer.new(User.find(current_game.whose_turn_id))
+      your_gems = current_game.matches.where(user: current_user)[0].gems_possessed
+      your_total_gems = current_game.matches.where(user: current_user)[0].gems_total
+      opponent_gems = current_game.matches.where.not(user: current_user)[0].gems_possessed
+      opponent_total_gems = current_game.matches.where.not(user: current_user)[0].gems_total
     else
       #ELSE ALREADY TWO USERS AND NEITHER ARE CURRENT USER OR NO USERS
       #THIS GAME NO LONGER EXISTS ERROR
@@ -126,7 +130,8 @@ class Api::V1::GamesController < ApplicationController
       yourTotalGems: your_total_gems,
       opponentTokens: opponent_tokens,
       opponentGems: opponent_gems,
-      opponentTotalGems: opponent_total_gems
+      opponentTotalGems: opponent_total_gems,
+      gemPlaced: current_game.gem_placed
     }
   end
   
@@ -178,149 +183,338 @@ class Api::V1::GamesController < ApplicationController
   end
   
   def update
-    user = User.find(params["currentUser"]["id"])
-    game = Game.find(params["id"])
-    cards = JSON.parse(game.gamestate)
-    selected_cards = params["selected"]
-    error = ""
-    opponent = game.users.where.not(username: user.username)[0]
-    current_match = game.matches.where(user: user)[0]
-    score = nil
-    tokens = []
-    
-    if game.whose_turn_id == user.id
-      cards_to_remove = params["selected"].map do |selected_card|
-        Card.find(selected_card)
-      end
+    if params["type"] == "card-selection"
+      user = User.find(params["currentUser"]["id"])
+      game = Game.find(params["id"])
+      cards = JSON.parse(game.gamestate)
+      selected_cards = params["selected"]
+      error = ""
+      opponent = game.users.where.not(username: user.username)[0]
+      current_match = game.matches.where(user: user)[0]
+      score = nil
+      tokens = []
       
-      cards_to_remove.each do |card|
-       if cards["row_one"].any? { |find_card| find_card["id"] == card[:id]}
-         if cards["row_one"][0]["id"] == card[:id]
-           if cards["row_one"][0]["token"]
-             tokens << cards["row_one"][0]["token"]
+      if game.whose_turn_id == user.id
+        cards_to_remove = params["selected"].map do |selected_card|
+          Card.find(selected_card)
+        end
+        
+        cards_to_remove.each do |card|
+         if cards["row_one"].any? { |find_card| find_card["id"] == card[:id]}
+           if cards["row_one"][0]["id"] == card[:id]
+             if cards["row_one"][0]["token"]
+               tokens << cards["row_one"][0]["token"]
+             end
+             if cards["row_one"][0]["gem"]
+               current_match.gems_possessed += 1
+               current_match.save
+             end
+             cards["row_one"].shift
+           elsif cards["row_one"].last["id"] == card[:id]
+             if cards["row_one"].last["token"]
+               tokens << cards["row_one"].last["token"]
+             end
+             if cards["row_one"].last["gem"]
+               current_match.gems_possessed += 1
+               current_match.save
+             end
+             cards["row_one"].pop
+           else
+             error = "Invalid selection"
            end
-           cards["row_one"].shift
-         elsif cards["row_one"].last["id"] == card[:id]
-           if cards["row_one"].last["token"]
-             tokens << cards["row_one"].last["token"]
+         end
+         
+         if cards["row_two"].any? { |find_card| find_card["id"] == card[:id]}
+           if cards["row_two"][0]["id"] == card[:id]
+             if cards["row_two"][0]["token"]
+               tokens << cards["row_two"][0]["token"]
+             end
+             cards["row_two"].shift
+           elsif cards["row_two"].last["id"] == card[:id]
+             if cards["row_two"].last["token"]
+               tokens << cards["row_two"].last["token"]
+             end
+             cards["row_two"].pop
+           else
+             error = "Invalid selection"
            end
-           cards["row_one"].pop
-         else
-           error = "Invalid selection"
+         end
+         
+         if cards["row_three"].any? { |find_card| find_card["id"] == card[:id]}
+           if cards["row_three"][0]["id"] == card[:id]
+             if cards["row_three"][0]["token"]
+               tokens << cards["row_three"][0]["token"]
+             end
+             cards["row_three"].shift
+           elsif cards["row_three"].last["id"] == card[:id]
+             if cards["row_three"].last["token"]
+               tokens << cards["row_three"].last["token"]
+             end
+             cards["row_three"].pop
+           else
+             error = "Invalid selection"
+           end
+         end
+         
+         if cards["row_four"].any? { |find_card| find_card["id"] == card[:id]}
+           if cards["row_four"][0]["id"] == card[:id]
+             if cards["row_four"][0]["token"]
+               tokens << cards["row_four"][0]["token"]
+             end
+             cards["row_four"].shift
+           elsif cards["row_four"].last["id"] == card[:id]
+             if cards["row_four"].last["token"]
+               tokens << cards["row_four"].last["token"]
+             end
+             cards["row_four"].pop
+           else
+             error = "Invalid selection"
+           end
          end
        end
+       previously_selected_cards = JSON.parse(current_match.selected_cards)
+       all_selected_cards = previously_selected_cards + cards_to_remove
+       current_match.selected_cards = all_selected_cards.to_json
        
-       if cards["row_two"].any? { |find_card| find_card["id"] == card[:id]}
-         if cards["row_two"][0]["id"] == card[:id]
-           if cards["row_two"][0]["token"]
-             tokens << cards["row_two"][0]["token"]
-           end
-           cards["row_two"].shift
-         elsif cards["row_two"].last["id"] == card[:id]
-           if cards["row_two"].last["token"]
-             tokens << cards["row_two"].last["token"]
-           end
-           cards["row_two"].pop
-         else
-           error = "Invalid selection"
-         end
+       previous_tokens = JSON.parse(current_match.tokens)
+       tokens.each do |token|
+         previous_tokens << token
        end
-       
-       if cards["row_three"].any? { |find_card| find_card["id"] == card[:id]}
-         if cards["row_three"][0]["id"] == card[:id]
-           if cards["row_three"][0]["token"]
-             tokens << cards["row_three"][0]["token"]
-           end
-           cards["row_three"].shift
-         elsif cards["row_three"].last["id"] == card[:id]
-           if cards["row_three"].last["token"]
-             tokens << cards["row_three"].last["token"]
-           end
-           cards["row_three"].pop
-         else
-           error = "Invalid selection"
-         end
-       end
-       
-       if cards["row_four"].any? { |find_card| find_card["id"] == card[:id]}
-         if cards["row_four"][0]["id"] == card[:id]
-           if cards["row_four"][0]["token"]
-             tokens << cards["row_four"][0]["token"]
-           end
-           cards["row_four"].shift
-         elsif cards["row_four"].last["id"] == card[:id]
-           if cards["row_four"].last["token"]
-             tokens << cards["row_four"].last["token"]
-           end
-           cards["row_four"].pop
-         else
-           error = "Invalid selection"
-         end
-       end
-     end
-     previously_selected_cards = JSON.parse(current_match.selected_cards)
-     all_selected_cards = previously_selected_cards + cards_to_remove
-     current_match.selected_cards = all_selected_cards.to_json
-     
-     previous_tokens = JSON.parse(current_match.tokens)
-     tokens.each do |token|
-       previous_tokens << token
-     end
-     current_match.tokens = previous_tokens.to_json
-     current_match.save
-    else
-      error = "It isn't your turn!"
-    end
-    
-    gameState = "play"
-    winner = nil
-    if cards["row_one"].length + cards["row_two"].length + cards["row_three"].length + cards["row_four"].length == 0
-      gameState = "complete"
-      game.gamestate = nil
-      game.whose_turn_id = nil
-      
-      score = getScore(user, opponent, game)
-      if score["user"]["total"] > score["opponent"]["total"]
-        user.wins = user.wins + 1
-        opponent.losses = opponent.losses + 1
-        user = ranking_change(user, "win")
-        opponent = ranking_change(opponent, "loss")
-      elsif score["user"]["total"] < score["opponent"]["total"]
-        user.losses = user.losses + 1
-        opponent.wins = opponent.wins + 1
-        user = ranking_change(user, "loss")
-        opponent = ranking_change(opponent, "win")
+       current_match.tokens = previous_tokens.to_json
+       current_match.save
       else
-        user.wins = user.wins + 1
-        opponent.wins = opponent.wins + 1
-        user = ranking_change(user, "win")
-        opponent = ranking_change(opponent, "win")
+        error = "It isn't your turn!"
       end
       
-      user.save
-      opponent.save
-      game.winner_id = game.users[0].id
+      gameState = "play"
+      winner = nil
+      if cards["row_one"].length + cards["row_two"].length + cards["row_three"].length + cards["row_four"].length == 0
+        gameState = "complete"
+        game.gamestate = nil
+        game.whose_turn_id = nil
+        
+        score = getScore(user, opponent, game)
+        if score["user"]["total"] > score["opponent"]["total"]
+          user.wins = user.wins + 1
+          opponent.losses = opponent.losses + 1
+          user = ranking_change(user, "win")
+          opponent = ranking_change(opponent, "loss")
+        elsif score["user"]["total"] < score["opponent"]["total"]
+          user.losses = user.losses + 1
+          opponent.wins = opponent.wins + 1
+          user = ranking_change(user, "loss")
+          opponent = ranking_change(opponent, "win")
+        else
+          user.wins = user.wins + 1
+          opponent.wins = opponent.wins + 1
+          user = ranking_change(user, "win")
+          opponent = ranking_change(opponent, "win")
+        end
+        
+        user.save
+        opponent.save
+        game.winner_id = game.users[0].id
+      end
+      
+      game.gamestate = cards.to_json
+      game.whose_turn_id = opponent.id
+      game.gem_placed = false
+      opponent = UserSerializer.new(opponent)
+      opponent_cards = game.matches.where.not(user: user)[0].selected_cards
+      game.save
+      render json: {
+        gameState: gameState,
+        currentUser: user,
+        opponent: opponent,
+        cards: cards.to_json,
+        whose_turn: opponent,
+        card_reference: Card.all,
+        errorMessage: error,
+        winner: winner,
+        yourcards: current_match.selected_cards,
+        opponentcards: opponent_cards,
+        score: score.to_json,
+        tokens: current_match.tokens,
+        gemPlaced: game.gem_placed,
+        yourGems: current_match.gems_possessed
+      }
+    elsif params["type"] == "gem-placement"
+      current_game = Game.find(params["currentGame"])
+      current_game_gameState = JSON.parse(current_game.gamestate)
+      user = User.find(params["currentUser"]["id"])
+      current_match = current_game.matches.where(user: user)[0]
+      opponent_match = current_game.matches.where.not(user: user)[0]
+      error_message = ""
+      
+      if current_game_gameState["row_one"].any? { |card| card["id"] == params["gemmedCard"] }
+        card_to_gem_index = current_game_gameState["row_one"].index{ |card| card["id"] == params["gemmedCard"] }
+        if current_game_gameState["row_one"][card_to_gem_index]["gem"] #IF THE CARD HAS A GEM
+          if current_game_gameState["row_one"][card_to_gem_index]["gem"]["id"] == user.id
+            current_game_gameState["row_one"][card_to_gem_index].delete("gem")
+            current_match.gems_possessed += 1
+            current_match.save
+          else
+            #OPPONENT GEM LOGIC
+            if current_match.gems_possessed > 0 && current_game.gem_placed == false
+              current_game_gameState["row_one"][card_to_gem_index].delete("gem")
+              current_game.gem_placed = true
+              current_game.save
+              current_match.gems_possessed -= 1
+              current_match.gems_total -= 1
+              current_match.save
+              opponent_match.gems_possessed += 1
+              opponent_match.save
+            elsif current_match.gems_possessed > 0 && current_game.gem_placed == true
+              error_message = "You have already placed a gem this turn"
+            else
+              error_message = "You need to be holding a gem in order to remove your opponent's"
+            end
+          end
+        else #IF THE CARD DOES NOT HAVE A GEM
+          if current_match.gems_possessed > 0 && current_game.gem_placed == false
+            card_to_gem_index = current_game_gameState["row_one"].index{ |card| card["id"] == params["gemmedCard"] }
+            current_game_gameState["row_one"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+            current_game.gem_placed = true
+            current_game.save
+            current_match.gems_possessed -= 1
+            current_match.save
+          elsif current_match.gems_possessed > 0 && current_game.gem_placed == true
+            error_message = "You have already placed a gem this turn"
+          else
+            error_message = "You don't have any gems left to place!"
+          end
+        end
+        
+      elsif current_game_gameState["row_two"].any? { |card| card["id"] == params["gemmedCard"] }
+        card_to_gem_index = current_game_gameState["row_two"].index{ |card| card["id"] == params["gemmedCard"] }
+        if current_game_gameState["row_two"][card_to_gem_index]["gem"] #IF THE CARD HAS A GEM
+          if current_game_gameState["row_two"][card_to_gem_index]["gem"]["id"] == user.id
+            current_game_gameState["row_two"][card_to_gem_index].delete("gem")
+            current_match.gems_possessed += 1
+            current_match.save
+          else
+            #OPPONENT GEM LOGIC
+            if current_match.gems_possessed > 0 && current_game.gem_placed == false
+              current_game_gameState["row_two"][card_to_gem_index].delete("gem")
+              current_game.gem_placed = true
+              current_game.save
+              current_match.gems_possessed -= 1
+              current_match.gems_total -= 1
+              current_match.save
+              opponent_match.gems_possessed += 1
+              opponent_match.save
+            elsif current_match.gems_possessed > 0 && current_game.gem_placed == true
+              error_message = "You have already placed a gem this turn"
+            else
+              error_message = "You need to be holding a gem in order to remove your opponent's"
+            end
+          end
+        else #IF THE CARD DOES NOT HAVE A GEM
+          if current_match.gems_possessed > 0 && current_game.gem_placed == false
+            card_to_gem_index = current_game_gameState["row_two"].index{ |card| card["id"] == params["gemmedCard"] }
+            current_game_gameState["row_two"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+            current_game.gem_placed = true
+            current_game.save
+            current_match.gems_possessed -= 1
+            current_match.save
+          elsif current_match.gems_possessed > 0 && current_game.gem_placed == true
+            error_message = "You have already placed a gem this turn"
+          else
+            error_message = "You don't have any gems left to place!"
+          end
+        end
+        
+      elsif current_game_gameState["row_three"].any? { |card| card["id"] == params["gemmedCard"] }
+        card_to_gem_index = current_game_gameState["row_three"].index{ |card| card["id"] == params["gemmedCard"] }
+        if current_game_gameState["row_three"][card_to_gem_index]["gem"] #IF THE CARD HAS A GEM
+          if current_game_gameState["row_three"][card_to_gem_index]["gem"]["id"] == user.id
+            current_game_gameState["row_three"][card_to_gem_index].delete("gem")
+            current_match.gems_possessed += 1
+            current_match.save
+          else
+            #OPPONENT GEM LOGIC
+            if current_match.gems_possessed > 0 && current_game.gem_placed == false
+              current_game_gameState["row_three"][card_to_gem_index].delete("gem")
+              current_game.gem_placed = true
+              current_game.save
+              current_match.gems_possessed -= 1
+              current_match.gems_total -= 1
+              current_match.save
+              opponent_match.gems_possessed += 1
+              opponent_match.save
+            elsif current_match.gems_possessed && current_game.gem_placed == true
+              error_message = "You have already placed a gem this turn"
+            else
+              error_message = "You need to be holding a gem in order to remove your opponent's"
+            end
+          end
+        else #IF THE CARD DOES NOT HAVE A GEM
+          if current_match.gems_possessed > 0 && current_game.gem_placed == false
+            card_to_gem_index = current_game_gameState["row_three"].index{ |card| card["id"] == params["gemmedCard"] }
+            current_game_gameState["row_three"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+            current_game.gem_placed = true
+            current_game.save
+            current_match.gems_possessed -= 1
+            current_match.save
+          elsif current_match.gems_possessed > 0 && current_game.gem_placed == true
+            error_message = "You have already placed a gem this turn"
+          else
+            error_message = "You don't have any gems left to place!"
+          end
+        end
+        
+      elsif current_game_gameState["row_four"].any? { |card| card["id"] == params["gemmedCard"] }
+        card_to_gem_index = current_game_gameState["row_four"].index{ |card| card["id"] == params["gemmedCard"] }
+        if current_game_gameState["row_four"][card_to_gem_index]["gem"] #IF THE CARD HAS A GEM
+          if current_game_gameState["row_four"][card_to_gem_index]["gem"]["id"] == user.id
+            current_game_gameState["row_four"][card_to_gem_index].delete("gem")
+            current_match.gems_possessed += 1
+            current_match.save
+          else
+            #OPPONENT GEM LOGIC
+            if current_match.gems_possessed > 0 && current_game.gem_placed == false
+              current_game_gameState["row_four"][card_to_gem_index].delete("gem")
+              current_game.gem_placed = true
+              current_game.save
+              current_match.gems_possessed -= 1
+              current_match.gems_total -= 1
+              current_match.save
+              opponent_match.gems_possessed += 1
+              opponent_match.save
+            elsif current_match.gems_possessed > 0 && current_game.gem_placed == true
+              error_message = "You have already placed a gem this turn"
+            else
+              error_message = "You need to be holding a gem in order to remove your opponent's"
+            end
+          end
+        else #IF THE CARD DOES NOT HAVE A GEM
+          if current_match.gems_possessed > 0 && current_game.gem_placed == false
+            card_to_gem_index = current_game_gameState["row_four"].index{ |card| card["id"] == params["gemmedCard"] }
+            current_game_gameState["row_four"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+            current_game.gem_placed = true
+            current_game.save
+            current_match.gems_possessed -= 1
+            current_match.save
+          elsif current_match.gems_possessed > 0 && current_game.gem_placed == true
+            error_message = "You have already placed a gem this turn"
+          else
+            error_message = "You don't have any gems left to place!"
+          end
+        end
+      end
+      
+      current_game.gamestate = current_game_gameState.to_json
+      current_game.save
+      
+      render json: {
+        cards: current_game_gameState.to_json,
+        yourGems: current_match.gems_possessed,
+        yourTotalGems: current_match.gems_total,
+        opponentGems: opponent_match.gems_possessed,
+        errorMessage: error_message,
+        gemPlaced: current_game.gem_placed
+      }
     end
-    
-    game.gamestate = cards.to_json
-    game.whose_turn_id = opponent.id
-    opponent = UserSerializer.new(opponent)
-    opponent_cards = game.matches.where.not(user: user)[0].selected_cards
-    game.save
-    render json: {
-      gameState: gameState,
-      currentUser: user,
-      opponent: opponent,
-      cards: cards.to_json,
-      whose_turn: opponent,
-      card_reference: Card.all,
-      errorMessage: error,
-      winner: winner,
-      yourcards: current_match.selected_cards,
-      opponentcards: opponent_cards,
-      score: score.to_json,
-      tokens: current_match.tokens
-    }
   end
   
   def getScore(current_player, opponent, current_game)
