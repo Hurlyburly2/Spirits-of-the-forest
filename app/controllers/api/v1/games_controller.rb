@@ -327,16 +327,38 @@ class Api::V1::GamesController < ApplicationController
       current_game_gameState = JSON.parse(current_game.gamestate)
       user = User.find(params["currentUser"]["id"])
       current_match = current_game.matches.where(user: user)[0]
+      opponent_match = current_game.matches.where.not(user: user)[0]
       error_message = ""
       
       if current_game_gameState["row_one"].any? { |card| card["id"] == params["gemmedCard"] }
-        if current_match.gems_possessed > 0
-          card_to_gem_index = current_game_gameState["row_one"].index{ |card| card["id"] == params["gemmedCard"] }
-          current_game_gameState["row_one"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
-          current_match.gems_possessed -= 1
-          current_match.save
+        card_to_gem_index = current_game_gameState["row_one"].index{ |card| card["id"] == params["gemmedCard"] }
+        if current_game_gameState["row_one"][card_to_gem_index]["gem"]
+          if current_game_gameState["row_one"][card_to_gem_index]["gem"]["id"] == user.id
+            current_game_gameState["row_one"][card_to_gem_index].delete("gem")
+            current_match.gems_possessed += 1
+            current_match.save
+          else
+            #OPPONENT GEM LOGIC
+            if current_match.gems_possessed > 0
+              current_game_gameState["row_one"][card_to_gem_index].delete("gem")
+              current_match.gems_possessed -= 1
+              current_match.gems_total -= 1
+              current_match.save
+              opponent_match.gems_possessed += 1
+              opponent_match.save
+            else
+              error_message = "You need to be holding a gem in order to remove your opponent's"
+            end
+          end
         else
-          error_message = "You don't have any gems left to place!"
+          if current_match.gems_possessed > 0
+            card_to_gem_index = current_game_gameState["row_one"].index{ |card| card["id"] == params["gemmedCard"] }
+            current_game_gameState["row_one"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+            current_match.gems_possessed -= 1
+            current_match.save
+          else
+            error_message = "You don't have any gems left to place!"
+          end
         end
       elsif current_game_gameState["row_two"].any? { |card| card["id"] == params["gemmedCard"] }
         if current_match.gems_possessed > 0
@@ -373,6 +395,8 @@ class Api::V1::GamesController < ApplicationController
       render json: {
         cards: current_game_gameState.to_json,
         yourGems: current_match.gems_possessed,
+        yourTotalGems: current_match.gems_total,
+        opponentGems: opponent_match.gems_possessed,
         errorMessage: error_message
       }
     end

@@ -34,7 +34,11 @@ class GameplayContainer extends Component {
       yourTokens: [],
       opponentTokens: [],
       something: "jfalsjl",
-      gemMode: false
+      gemMode: false,
+      yourGems: 0,
+      opponentGems: 0,
+      yourTotalGems: 0,
+      opponentTotalGems: 0
     }
     this.selectCard = this.selectCard.bind(this);
     this.checkTurn = this.checkTurn.bind(this);
@@ -385,6 +389,8 @@ class GameplayContainer extends Component {
       this.setState({
         cards: JSON.parse(body.cards),
         yourGems: body.yourGems,
+        yourTotalGems: body.yourTotalGems,
+        opponentGems: body.opponentGems,
         errorMessage: body.errorMessage
       })
     })
