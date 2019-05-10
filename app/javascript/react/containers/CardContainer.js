@@ -51,6 +51,9 @@ export const CardContainer = (props) => {
         } else if (props.gemMode === true) {
           cardFunction = props.handleGemPlacement
         }
+        if (card.gem && card.gem.id !== props.currentUser.id) {
+          cardFunction = props.handleGemmedCard
+        }
         row_one.push(<CardTile
           key={card.id}
           id={card.id}
@@ -97,6 +100,9 @@ export const CardContainer = (props) => {
           cardFunction = props.handleSelectCard
         } else if (props.gemMode === true) {
           cardFunction = props.handleGemPlacement
+        }
+        if (card.gem && card.gem.id !== props.currentUser.id) {
+          cardFunction = props.handleGemmedCard
         }
         row_two.push(<CardTile
           key={card.id}
@@ -145,6 +151,9 @@ export const CardContainer = (props) => {
         } else if (props.gemMode === true) {
           cardFunction = props.handleGemPlacement
         }
+        if (card.gem && card.gem.id !== props.currentUser.id) {
+          cardFunction = props.handleGemmedCard
+        }
         row_three.push(<CardTile
           key={card.id}
           id={card.id}
@@ -191,6 +200,9 @@ export const CardContainer = (props) => {
           cardFunction = props.handleSelectCard
         } else if (props.gemMode === true) {
           cardFunction = props.handleGemPlacement
+        }
+        if (card.gem && card.gem.id !== props.currentUser.id) {
+          cardFunction = props.handleGemmedCard
         }
         row_four.push(<CardTile
           key={card.id}

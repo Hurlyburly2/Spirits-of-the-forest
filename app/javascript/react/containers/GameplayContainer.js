@@ -48,6 +48,7 @@ class GameplayContainer extends Component {
     this.toggleOpponentCollectedTile = this.toggleOpponentCollectedTile.bind(this)
     this.gemModeToggle = this.gemModeToggle.bind(this)
     this.gemPlacement = this.gemPlacement.bind(this)
+    this.selectGemmedCard = this.selectGemmedCard.bind(this)
   }
   
   componentDidMount() {
@@ -400,6 +401,12 @@ class GameplayContainer extends Component {
     })
   }
   
+  selectGemmedCard() {
+    this.setState({
+      errorMessage: "You cannot pick a card with an opponent's gem! You may remove it by destroying one of your own."
+    })
+  }
+  
   render() {
     let statusText
     let currentPlayerName = ""
@@ -513,6 +520,7 @@ class GameplayContainer extends Component {
           gemMode={this.state.gemMode}
           handleGemPlacement={this.gemPlacement}
           currentUser={this.state.currentUser}
+          handleGemmedCard={this.selectGemmedCard}
         />
         <p className="errorText">{this.state.errorMessage}</p>
         <ul className="gamePlayButtons">
