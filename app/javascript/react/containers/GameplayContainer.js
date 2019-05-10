@@ -54,7 +54,7 @@ class GameplayContainer extends Component {
   componentDidMount() {
     let backgroundDiv = document.getElementById('overlay') 
     backgroundDiv.classList.add('overlay')
-    let refreshInterval = 1000000000 //This should be 5000 in release version
+    let refreshInterval = 2000 
     this.refreshInterval = setInterval(() => this.getGameData(), refreshInterval);
     this.getGameData();
   }
@@ -391,7 +391,6 @@ class GameplayContainer extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      debugger
       let whatAboutGemMode = true
       if (body.yourTotalGems < 1) {
         whatAboutGemMode = false
