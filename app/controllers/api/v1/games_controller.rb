@@ -244,6 +244,10 @@ class Api::V1::GamesController < ApplicationController
                end
                tokens << cards["row_two"][0]["token"]
              end
+             if cards["row_two"][0]["gem"]
+               current_match.gems_possessed += 1
+               current_match.save
+             end
              cards["row_two"].shift
            elsif cards["row_two"].last["id"] == card[:id]
              if cards["row_two"].last["token"]
@@ -253,6 +257,10 @@ class Api::V1::GamesController < ApplicationController
                  current_match.save
                end
                tokens << cards["row_two"].last["token"]
+             end
+             if cards["row_two"].last["gem"]
+               current_match.gems_possessed += 1
+               current_match.save
              end
              cards["row_two"].pop
            else
@@ -270,6 +278,10 @@ class Api::V1::GamesController < ApplicationController
                end
                tokens << cards["row_three"][0]["token"]
              end
+             if cards["row_three"][0]["gem"]
+               current_match.gems_possessed += 1
+               current_match.save
+             end
              cards["row_three"].shift
            elsif cards["row_three"].last["id"] == card[:id]
              if cards["row_three"].last["token"]
@@ -279,6 +291,10 @@ class Api::V1::GamesController < ApplicationController
                  current_match.save
                end
                tokens << cards["row_three"].last["token"]
+             end
+             if cards["row_three"].last["gem"]
+               current_match.gems_possessed += 1
+               current_match.save
              end
              cards["row_three"].pop
            else
@@ -296,6 +312,10 @@ class Api::V1::GamesController < ApplicationController
                end
                tokens << cards["row_four"][0]["token"]
              end
+             if cards["row_four"][0]["gem"]
+               current_match.gems_possessed += 1
+               current_match.save
+             end
              cards["row_four"].shift
            elsif cards["row_four"].last["id"] == card[:id]
              if cards["row_four"].last["token"]
@@ -305,6 +325,10 @@ class Api::V1::GamesController < ApplicationController
                  current_match.save
                end
                tokens << cards["row_four"].last["token"]
+             end
+             if cards["row_four"].last["gem"]
+               current_match.gems_possessed += 1
+               current_match.save
              end
              cards["row_four"].pop
            else
