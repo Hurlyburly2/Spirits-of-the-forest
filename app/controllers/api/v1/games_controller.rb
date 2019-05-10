@@ -130,7 +130,8 @@ class Api::V1::GamesController < ApplicationController
       yourTotalGems: your_total_gems,
       opponentTokens: opponent_tokens,
       opponentGems: opponent_gems,
-      opponentTotalGems: opponent_total_gems
+      opponentTotalGems: opponent_total_gems,
+      gemPlaced: current_game.gem_placed
     }
   end
   
@@ -309,6 +310,7 @@ class Api::V1::GamesController < ApplicationController
       
       game.gamestate = cards.to_json
       game.whose_turn_id = opponent.id
+      game.gem_placed = false
       opponent = UserSerializer.new(opponent)
       opponent_cards = game.matches.where.not(user: user)[0].selected_cards
       game.save
@@ -324,7 +326,8 @@ class Api::V1::GamesController < ApplicationController
         yourcards: current_match.selected_cards,
         opponentcards: opponent_cards,
         score: score.to_json,
-        tokens: current_match.tokens
+        tokens: current_match.tokens,
+        gemPlaced: game.gem_placed
       }
     elsif params["type"] == "gem-placement"
       current_game = Game.find(params["currentGame"])
@@ -345,6 +348,8 @@ class Api::V1::GamesController < ApplicationController
             #OPPONENT GEM LOGIC
             if current_match.gems_possessed > 0
               current_game_gameState["row_one"][card_to_gem_index].delete("gem")
+              current_game.gem_placed = true
+              current_game.save
               current_match.gems_possessed -= 1
               current_match.gems_total -= 1
               current_match.save
@@ -358,6 +363,8 @@ class Api::V1::GamesController < ApplicationController
           if current_match.gems_possessed > 0
             card_to_gem_index = current_game_gameState["row_one"].index{ |card| card["id"] == params["gemmedCard"] }
             current_game_gameState["row_one"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+            current_game.gem_placed = true
+            current_game.save
             current_match.gems_possessed -= 1
             current_match.save
           else
@@ -375,6 +382,8 @@ class Api::V1::GamesController < ApplicationController
             #OPPONENT GEM LOGIC
             if current_match.gems_possessed > 0
               current_game_gameState["row_two"][card_to_gem_index].delete("gem")
+              current_game.gem_placed = true
+              current_game.save
               current_match.gems_possessed -= 1
               current_match.gems_total -= 1
               current_match.save
@@ -388,6 +397,8 @@ class Api::V1::GamesController < ApplicationController
           if current_match.gems_possessed > 0
             card_to_gem_index = current_game_gameState["row_two"].index{ |card| card["id"] == params["gemmedCard"] }
             current_game_gameState["row_two"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+            current_game.gem_placed = true
+            current_game.save
             current_match.gems_possessed -= 1
             current_match.save
           else
@@ -405,6 +416,8 @@ class Api::V1::GamesController < ApplicationController
             #OPPONENT GEM LOGIC
             if current_match.gems_possessed > 0
               current_game_gameState["row_three"][card_to_gem_index].delete("gem")
+              current_game.gem_placed = true
+              current_game.save
               current_match.gems_possessed -= 1
               current_match.gems_total -= 1
               current_match.save
@@ -418,6 +431,8 @@ class Api::V1::GamesController < ApplicationController
           if current_match.gems_possessed > 0
             card_to_gem_index = current_game_gameState["row_three"].index{ |card| card["id"] == params["gemmedCard"] }
             current_game_gameState["row_three"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+            current_game.gem_placed = true
+            current_game.save
             current_match.gems_possessed -= 1
             current_match.save
           else
@@ -435,6 +450,8 @@ class Api::V1::GamesController < ApplicationController
             #OPPONENT GEM LOGIC
             if current_match.gems_possessed > 0
               current_game_gameState["row_four"][card_to_gem_index].delete("gem")
+              current_game.gem_placed = true
+              current_game.save
               current_match.gems_possessed -= 1
               current_match.gems_total -= 1
               current_match.save
@@ -448,6 +465,8 @@ class Api::V1::GamesController < ApplicationController
           if current_match.gems_possessed > 0
             card_to_gem_index = current_game_gameState["row_four"].index{ |card| card["id"] == params["gemmedCard"] }
             current_game_gameState["row_four"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+            current_game.gem_placed = true
+            current_game.save
             current_match.gems_possessed -= 1
             current_match.save
           else
@@ -464,7 +483,8 @@ class Api::V1::GamesController < ApplicationController
         yourGems: current_match.gems_possessed,
         yourTotalGems: current_match.gems_total,
         opponentGems: opponent_match.gems_possessed,
-        errorMessage: error_message
+        errorMessage: error_message,
+        gemPlaced: current_game.gem_placed
       }
     end
   end

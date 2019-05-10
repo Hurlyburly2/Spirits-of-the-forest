@@ -38,7 +38,8 @@ class GameplayContainer extends Component {
       yourGems: 0,
       opponentGems: 0,
       yourTotalGems: 0,
-      opponentTotalGems: 0
+      opponentTotalGems: 0,
+      gemPlaced: false
     }
     this.selectCard = this.selectCard.bind(this);
     this.checkTurn = this.checkTurn.bind(this);
@@ -93,7 +94,8 @@ class GameplayContainer extends Component {
         yourTotalGems: body.yourTotalGems,
         opponentTokens: JSON.parse(body.opponentTokens),
         opponentGems: body.opponentGems,
-        opponentTotalGems: body.opponentTotalGems
+        opponentTotalGems: body.opponentTotalGems,
+        gemPlaced: body.gemPlaced
       })
     })
   }
@@ -139,7 +141,8 @@ class GameplayContainer extends Component {
           opponentCards: JSON.parse(body.opponentcards),
           errorMessage: body.errorMessage,
           score: JSON.parse(body.score),
-          yourTokens: JSON.parse(body.tokens)
+          yourTokens: JSON.parse(body.tokens),
+          gemPlaced: body.gemPlaced
         })
       })
     } else {
@@ -391,7 +394,8 @@ class GameplayContainer extends Component {
         yourGems: body.yourGems,
         yourTotalGems: body.yourTotalGems,
         opponentGems: body.opponentGems,
-        errorMessage: body.errorMessage
+        errorMessage: body.errorMessage,
+        gemPlaced: body.gemPlaced
       })
     })
   }
