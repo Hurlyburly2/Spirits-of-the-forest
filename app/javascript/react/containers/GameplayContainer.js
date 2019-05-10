@@ -359,7 +359,8 @@ class GameplayContainer extends Component {
     let gamePayLoad = {
       type: "gem-placement",
       currentUser: this.state.currentUser,
-      currentGame: current_game
+      currentGame: current_game,
+      gemmedCard: parseInt(event.target.id)
     }
     fetch(`/api/v1/games/${current_game}`, {
       credentials: 'same-origin',
@@ -382,7 +383,7 @@ class GameplayContainer extends Component {
     .then(response => response.json())
     .then(body => {
       this.setState({
-
+        cards: JSON.parse(body.cards)
       })
     })
   }

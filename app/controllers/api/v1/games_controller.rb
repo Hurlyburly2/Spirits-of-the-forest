@@ -323,7 +323,29 @@ class Api::V1::GamesController < ApplicationController
         tokens: current_match.tokens
       }
     elsif params["type"] == "gem-placement"
-      binding.pry
+      current_game = Game.find(params["currentGame"])
+      current_game_gameState = JSON.parse(current_game.gamestate)
+      
+      if current_game_gameState["row_one"].any? { |card| card["id"] == params["gemmedCard"] }
+        card_to_gem_index = current_game_gameState["row_one"].index{ |card| card["id"] == params["gemmedCard"] }
+        current_game_gameState["row_one"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+      elsif current_game_gameState["row_two"].any? { |card| card["id"] == params["gemmedCard"] }
+        card_to_gem_index = current_game_gameState["row_two"].index{ |card| card["id"] == params["gemmedCard"] }
+        current_game_gameState["row_two"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+      elsif current_game_gameState["row_three"].any? { |card| card["id"] == params["gemmedCard"] }
+        card_to_gem_index = current_game_gameState["row_three"].index{ |card| card["id"] == params["gemmedCard"] }
+        current_game_gameState["row_three"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+      elsif current_game_gameState["row_four"].any? { |card| card["id"] == params["gemmedCard"] }
+        card_to_gem_index = current_game_gameState["row_four"].index{ |card| card["id"] == params["gemmedCard"] }
+        current_game_gameState["row_four"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+      end
+      
+      current_game.gamestate = current_game_gameState.to_json
+      current_game.save
+      
+      render json: {
+        cards: current_game_gameState.to_json
+      }
     end
   end
   
