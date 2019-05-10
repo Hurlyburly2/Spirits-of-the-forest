@@ -89,6 +89,10 @@ class User < ApplicationRecord
         image_url = "/tokens/VineToken.png"
       when 10
         image_url = "/tokens/LeafToken.png"
+      when 11
+        image_url = "/tokens/SunToken.png"
+      when 12
+        image_url = "/tokens/WindToken.png"
      end
    end
 end
