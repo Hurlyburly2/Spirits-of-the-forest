@@ -332,7 +332,7 @@ class Api::V1::GamesController < ApplicationController
       
       if current_game_gameState["row_one"].any? { |card| card["id"] == params["gemmedCard"] }
         card_to_gem_index = current_game_gameState["row_one"].index{ |card| card["id"] == params["gemmedCard"] }
-        if current_game_gameState["row_one"][card_to_gem_index]["gem"]
+        if current_game_gameState["row_one"][card_to_gem_index]["gem"] #IF THE CARD HAS A GEM
           if current_game_gameState["row_one"][card_to_gem_index]["gem"]["id"] == user.id
             current_game_gameState["row_one"][card_to_gem_index].delete("gem")
             current_match.gems_possessed += 1
@@ -350,7 +350,7 @@ class Api::V1::GamesController < ApplicationController
               error_message = "You need to be holding a gem in order to remove your opponent's"
             end
           end
-        else
+        else #IF THE CARD DOES NOT HAVE A GEM
           if current_match.gems_possessed > 0
             card_to_gem_index = current_game_gameState["row_one"].index{ |card| card["id"] == params["gemmedCard"] }
             current_game_gameState["row_one"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
@@ -361,31 +361,94 @@ class Api::V1::GamesController < ApplicationController
           end
         end
       elsif current_game_gameState["row_two"].any? { |card| card["id"] == params["gemmedCard"] }
-        if current_match.gems_possessed > 0
-          card_to_gem_index = current_game_gameState["row_two"].index{ |card| card["id"] == params["gemmedCard"] }
-          current_game_gameState["row_two"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
-          current_match.gems_possessed -= 1
-          current_match.save
-        else
-          error_message = "You don't have any gems left to place!"
+        card_to_gem_index = current_game_gameState["row_two"].index{ |card| card["id"] == params["gemmedCard"] }
+        if current_game_gameState["row_two"][card_to_gem_index]["gem"] #IF THE CARD HAS A GEM
+          if current_game_gameState["row_two"][card_to_gem_index]["gem"]["id"] == user.id
+            current_game_gameState["row_two"][card_to_gem_index].delete("gem")
+            current_match.gems_possessed += 1
+            current_match.save
+          else
+            #OPPONENT GEM LOGIC
+            if current_match.gems_possessed > 0
+              current_game_gameState["row_two"][card_to_gem_index].delete("gem")
+              current_match.gems_possessed -= 1
+              current_match.gems_total -= 1
+              current_match.save
+              opponent_match.gems_possessed += 1
+              opponent_match.save
+            else
+              error_message = "You need to be holding a gem in order to remove your opponent's"
+            end
+          end
+        else #IF THE CARD DOES NOT HAVE A GEM
+          if current_match.gems_possessed > 0
+            card_to_gem_index = current_game_gameState["row_two"].index{ |card| card["id"] == params["gemmedCard"] }
+            current_game_gameState["row_two"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+            current_match.gems_possessed -= 1
+            current_match.save
+          else
+            error_message = "You don't have any gems left to place!"
+          end
         end
       elsif current_game_gameState["row_three"].any? { |card| card["id"] == params["gemmedCard"] }
-        if current_match.gems_possessed > 0
-          card_to_gem_index = current_game_gameState["row_three"].index{ |card| card["id"] == params["gemmedCard"] }
-          current_game_gameState["row_three"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
-          current_match.gems_possessed -= 1
-          current_match.save
-        else
-          error_message = "You don't have any gems left to place!"
+        card_to_gem_index = current_game_gameState["row_three"].index{ |card| card["id"] == params["gemmedCard"] }
+        if current_game_gameState["row_three"][card_to_gem_index]["gem"] #IF THE CARD HAS A GEM
+          if current_game_gameState["row_three"][card_to_gem_index]["gem"]["id"] == user.id
+            current_game_gameState["row_three"][card_to_gem_index].delete("gem")
+            current_match.gems_possessed += 1
+            current_match.save
+          else
+            #OPPONENT GEM LOGIC
+            if current_match.gems_possessed > 0
+              current_game_gameState["row_three"][card_to_gem_index].delete("gem")
+              current_match.gems_possessed -= 1
+              current_match.gems_total -= 1
+              current_match.save
+              opponent_match.gems_possessed += 1
+              opponent_match.save
+            else
+              error_message = "You need to be holding a gem in order to remove your opponent's"
+            end
+          end
+        else #IF THE CARD DOES NOT HAVE A GEM
+          if current_match.gems_possessed > 0
+            card_to_gem_index = current_game_gameState["row_three"].index{ |card| card["id"] == params["gemmedCard"] }
+            current_game_gameState["row_three"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+            current_match.gems_possessed -= 1
+            current_match.save
+          else
+            error_message = "You don't have any gems left to place!"
+          end
         end
       elsif current_game_gameState["row_four"].any? { |card| card["id"] == params["gemmedCard"] }
-        if current_match.gems_possessed > 0
-          card_to_gem_index = current_game_gameState["row_four"].index{ |card| card["id"] == params["gemmedCard"] }
-          current_game_gameState["row_four"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
-          current_match.gems_possessed -= 1
-          current_match.save
-        else
-          error_message = "You don't have any gems left to place!"
+        card_to_gem_index = current_game_gameState["row_four"].index{ |card| card["id"] == params["gemmedCard"] }
+        if current_game_gameState["row_four"][card_to_gem_index]["gem"] #IF THE CARD HAS A GEM
+          if current_game_gameState["row_four"][card_to_gem_index]["gem"]["id"] == user.id
+            current_game_gameState["row_four"][card_to_gem_index].delete("gem")
+            current_match.gems_possessed += 1
+            current_match.save
+          else
+            #OPPONENT GEM LOGIC
+            if current_match.gems_possessed > 0
+              current_game_gameState["row_four"][card_to_gem_index].delete("gem")
+              current_match.gems_possessed -= 1
+              current_match.gems_total -= 1
+              current_match.save
+              opponent_match.gems_possessed += 1
+              opponent_match.save
+            else
+              error_message = "You need to be holding a gem in order to remove your opponent's"
+            end
+          end
+        else #IF THE CARD DOES NOT HAVE A GEM
+          if current_match.gems_possessed > 0
+            card_to_gem_index = current_game_gameState["row_four"].index{ |card| card["id"] == params["gemmedCard"] }
+            current_game_gameState["row_four"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+            current_match.gems_possessed -= 1
+            current_match.save
+          else
+            error_message = "You don't have any gems left to place!"
+          end
         end
       end
       
