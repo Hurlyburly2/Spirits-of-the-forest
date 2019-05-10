@@ -143,7 +143,8 @@ class GameplayContainer extends Component {
           errorMessage: body.errorMessage,
           score: JSON.parse(body.score),
           yourTokens: JSON.parse(body.tokens),
-          gemPlaced: body.gemPlaced
+          gemPlaced: body.gemPlaced,
+          yourGems: body.yourGems
         })
       })
     } else {
@@ -390,13 +391,20 @@ class GameplayContainer extends Component {
     })
     .then(response => response.json())
     .then(body => {
+      debugger
+      let whatAboutGemMode = true
+      if (body.yourTotalGems < 1) {
+        whatAboutGemMode = false
+      }
+      
       this.setState({
         cards: JSON.parse(body.cards),
         yourGems: body.yourGems,
         yourTotalGems: body.yourTotalGems,
         opponentGems: body.opponentGems,
         errorMessage: body.errorMessage,
-        gemPlaced: body.gemPlaced
+        gemPlaced: body.gemPlaced,
+        gemMode: whatAboutGemMode
       })
     })
   }
@@ -459,6 +467,11 @@ class GameplayContainer extends Component {
             gemButton = <li onClick={handleGemToggle}>Place Gems</li>
           } else if (this.state.yourTotalGems > 0 && this.state.gemMode === true) {
             gemButton = <li onClick={handleGemToggle}>Pick Cards</li>
+          } else {
+            gemButton = ""
+            let backgroundDiv = document.getElementById('overlay') 
+            backgroundDiv.classList.remove('gemMode')
+            backgroundDiv.classList.add('overlay')
           }
         } else {
           message = `${this.state.whose_turn.username}'s Turn`

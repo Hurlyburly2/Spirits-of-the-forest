@@ -205,10 +205,18 @@ class Api::V1::GamesController < ApplicationController
              if cards["row_one"][0]["token"]
                tokens << cards["row_one"][0]["token"]
              end
+             if cards["row_one"][0]["gem"]
+               current_match.gems_possessed += 1
+               current_match.save
+             end
              cards["row_one"].shift
            elsif cards["row_one"].last["id"] == card[:id]
              if cards["row_one"].last["token"]
                tokens << cards["row_one"].last["token"]
+             end
+             if cards["row_one"].last["gem"]
+               current_match.gems_possessed += 1
+               current_match.save
              end
              cards["row_one"].pop
            else
@@ -327,7 +335,8 @@ class Api::V1::GamesController < ApplicationController
         opponentcards: opponent_cards,
         score: score.to_json,
         tokens: current_match.tokens,
-        gemPlaced: game.gem_placed
+        gemPlaced: game.gem_placed,
+        yourGems: current_match.gems_possessed
       }
     elsif params["type"] == "gem-placement"
       current_game = Game.find(params["currentGame"])
