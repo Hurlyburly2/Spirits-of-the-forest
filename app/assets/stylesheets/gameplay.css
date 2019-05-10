@@ -30,6 +30,14 @@ h4 {
   filter: drop-shadow(2px 2px 2px #111111);
 }
 
+.card-gem {
+  width: 50%;
+  top: 65%;
+  left: 5%;
+  position: absolute;
+  filter: drop-shadow(2px 2px 2px #111111);
+}
+
 .card:hover {
   transform: scale(2,2);
   z-index: 500;

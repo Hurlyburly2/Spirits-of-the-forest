@@ -59,13 +59,15 @@ export const CardContainer = (props) => {
           selectedClass={selectedClass}
           token={token}
           type="card-in-game"
+          gem={card.gem}
+          currentUser={props.currentUser}
           />)
         } else {
           let cardFunction = ""
           if (props.gemMode === true) {
             cardFunction = props.handleGemPlacement
           }
-          row_one.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={cardFunction} token={token} type="card-in-game"/>)
+          row_one.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={cardFunction} token={token} type="card-in-game" gem={card.gem} currentUser={props.currentUser}/>)
         }
       counter++
     })
@@ -104,13 +106,16 @@ export const CardContainer = (props) => {
           selectedClass={selectedClass}
           token={token}
           type="card-in-game"
+          gem={card.gem}
+          currentUser={props.currentUser}
           />)
       } else {
         let cardFunction = ""
         if (props.gemMode === true) {
           cardFunction = props.handleGemPlacement
         }
-        row_two.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={cardFunction} token={token} type="card-in-game"/>)
+        row_two.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={cardFunction} token={token} type="card-in-game" gem={card.gem}
+        currentUser={props.currentUser}/>)
       }
       counter++
     })
@@ -148,13 +153,16 @@ export const CardContainer = (props) => {
           selectedClass={selectedClass}
           token={token}
           type="card-in-game"
+          gem={card.gem}
+          currentUser={props.currentUser}
           />)
       } else {
         let cardFunction = ""
         if (props.gemMode === true) {
           cardFunction = props.handleGemPlacement
         }
-        row_three.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={cardFunction} token={token} type="card-in-game"/>)
+        row_three.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={cardFunction} token={token} type="card-in-game" gem={card.gem}
+        currentUser={props.currentUser}/>)
       }
       counter++
     })
@@ -192,13 +200,16 @@ export const CardContainer = (props) => {
           selectedClass={selectedClass}
           token={token}
           type="card-in-game"
+          gem={card.gem}
+          currentUser={props.currentUser}
           />)
       } else {
         let cardFunction = ""
         if (props.gemMode === true) {
           cardFunction = props.handleGemPlacement
         }
-        row_four.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={cardFunction} token={token} type="card-in-game"/>)
+        row_four.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={cardFunction} token={token} type="card-in-game" gem={card.gem}
+        currentUser={props.currentUser}/>)
       }
       counter++
     })

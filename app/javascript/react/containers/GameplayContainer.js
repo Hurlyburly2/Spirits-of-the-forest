@@ -500,6 +500,7 @@ class GameplayContainer extends Component {
           selected={this.state.selected}
           gemMode={this.state.gemMode}
           handleGemPlacement={this.gemPlacement}
+          currentUser={this.state.currentUser}
         />
         <p className="errorText">{this.state.errorMessage}</p>
         <ul className="gamePlayButtons">
