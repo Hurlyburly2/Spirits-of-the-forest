@@ -203,6 +203,11 @@ class Api::V1::GamesController < ApplicationController
          if cards["row_one"].any? { |find_card| find_card["id"] == card[:id]}
            if cards["row_one"][0]["id"] == card[:id]
              if cards["row_one"][0]["token"]
+               if cards["row_one"][0]["token"]["spirit"] == "plus-1" || cards["row_one"][0]["token"]["spirit"] == "plus-2"
+                 current_match.gems_possessed += 1
+                 current_match.gems_total += 1
+                 current_match.save
+               end
                tokens << cards["row_one"][0]["token"]
              end
              if cards["row_one"][0]["gem"]
@@ -212,6 +217,11 @@ class Api::V1::GamesController < ApplicationController
              cards["row_one"].shift
            elsif cards["row_one"].last["id"] == card[:id]
              if cards["row_one"].last["token"]
+               if cards["row_one"].last["token"]["spirit"] == "plus-1" || cards["row_one"].last["token"]["spirit"] == "plus-2"
+                 current_match.gems_possessed += 1
+                 current_match.gems_total += 1
+                 current_match.save
+               end
                tokens << cards["row_one"].last["token"]
              end
              if cards["row_one"].last["gem"]
@@ -227,11 +237,21 @@ class Api::V1::GamesController < ApplicationController
          if cards["row_two"].any? { |find_card| find_card["id"] == card[:id]}
            if cards["row_two"][0]["id"] == card[:id]
              if cards["row_two"][0]["token"]
+               if cards["row_two"][0]["token"]["spirit"] == "plus-1" || cards["row_two"][0]["token"]["spirit"] == "plus-2"
+                 current_match.gems_possessed += 1
+                 current_match.gems_total += 1
+                 current_match.save
+               end
                tokens << cards["row_two"][0]["token"]
              end
              cards["row_two"].shift
            elsif cards["row_two"].last["id"] == card[:id]
              if cards["row_two"].last["token"]
+               if cards["row_two"].last["token"]["spirit"] == "plus-1" || cards["row_two"].last["token"]["spirit"] == "plus-2"
+                 current_match.gems_possessed += 1
+                 current_match.gems_total += 1
+                 current_match.save
+               end
                tokens << cards["row_two"].last["token"]
              end
              cards["row_two"].pop
@@ -243,11 +263,21 @@ class Api::V1::GamesController < ApplicationController
          if cards["row_three"].any? { |find_card| find_card["id"] == card[:id]}
            if cards["row_three"][0]["id"] == card[:id]
              if cards["row_three"][0]["token"]
+               if cards["row_three"][0]["token"]["spirit"] == "plus-1" || cards["row_three"][0]["token"]["spirit"] == "plus-2"
+                 current_match.gems_possessed += 1
+                 current_match.gems_total += 1
+                 current_match.save
+               end
                tokens << cards["row_three"][0]["token"]
              end
              cards["row_three"].shift
            elsif cards["row_three"].last["id"] == card[:id]
              if cards["row_three"].last["token"]
+               if cards["row_three"].last["token"]["spirit"] == "plus-1" || cards["row_three"].last["token"]["spirit"] == "plus-2"
+                 current_match.gems_possessed += 1
+                 current_match.gems_total += 1
+                 current_match.save
+               end
                tokens << cards["row_three"].last["token"]
              end
              cards["row_three"].pop
@@ -259,11 +289,21 @@ class Api::V1::GamesController < ApplicationController
          if cards["row_four"].any? { |find_card| find_card["id"] == card[:id]}
            if cards["row_four"][0]["id"] == card[:id]
              if cards["row_four"][0]["token"]
+               if cards["row_four"][0]["token"]["spirit"] == "plus-1" || cards["row_four"][0]["token"]["spirit"] == "plus-2"
+                 current_match.gems_possessed += 1
+                 current_match.gems_total += 1
+                 current_match.save
+               end
                tokens << cards["row_four"][0]["token"]
              end
              cards["row_four"].shift
            elsif cards["row_four"].last["id"] == card[:id]
              if cards["row_four"].last["token"]
+               if cards["row_four"].last["token"]["spirit"] == "plus-1" || cards["row_four"].last["token"]["spirit"] == "plus-2"
+                 current_match.gems_possessed += 1
+                 current_match.gems_total += 1
+                 current_match.save
+               end
                tokens << cards["row_four"].last["token"]
              end
              cards["row_four"].pop
@@ -569,7 +609,9 @@ class Api::V1::GamesController < ApplicationController
     end
     
     current_player_tokens.each do |token|
-      score["user"][token["spirit"]] += 1
+      if token["spirit"] != "plus-1" && token["spirit"] != "plus-2"
+        score["user"][token["spirit"]] += 1
+      end
     end
     
     opponent_cards.each do |card|
@@ -584,7 +626,9 @@ class Api::V1::GamesController < ApplicationController
     end
     
     opponent_tokens.each do |token|
-      score["opponent"][token["spirit"]] += 1
+      if token["spirit"] != "plus-1" && token["spirit"] != "plus-2"
+        score["opponent"][token["spirit"]] += 1
+      end
     end
     
     if score["user"]["branch"] > score["opponent"]["branch"]
