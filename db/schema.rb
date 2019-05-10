@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_09_194701) do
+ActiveRecord::Schema.define(version: 2019_05_10_154925) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2019_05_09_194701) do
     t.integer "whose_turn_id"
     t.integer "winner_id"
     t.boolean "concession", default: false
+    t.boolean "gem_placed", default: false
   end
 
   create_table "matches", force: :cascade do |t|
