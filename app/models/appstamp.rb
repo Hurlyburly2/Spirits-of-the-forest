@@ -7,7 +7,7 @@ class Appstamp < ApplicationRecord
     check_for_idle_duration = 6
     if (Time.now - last_check) / 1.hours > check_for_idle_duration
       game_idle_duration = 24
-      games_to_check = Game.all
+      games_to_check = Game.all.where.not(whose_turn_id: nil)
       idle_games = []
       concede_games = []
       
