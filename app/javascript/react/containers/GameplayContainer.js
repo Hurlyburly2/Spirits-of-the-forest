@@ -48,7 +48,7 @@ class GameplayContainer extends Component {
   componentDidMount() {
     let backgroundDiv = document.getElementById('overlay') 
     backgroundDiv.classList.add('overlay')
-    let refreshInterval = 10000000 //This should be 5000 in release version
+    let refreshInterval = 1000000000 //This should be 5000 in release version
     this.refreshInterval = setInterval(() => this.getGameData(), refreshInterval);
     this.getGameData();
   }
@@ -383,7 +383,9 @@ class GameplayContainer extends Component {
     .then(response => response.json())
     .then(body => {
       this.setState({
-        cards: JSON.parse(body.cards)
+        cards: JSON.parse(body.cards),
+        yourGems: body.yourGems,
+        errorMessage: body.errorMessage
       })
     })
   }
@@ -458,7 +460,7 @@ class GameplayContainer extends Component {
         }
       }
       if (this.state.opponentGems > 0) {
-        let counter = this.state.yourGems
+        let counter = this.state.opponentGems
         while (counter > 0) {
           let gemKey = `OpponentGem${counter}`
           opponentGems.push(<GemTile key={gemKey} location="in-hand" player="opponent"/>)

@@ -325,26 +325,55 @@ class Api::V1::GamesController < ApplicationController
     elsif params["type"] == "gem-placement"
       current_game = Game.find(params["currentGame"])
       current_game_gameState = JSON.parse(current_game.gamestate)
+      user = User.find(params["currentUser"]["id"])
+      current_match = current_game.matches.where(user: user)[0]
+      error_message = ""
       
       if current_game_gameState["row_one"].any? { |card| card["id"] == params["gemmedCard"] }
-        card_to_gem_index = current_game_gameState["row_one"].index{ |card| card["id"] == params["gemmedCard"] }
-        current_game_gameState["row_one"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+        if current_match.gems_possessed > 0
+          card_to_gem_index = current_game_gameState["row_one"].index{ |card| card["id"] == params["gemmedCard"] }
+          current_game_gameState["row_one"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+          current_match.gems_possessed -= 1
+          current_match.save
+        else
+          error_message = "You don't have any gems left to place!"
+        end
       elsif current_game_gameState["row_two"].any? { |card| card["id"] == params["gemmedCard"] }
-        card_to_gem_index = current_game_gameState["row_two"].index{ |card| card["id"] == params["gemmedCard"] }
-        current_game_gameState["row_two"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+        if current_match.gems_possessed > 0
+          card_to_gem_index = current_game_gameState["row_two"].index{ |card| card["id"] == params["gemmedCard"] }
+          current_game_gameState["row_two"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+          current_match.gems_possessed -= 1
+          current_match.save
+        else
+          error_message = "You don't have any gems left to place!"
+        end
       elsif current_game_gameState["row_three"].any? { |card| card["id"] == params["gemmedCard"] }
-        card_to_gem_index = current_game_gameState["row_three"].index{ |card| card["id"] == params["gemmedCard"] }
-        current_game_gameState["row_three"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+        if current_match.gems_possessed > 0
+          card_to_gem_index = current_game_gameState["row_three"].index{ |card| card["id"] == params["gemmedCard"] }
+          current_game_gameState["row_three"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+          current_match.gems_possessed -= 1
+          current_match.save
+        else
+          error_message = "You don't have any gems left to place!"
+        end
       elsif current_game_gameState["row_four"].any? { |card| card["id"] == params["gemmedCard"] }
-        card_to_gem_index = current_game_gameState["row_four"].index{ |card| card["id"] == params["gemmedCard"] }
-        current_game_gameState["row_four"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+        if current_match.gems_possessed > 0
+          card_to_gem_index = current_game_gameState["row_four"].index{ |card| card["id"] == params["gemmedCard"] }
+          current_game_gameState["row_four"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+          current_match.gems_possessed -= 1
+          current_match.save
+        else
+          error_message = "You don't have any gems left to place!"
+        end
       end
       
       current_game.gamestate = current_game_gameState.to_json
       current_game.save
       
       render json: {
-        cards: current_game_gameState.to_json
+        cards: current_game_gameState.to_json,
+        yourGems: current_match.gems_possessed,
+        errorMessage: error_message
       }
     end
   end
