@@ -25,6 +25,7 @@ class UsersController < ApplicationController
       [false, "Off"]
     ]
     @user = current_user
+    @image_url = User.return_image_url(current_user.which_profile_pic)
   end
   
   def update

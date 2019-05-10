@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_many :matches
   has_many :games, through: :matches
+  
+  before_create :initial_profile_pic
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   validates :username, presence: true, length: { minimum: 2, maximum: 15 }, uniqueness: true
@@ -8,6 +10,10 @@ class User < ApplicationRecord
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+         
+   def initial_profile_pic
+     self.which_profile_pic = rand(1..10)
+   end
          
    def self.ranking_change(player, game_result)
      if player.rank == "bronze"
@@ -58,5 +64,31 @@ class User < ApplicationRecord
      end
      player.save
      player
+   end
+   
+   def self.return_image_url(which_profile_pic)
+     image_url = ""
+     case which_profile_pic
+     when 1
+       image_url = "/tokens/BranchToken.png"
+     when 2
+       image_url = "/tokens/DewToken.png"
+     when 3
+       image_url = "/tokens/FlowerToken.png"
+     when 4
+       image_url = "/tokens/FruitToken.png"
+     when 5
+       image_url = "/tokens/MossToken.png"
+     when 6
+       image_url = "/tokens/MushroomToken.png"
+     when 7
+       image_url = "/tokens/MoonToken.png"
+     when 8
+       image_url = "/tokens/SpiderToken.png"
+     when 9
+        image_url = "/tokens/VineToken.png"
+      when 10
+        image_url = "/tokens/LeafToken.png"
+     end
    end
 end
