@@ -98,6 +98,10 @@ class Api::V1::GamesController < ApplicationController
       cards = Card.new_game_state(current_game)
       
       whose_turn = UserSerializer.new(User.find(current_game.whose_turn_id))
+      your_gems = current_game.matches.where(user: current_user)[0].gems_possessed
+      your_total_gems = current_game.matches.where(user: current_user)[0].gems_total
+      opponent_gems = current_game.matches.where.not(user: current_user)[0].gems_possessed
+      opponent_total_gems = current_game.matches.where.not(user: current_user)[0].gems_total
     else
       #ELSE ALREADY TWO USERS AND NEITHER ARE CURRENT USER OR NO USERS
       #THIS GAME NO LONGER EXISTS ERROR
