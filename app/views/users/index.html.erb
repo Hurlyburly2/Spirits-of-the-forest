@@ -1,6 +1,7 @@
 <div class="accountpage-wrapper">
 
   <div class="accountpage-info-window">
+    <img src=<%= @image_url %> />
     <h1><%= current_user.username %></h1>
 
     <h1><%= current_user.rank.capitalize %></h1>
@@ -31,9 +32,12 @@
      
     <%= f.label :reminders, "Email Reminders:" %>
     <%= f.collection_radio_buttons(:reminders, @options, :first, :last)  %>
+    
+    <%= f.label :which_profile_pic, "Profile Pic:" %>
+    <%= f.select :which_profile_pic, @profile_image_collection, :include_blank => true  %>
 
      <div class="actions">
-       <%= f.submit "Update Email Preferences" %>
+       <%= f.submit "Update Account Preferences" %>
      </div>
     <% end %>
     

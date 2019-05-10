@@ -25,6 +25,23 @@ class UsersController < ApplicationController
       [false, "Off"]
     ]
     @user = current_user
+    @image_url = User.return_image_url(current_user.which_profile_pic)
+    
+    @profile_image_collection = [
+        "Branch",
+        "Dew",
+        "Flower",
+        "Fruit",
+        "Leaf",
+        "Moss",
+        "Moon",
+        "Mushroom",
+        "Spider",
+        "Sun",
+        "Vine",
+        "Wind"
+      ]
+    
   end
   
   def update
@@ -36,6 +53,36 @@ class UsersController < ApplicationController
       update_email_value = true
       flash.now[:sad] = "Notifications Turned On"
     end
+    
+    profile_pic_num = 1
+    case params["user"]["which_profile_pic"]
+      when "Branch"
+        profile_pic_num = 1
+      when "Dew"
+        profile_pic_num = 2
+      when "Flower"
+        profile_pic_num = 3
+      when "Fruit"
+        profile_pic_num = 4
+      when "Moss"
+        profile_pic_num = 5
+      when "Mushroom"
+        profile_pic_num = 6
+      when "Moon"
+        profile_pic_num = 7
+      when "Spider"
+        profile_pic_num = 8
+      when "Vine"
+        profile_pic_num = 9
+      when "Leaf"
+        profile_pic_num = 10
+      when "Sun"
+        profile_pic_num = 11
+      when "Wind"
+        profile_pic_num = 12
+    end
+
+    current_user.which_profile_pic = profile_pic_num
     current_user.reminders = update_email_value
     current_user.save
     
@@ -63,6 +110,22 @@ class UsersController < ApplicationController
       [true, "On"],
       [false, "Off"]
     ]
+    @image_url = User.return_image_url(current_user.which_profile_pic)
+    
+    @profile_image_collection = [
+        "Branch",
+        "Dew",
+        "Flower",
+        "Fruit",
+        "Leaf",
+        "Moss",
+        "Moon",
+        "Mushroom",
+        "Spider",
+        "Sun",
+        "Vine",
+        "Wind"
+      ]
 
     render :index
   end
