@@ -132,9 +132,9 @@ Token.create(spirit: "moss", image_url: "/tokens/MossToken.png")
 
 Token.create(spirit: "mushroom", image_url: "/tokens/MushroomToken.png")
 
-# Token.create(spirit: "plus-1", image_url: "/tokens/PlusToken1.png")
-# 
-# Token.create(spirit: "plus-2", image_url: "/tokens/PlusToken2.png")
+Token.create(spirit: "plus-1", image_url: "/tokens/PlusToken1.png")
+
+Token.create(spirit: "plus-2", image_url: "/tokens/PlusToken2.png")
 
 Token.create(spirit: "spider", image_url: "/tokens/SpiderToken.png")
 
