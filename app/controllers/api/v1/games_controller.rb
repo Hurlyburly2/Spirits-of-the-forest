@@ -336,6 +336,9 @@ class Api::V1::GamesController < ApplicationController
            end
          end
        end
+       
+       game.gamestate = cards.to_json
+       
        previously_selected_cards = JSON.parse(current_match.selected_cards)
        all_selected_cards = previously_selected_cards + cards_to_remove
        current_match.selected_cards = all_selected_cards.to_json
@@ -352,6 +355,37 @@ class Api::V1::GamesController < ApplicationController
       
       gameState = "play"
       winner = nil
+      
+      all_rows = JSON.parse(game.gamestate)
+      all_cards = all_rows["row_one"] + all_rows["row_two"] + all_rows["row_three"] + all_rows["row_four"]
+      opponent_has_valid_moves = false
+      
+      opponent_match = game.matches.where(user: opponent)[0]
+      
+      if opponent_match.gems_total < 1
+        opponent_has_valid_moves = false
+      else
+        opponent_has_valid_moves = true
+      end
+      
+      all_cards.each do |card|
+        if card["gem"]
+          if card["gem"]["id"] == opponent.id
+            opponent_has_valid_moves = true
+          end
+        else
+          opponent_has_valid_moves = true
+        end
+      end
+      
+      
+      
+      #Check for available moves before switching turns
+      if opponent_has_valid_moves == true
+        game.whose_turn_id = opponent.id
+      end
+      
+      
       if cards["row_one"].length + cards["row_two"].length + cards["row_three"].length + cards["row_four"].length == 0
         gameState = "complete"
         game.gamestate = nil
@@ -380,10 +414,15 @@ class Api::V1::GamesController < ApplicationController
         game.winner_id = game.users[0].id
       end
       
-      game.gamestate = cards.to_json
-      game.whose_turn_id = opponent.id
+      
       game.gem_placed = false
-      opponent = UserSerializer.new(opponent)
+      next_turn = ""
+      if game.whose_turn_id == opponent.id
+        next_turn = UserSerializer.new(opponent)
+      else
+        next_turn = UserSerializer.new(user)
+      end
+      
       opponent_cards = game.matches.where.not(user: user)[0].selected_cards
       game.save
       render json: {
@@ -391,7 +430,7 @@ class Api::V1::GamesController < ApplicationController
         currentUser: user,
         opponent: opponent,
         cards: cards.to_json,
-        whose_turn: opponent,
+        whose_turn: next_turn,
         card_reference: Card.all,
         errorMessage: error,
         winner: winner,
