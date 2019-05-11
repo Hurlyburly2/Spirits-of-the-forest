@@ -54,7 +54,7 @@ class GameplayContainer extends Component {
   componentDidMount() {
     let backgroundDiv = document.getElementById('overlay') 
     backgroundDiv.classList.add('overlay')
-    let refreshInterval = 2000 
+    let refreshInterval = 200000000 
     this.refreshInterval = setInterval(() => this.getGameData(), refreshInterval);
     this.getGameData();
   }
