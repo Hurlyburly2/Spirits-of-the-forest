@@ -368,23 +368,46 @@ class Api::V1::GamesController < ApplicationController
         opponent_has_valid_moves = true
       end
       
-      all_cards.each do |card|
-        if card["gem"]
-          if card["gem"]["id"] == opponent.id
-            opponent_has_valid_moves = true
-          end
+      # all_cards.each do |card|
+      #   if card["gem"]
+      #     if card["gem"]["id"] == opponent.id
+      #       opponent_has_valid_moves = true
+      #     end
+      #   else
+      #     opponent_has_valid_moves = true
+      #   end
+      # end
+      # OLD CHECKER (DOESN'T WORK IN EDGE CASES?)
+      bad_row_count = 0 #IF THIS EQUAL FOUR, INVALID MOVE FOR OPPONENT'
+      all_rows.each do |row|
+        valid_moves_in_row = true
+        if row[1].length == 0
+          valid_moves_in_row = false
         else
-          opponent_has_valid_moves = true
+          first_valid = true
+          last_valid = true
+          if row[1].first["gem"] && row[1].first["gem"]["id"] != opponent.id
+            first_valid = false
+          end
+          if row[1].last["gem"] && row[1].last["gem"]["id"] != opponent.id
+            last_valid = false
+          end
+          if first_valid == false && last_valid == false
+            valid_moves_in_row = false
+          end
+        end
+        if valid_moves_in_row == false
+          bad_row_count += 1
         end
       end
       
-      
-      
+      if bad_row_count < 4
+        opponent_has_valid_moves = true
+      end
       #Check for available moves before switching turns
       if opponent_has_valid_moves == true
         game.whose_turn_id = opponent.id
       end
-      
       
       if cards["row_one"].length + cards["row_two"].length + cards["row_three"].length + cards["row_four"].length == 0
         gameState = "complete"
