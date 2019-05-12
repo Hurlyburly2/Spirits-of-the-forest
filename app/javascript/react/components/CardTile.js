@@ -6,6 +6,7 @@ import GemTile from './GemTile'
 
 const CardTile = (props) => {
   let display_card = ""
+  let domId = `gameCard-${props.id}`
   if (props.which_card === "cardback") {
     display_card = "/cardback.png"
   } else {
@@ -25,7 +26,7 @@ const CardTile = (props) => {
   }
   
   return(
-    <div className={cardClass} onClick={props.handleSelectCard}>
+    <div className={cardClass} onClick={props.handleSelectCard} id={domId}>
       {token}
       {gem}
       <img src={display_card} id={props.id} />
