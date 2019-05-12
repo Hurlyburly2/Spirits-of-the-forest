@@ -104,9 +104,16 @@ class GameplayContainer extends Component {
   confirmCardSelection() {
     if (this.state.selected.length > 0) {
       document.getElementById(`gameCard-${this.state.selected[0]}`).classList.add('cardWide')
+      if (this.state.selected.length > 1) {
+        document.getElementById(`gameCard-${this.state.selected[1]}`).classList.add('cardWide')
+      }
+      
       setTimeout(() => {
         document.getElementById(`gameCard-${this.state.selected[0]}`).classList.add('cardThin')
-      }, 300)
+        if (this.state.selected.length > 1) {
+          document.getElementById(`gameCard-${this.state.selected[1]}`).classList.add('cardThin')
+        }
+      }, 150)
       setTimeout(() => {
         let current_game = this.props.params.id
         let gamePayLoad = {
@@ -152,7 +159,7 @@ class GameplayContainer extends Component {
             yourGems: body.yourGems
           })
         })
-      }, 600)
+      }, 450)
     } else {
       this.setState({
         errorMessage: "You have not selected any cards!"
