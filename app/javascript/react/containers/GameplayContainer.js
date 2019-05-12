@@ -103,50 +103,56 @@ class GameplayContainer extends Component {
   
   confirmCardSelection() {
     if (this.state.selected.length > 0) {
-      let current_game = this.props.params.id
-      let gamePayLoad = {
-        type: "card-selection",
-        selected: this.state.selected,
-        currentUser: this.state.currentUser
-      }
-      fetch(`/api/v1/games/${current_game}`, {
-        credentials: 'same-origin',
-        method: "PATCH",
-        body: JSON.stringify(gamePayLoad),
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
+      document.getElementById(`gameCard-${this.state.selected[0]}`).classList.add('cardWide')
+      setTimeout(() => {
+        document.getElementById(`gameCard-${this.state.selected[0]}`).classList.add('cardThin')
+      }, 300)
+      setTimeout(() => {
+        let current_game = this.props.params.id
+        let gamePayLoad = {
+          type: "card-selection",
+          selected: this.state.selected,
+          currentUser: this.state.currentUser
         }
-      })
-      .then(response => {
-        if (response.ok) {
-          return response
-        } else {
-          let errorMessage = `${response.status} (${response.statusText})`,
-          error = new Error(errorMessage)
-          throw error
-        }
-      })
-      .then(response => response.json())
-      .then(body => {
-        this.setState({
-          gameState: body.gameState,
-          currentUser: body.currentUser,
-          opponent: body.opponent,
-          cards: JSON.parse(body.cards),
-          whose_turn: body.whose_turn,
-          cardReference: body.card_reference,
-          selected: [],
-          selectedSpiritPoints: 0,
-          yourCards: JSON.parse(body.yourcards),
-          opponentCards: JSON.parse(body.opponentcards),
-          errorMessage: body.errorMessage,
-          score: JSON.parse(body.score),
-          yourTokens: JSON.parse(body.tokens),
-          gemPlaced: body.gemPlaced,
-          yourGems: body.yourGems
+        fetch(`/api/v1/games/${current_game}`, {
+          credentials: 'same-origin',
+          method: "PATCH",
+          body: JSON.stringify(gamePayLoad),
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          }
         })
-      })
+        .then(response => {
+          if (response.ok) {
+            return response
+          } else {
+            let errorMessage = `${response.status} (${response.statusText})`,
+            error = new Error(errorMessage)
+            throw error
+          }
+        })
+        .then(response => response.json())
+        .then(body => {
+          this.setState({
+            gameState: body.gameState,
+            currentUser: body.currentUser,
+            opponent: body.opponent,
+            cards: JSON.parse(body.cards),
+            whose_turn: body.whose_turn,
+            cardReference: body.card_reference,
+            selected: [],
+            selectedSpiritPoints: 0,
+            yourCards: JSON.parse(body.yourcards),
+            opponentCards: JSON.parse(body.opponentcards),
+            errorMessage: body.errorMessage,
+            score: JSON.parse(body.score),
+            yourTokens: JSON.parse(body.tokens),
+            gemPlaced: body.gemPlaced,
+            yourGems: body.yourGems
+          })
+        })
+      }, 600)
     } else {
       this.setState({
         errorMessage: "You have not selected any cards!"
