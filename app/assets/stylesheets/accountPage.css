@@ -2,12 +2,34 @@
   margin: 0 20% 0 25%;
 }
 
+.accountpage-image-class {
+  position: absolute;
+  width: 15%;
+  margin-left: 18%;
+}
+
 .accountpage-info-window {
-  background-color: white;
+  margin-top: 50px;
+  background-color: rgba(20, 27, 31, 0.95);
+  border: 3px solid #c1bf97;
+  border-radius: 0 25px 0 25px;
+}
+
+.accountpage-info-window-content {
+  margin: 15px 20px 15px 20%;
 }
 
 .accountpage-info-window h1 {
-  color: black;
+  font-family: antiquarian, sans-serif;
+  color: white;
+  font-size: 100px;
+  margin-top: 60px;
+  padding: 0;
+  line-height: 20px;
+}
+
+.accountpage-info-window hr {
+  border: 1px solid #c1bf97;
 }
 
 .accountpage-progressbar {

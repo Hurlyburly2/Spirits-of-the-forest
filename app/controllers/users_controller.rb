@@ -25,7 +25,7 @@ class UsersController < ApplicationController
       [false, "Off"]
     ]
     @user = current_user
-    @image_url = User.return_image_url(current_user.which_profile_pic)
+    @image_url = User.return_image_url(current_user.rank, current_user.which_profile_pic)
     
     @profile_image_collection = [
         "Branch",
@@ -110,7 +110,7 @@ class UsersController < ApplicationController
       [true, "On"],
       [false, "Off"]
     ]
-    @image_url = User.return_image_url(current_user.which_profile_pic)
+    @image_url = User.return_image_url(current_user.rank, current_user.which_profile_pic)
     
     @profile_image_collection = [
         "Branch",
