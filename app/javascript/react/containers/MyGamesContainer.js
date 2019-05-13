@@ -89,14 +89,14 @@ class MyGamesContainer extends Component {
         opponent = `vs ${opponent}`
       }
       
-      
       return(
         <GameTile
           key={game.id}
           id={game.id}
-          current_player={this.currentUser}
+          current_player={this.state.currentUser}
           opponent={opponent}
           clickable={true}
+          whose_turn={game.whose_turn_id}
         />
       )
     })
