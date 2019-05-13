@@ -62,6 +62,10 @@
   text-align: left;
 }
 
+.login-field-no-top-margin {
+  margin-top: 0px;
+}
+
 #login-field-border-1 {
   border-color: #c1bf97;
   border-width: 1.5px;
@@ -115,6 +119,7 @@
   margin: 15px auto 0 auto;
 }
 
-.login-devise-link a {
-  
+.signup-shared-links {
+  text-align: left;
+  margin-left: 33%;
 }
