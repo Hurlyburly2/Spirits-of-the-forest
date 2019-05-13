@@ -15,15 +15,15 @@ feature 'user signs out', %Q{
 
     visit new_user_session_path
 
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
+    fill_in 'login-field-border-1', with: user.email
+    fill_in 'login-field-border-2', with: user.password
 
     click_button 'Log in'
 
-    expect(page).to have_content('Signed in successfully')
+    expect(page).to have_content(`Spirits of the Forest\nHow to Play My Games Account Sign Out`) #successful login
 
     click_link 'Sign Out'
-    expect(page).to have_content('Signed out successfully')
+    expect(page).to have_content(`Spirits of the Forest\nSign In Sign Up\n\"Once an age, a mythic wind lifts the veil between the spirit world and ours. Whimsical seraphs, drawn to the vigor of an ancient forest, descend through clouds to once again take up their centennial game. You are one of these seraphs – a being of great power and curiosity. The life of the forest fascinates you, and you eagerly gather plant, animal, and sprite alike to add to your mystical menagerie. But beware, for you are not alone. Other beings just like yourself contest to collect the life of the forest as well!\"\nSign In Sign Up`) #successful signout
   end
 
   scenario 'unauthenticated user attempts to sign out' do

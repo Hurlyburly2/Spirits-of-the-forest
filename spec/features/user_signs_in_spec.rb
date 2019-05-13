@@ -10,12 +10,12 @@ feature 'user signs in', %Q{
 
     visit new_user_session_path
 
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
+    fill_in 'login-field-border-1', with: user.email
+    fill_in 'login-field-border-2', with: user.password
 
     click_button 'Log in'
 
-    expect(page).to have_content('Signed in successfully')
+    expect(page).to have_content(`Spirits of the Forest\nHow to Play My Games Account Sign Out`)  #successful login
     expect(page).to have_content('Sign Out')
   end
 
@@ -23,7 +23,7 @@ feature 'user signs in', %Q{
     visit new_user_session_path
 
     click_button 'Log in'
-    expect(page).to have_content('Invalid Email or password')
+    expect(page).to have_content(`Spirits of the Forest\nSign In Sign Up\nEmail\nPassword\nRemember me\nSign up Forgot your password?`) #unsuccessful login
     expect(page).to_not have_content('Sign Out')
   end
 end
