@@ -1,5 +1,5 @@
 .accountpage-wrapper {
-  margin: 0 20% 0 25%;
+  margin: 0 20% 80px 25%;
 }
 
 .accountpage-image-class {
@@ -28,19 +28,32 @@
   line-height: 20px;
 }
 
+.accountpage-info-window h2 {
+  font-family: mr-eaves-modern, sans-serif;
+  color: white;
+  display: inline;
+  font-size: 25px;
+}
+
 .accountpage-info-window hr {
   border: 1px solid #c1bf97;
 }
 
 .accountpage-progressbar {
-  margin: 0 5% 0 5%;
-  background-color: black;
+  background-color: rgba(20, 27, 31, 1);
+  border: 2px solid #c1bf97;
   height: 30px;
 }
 
 .accountpage-progressbar-int {
   background-color: blue;
   height: 30px;
+  border: 2px solid #c1bf97;
+}
+
+.accountpage-winlossgrid-container {
+  margin-top: 10px;
+  float: right;
 }
 
 .accountpage-winlossgrid {
@@ -55,26 +68,127 @@
 }
 
 .accountpage-winlossgrid-winheader {
-  color: black;
+  font-family: mr-eaves-modern, sans-serif;
+  color: white;
   grid-area: win-header;
 }
 
 .accountpage-winlossgrid-lossheader {
-  color: black;
+  font-family: mr-eaves-modern, sans-serif;
+  color: white;
   grid-area: loss-header;
 }
 
 .accountpage-winlossgrid-wins {
-  color: black;
+  font-family: antiquarian, sans-serif;
+  font-size: 35px;
+  color: white;
   grid-area: win-amount;
+  line-height: 2px;
+  margin-top: 10px;
 }
 
 .accountpage-winlossgrid-slash {
-  color: black;
-  grid-area: slash
+  font-family: mr-eaves-modern, sans-serif;
+  font-size: 35px;
+  color: white;
+  grid-area: slash;
+  line-height: 2px;
+  margin-top: 15px;
+  margin-right: 2px;
 }
 
 .accountpage-winlossgrid-losses {
-  color: black;
+  font-family: antiquarian, sans-serif;
+  font-size: 35px;
+  color: white;
   grid-area: loss-amount;
+  line-height: 2px;
+  margin-top: 10px;
+}
+
+.accountpage-account-topten-grid {
+  color: white;
+  display: grid;
+  grid-template-columns: 65% 10px auto;
+  grid-template-rows: auto;
+  grid-template-areas: 
+  "account-settings . top-ten"
+}
+
+.accountpage-settings {
+  grid-area: account-settings;
+}
+
+.accountpage-settings h3 {
+  font-family: mr-eaves-modern, sans-serif;
+  font-size: 24px;
+  color: white;
+  margin-bottom: 15px;
+}
+
+.accountpage-settings-wrapper {
+  margin: 0 25px 0 25px;
+}
+
+.accountpage-settings-wrapper label {
+  margin-top: 10px;
+  font-family: mr-eaves-modern, sans-serif;
+  color: white;
+  font-size: 18px;
+}
+
+.accountpage-settings-wrapper select {
+  background-color: rgba(20, 27, 31, 1);
+  border: 2px solid #c1bf97;
+  color: white;
+}
+
+.accountpage-settings-wrapper select:focus {
+  background-color: rgba(20, 27, 31, 1);
+  border: 2px solid #c1bf97;
+  color: white;
+}
+
+#accountpage-submit {
+  margin-top: 20px;
+  width: 100%;
+  border: none;
+  background-color: #c1bf97;
+  font-family: mr-eaves-modern, sans-serif;
+  font-size: 20px;
+  padding: 6px 0 6px 0;
+  border-radius: 0 0 25px 20px;
+}
+
+#accountpage-submit:hover {
+  background-color: orange;
+}
+
+.accountpage-settings-wrapper {
+  margin-left: 20px;
+}
+
+.accountpage-topten {
+  grid-area: top-ten;
+}
+
+.accountpage-topten h3 {
+  font-family: mr-eaves-modern, sans-serif;
+  font-size: 24px;
+  color: white;
+  margin-bottom: 15px;
+}
+
+.accountpage-topten ul {
+  list-style: none;
+}
+
+.accountpage-topten li {
+  margin-top: 10px;
+}
+
+.accountpage-topten-image {
+  width: 25px;
+  margin-right: 10px;
 }

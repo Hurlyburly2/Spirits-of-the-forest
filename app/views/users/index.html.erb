@@ -8,42 +8,53 @@
       
       <hr></hr>
       
-      <h2><%= current_user.rank.capitalize %></h2>
+      <h2><%= current_user.rank.capitalize %> League</h2>
       <div class="accountpage-progressbar">
         <div class="accountpage-progressbar-int" style=<%=@progress_bar_style %>>
         </div>
       </div>
       
-      <div class="accountpage-winlossgrid">
-        <div class="accountpage-winlossgrid-winheader">Wins</div>
-        <div class="accountpage-winlossgrid-lossheader">Losses</div>
-        <div class="accountpage-winlossgrid-wins"><%= current_user.wins %></div>
-        <div class="accountpage-winlossgrid-slash">/</div>
-        <div class="accountpage-winlossgrid-losses"><%= current_user.losses %></div>
+      <div class="accountpage-winlossgrid-container">
+        <div class="accountpage-winlossgrid">
+          <div class="accountpage-winlossgrid-winheader">Wins</div>
+          <div class="accountpage-winlossgrid-lossheader">Losses</div>
+          <div class="accountpage-winlossgrid-wins"><%= current_user.wins %></div>
+          <div class="accountpage-winlossgrid-slash">/</div>
+          <div class="accountpage-winlossgrid-losses"><%= current_user.losses %></div>
+        </div>
       </div>
       
-      <h3>Top Ten Players:</h3>
-      <ul>
-      <% counter = 0 %>
-      <% @top_ten.each do |player| %>
-        <% counter += 1 %>
-        <li><%= counter %>) <%= player.username %></li>
-      <% end %>
-      </ul>
+      <hr></hr>
       
-      
-      <%= form_for(@user) do |f| %>
-       
-      <%= f.label :reminders, "Email Reminders:" %>
-      <%= f.collection_radio_buttons(:reminders, @options, :first, :last)  %>
-      
-      <%= f.label :which_profile_pic, "Profile Pic:" %>
-      <%= f.select :which_profile_pic, @profile_image_collection, :include_blank => true  %>
+      <div class="accountpage-account-topten-grid">
+        <div class="accountpage-topten">
+          <h3>Top Ten Players:</h3>
+          <ul>
+          <% counter = 0 %>
+          <% @top_ten.each do |player| %>
+            <li><img class="accountpage-topten-image" src=<%= User.return_image_url(player.rank, player.which_profile_pic) %>><%= player.username %></li>
+          <% end %>
+          </ul>
+        </div>
+        
+        <div class="accountpage-settings">
+          <h3>Account Settings:</h3>
+          <div class="accountpage-settings-wrapper">
+            <%= form_for(@user) do |f| %>
+             
+            <%= f.label :which_profile_pic, "Profile Pic:" %>
+            <%= f.select :which_profile_pic, @profile_image_collection, :selected => @default_pic  %>
+            
+            <%= f.label :reminders, "Email Notifications:" %>
+            <%= f.collection_radio_buttons(:reminders, @options, :first, :last)  %>
 
-       <div class="actions">
-         <%= f.submit "Update Account Preferences" %>
-       </div>
-      <% end %>
+             <div class="actions">
+               <%= f.submit "Update Account Preferences", :id => "accountpage-submit" %>
+             </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
