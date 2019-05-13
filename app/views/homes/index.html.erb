@@ -1,20 +1,16 @@
+<nav>
+  <%- if current_user -%>
+  <%- else -%>
 
 <div class="window_wrapper">
   <img src="/misc/SOTF-white-logo.png">
   <p class="entry-page-flavor-text">
     "Once an age, a mythic wind lifts the veil between the spirit world and ours. Whimsical seraphs, drawn to the vigor of an ancient forest, descend through clouds to once again take up their centennial game. You are one of these seraphs – a being of great power and curiosity. The life of the forest fascinates you, and you eagerly gather plant, animal, and sprite alike to add to your mystical menagerie. But beware, for you are not alone. Other beings just like yourself contest to collect the life of the forest as well!"
   </p>
-  <nav>
-        <%- if current_user -%>
-        <%- else -%>
           <ul class="large_buttons">
             <%= link_to new_user_session_path do %><li id="entry-page-left-button">Sign In</li><% end %>
             <%= link_to new_user_registration_path do %><li id="entry-page-right-button">Sign Up</li><% end %>
           </ul>
-        <%- end -%>
   </nav>
 </div>
-
-<%= link_to root_path do %>
-  <div>Hey!</div>
-<% end %>
+<%- end -%>
