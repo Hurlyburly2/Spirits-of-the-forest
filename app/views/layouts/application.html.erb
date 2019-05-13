@@ -4,7 +4,7 @@
   <title>SpiritsOfTheForest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <%= stylesheet_link_tag 'application', media: 'all' %>
-  
+  <link rel="stylesheet" href="https://use.typekit.net/xxt6bfj.css">
     <%= javascript_include_tag "vendor/modernizr" %>
   
   <%= csrf_meta_tags %>
@@ -12,8 +12,13 @@
 <body>
   <div id="overlay">
   </div>
-    <div class="container">  
+    <div class="container">
+      <div class="topbar-left">
+      </div>  
       <div class = "topbar">
+        <a href="/">
+          <span class="topbar-title"><img src="/tiny-icons/MossIcon-small.png" class="topbar-icon">Spirits of the Forest</span>
+        </a>
         <% if user_signed_in? %>
           <ul>
             <a href="/instructions"><li>How to Play</li></a>
@@ -37,8 +42,10 @@
           </div>
         <%- end -%>
       </div>
-
-      <%= yield %>
+      
+      <div class="railsElements">
+        <%= yield %>
+      </div>
       
       <% if user_signed_in? %>
         <div id="app" className="reactInsert"></div>

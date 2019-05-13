@@ -19,6 +19,7 @@ body {
   background-image: url(<%= asset_path 'CoverArt.jpg' %>);
   background-size: cover;
   background-position: 88% 30%;
+  font-family: mr-eaves-modern, sans-serif;
 }
 
 h1 {
@@ -45,17 +46,38 @@ h1 {
 }
 
 .topbar {
+  padding: 5px 0 5px 0;
   background-color: #141C20;
   text-align: right;
 }
 
+.topbar-title {
+  font-family: antiquarian, sans-serif;
+  font-size: 25px;
+  margin-left: 15%;
+  color: white;
+  float: left;
+  display: inline;
+}
+
+.topbar-title:hover {
+  color: orange;
+}
+
+.topbar-icon {
+  width: 30px;
+  margin-right: 13px;
+}
+
 .topbar ul {
+  display: inline;
   padding: 5px 0;
-  margin-right: 10%;
+  margin-right: 15%;
   list-style: none;
 }
 
 .topbar li {
+  font-size: 20px;
   display: inline;
 }
 
