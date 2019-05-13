@@ -24,7 +24,7 @@ const GameTile = (props) => {
       <div className="gameTile">
         <ProfilePic key={`${props.id}pic1`} whichPic={props.current_player.which_profile_pic} whichRank={props.current_player.rank} where="GameTile"/>
         {props.current_player.username}<img src={playerArrows}/>
-        <img src={opponentArrows} />{props.opponent}
+        <img src={opponentArrows} /><span>{props.opponent}</span>
         <ProfilePic key={`${props.id}pic2`} whichPic={props.opponentPic} whichRank={props.opponentRank} where="GameTile"/>
       </div>
     </Link>
