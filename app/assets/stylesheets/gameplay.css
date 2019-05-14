@@ -1,3 +1,49 @@
+.gameplayContainer {
+  text-align: center;
+}
+
+/* TOP BUTTONS */
+
+.gamePlayNavContainer {
+  margin-right: 15%;
+  text-align: right;
+}
+
+.gamePlayNav {
+  text-align: right;
+  display: inline-block;
+  margin: 10px 0px 35px 0;
+  height: 45px;
+  position: relative;
+}
+
+.gamePlayPage-TopIcon {
+  border: 3px solid #c1bf97;
+  border-radius: 100%;
+  left: 25px;
+  position: absolute;
+  width: 58px;
+}
+
+.gamePlayButtons ul {
+  display: inline;
+}
+
+.gamePlayButtons li {
+  display: inline-block;
+  background-color: white;
+  border: 3px solid #c1bf97;
+  padding: 5px 25px;
+  margin: 0 0 0 15px;
+  font-size: 25px;
+  color: black;
+  font-weight: 400;
+}
+
+/* Card Elements */
+
+/* Bottom Elements */
+
 h4 {
   color: white;
 }
@@ -14,8 +60,8 @@ h4 {
 }
 
 .card {
-  width: 6.2%;
-  margin: 2.2px 3px;
+  width: 4.5%;
+  margin: 6px 6px;
   display: inline-block;
   position: relative;
   top: 0;
@@ -56,16 +102,7 @@ h4 {
 
 .card:hover {
   z-index: 500;
-  transform: scale(2,2);
-}
-
-.gamePlayButtons li {
-  width: 250px;
-  background-color: orange;
-  padding: 20px 60px;
-  display: inline-block;
-  margin: 10px 20px 0 20px;
-  color: white
+  transform: scale(2.5,2.5);
 }
 
 .card-selected {

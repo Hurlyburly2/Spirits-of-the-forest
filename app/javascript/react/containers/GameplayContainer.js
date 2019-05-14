@@ -6,6 +6,7 @@ import CardContainer from './CardContainer'
 import CollectedCardsTile from '../components/CollectedCardsTile'
 import EndGameTile from '../components/EndGameTile'
 import GemTile from '../components/GemTile'
+import ProfilePic from '../components/ProfilePic'
 
 class GameplayContainer extends Component {
   constructor(props) {
@@ -440,7 +441,11 @@ class GameplayContainer extends Component {
     let confirmButton = null
     let completeScreen
     let deleteButton
-    let backButton = <Link to='/'><li>MY GAMES</li></Link>
+    let profilePic
+    if (this.state.currentUser) {
+      profilePic = <ProfilePic key="ProfilePic" whichPic={this.state.currentUser.which_profile_pic} whichRank={this.state.currentUser.rank} where="GamePlayPageTop" who="player"/>
+    }
+    let backButton = <Link to='/'>{profilePic}<li>My Games</li></Link>
     let errorMessage
     let yourGems = []
     let opponentGems = []
@@ -450,7 +455,6 @@ class GameplayContainer extends Component {
     
     if (this.state.gameState === "play"){
       if (this.state.currentUser && this.state.opponent) {  
-        
         currentPlayerName = <span onClick={this.togglePlayerCollectedTile}>{this.state.currentUser.username}</span>
         opponentName = <span onClick={this.toggleOpponentCollectedTile}>{this.state.opponent.username}</span>
         if (this.state.showCollectedTile === "player") {
@@ -473,7 +477,7 @@ class GameplayContainer extends Component {
         
         if (this.state.whose_turn.id === this.state.currentUser.id) {
           message = "Your Turn"
-          confirmButton = <li onClick={handleConfirmCardSelection}>CONFIRM SELECTION</li>
+          confirmButton = <li onClick={handleConfirmCardSelection}>Confirm Selection</li>
           
           if (this.state.yourTotalGems > 0 && this.state.gemMode === false) {
             gemButton = <li onClick={handleGemToggle}>Place Gems</li>
@@ -489,7 +493,7 @@ class GameplayContainer extends Component {
           message = `${this.state.whose_turn.username}'s Turn`
         }
       }
-      deleteButton = <li onClick={handleDeleteGame}>CONCEDE</li>
+      deleteButton = <li onClick={handleDeleteGame}>Concede</li>
       endGame = "CONCEDE"
       errorMessage = this.state.errorMessage
       
@@ -532,10 +536,17 @@ class GameplayContainer extends Component {
     }
     
     return(
-      <div className="gamesContainerPage">
-        {showCollectedCards}
-        <h4>{yourGems} {currentPlayerName} {message} {opponentName} {opponentGems}</h4>
-        {completeScreen}
+      <div className="gameplayContainer">
+        <div className="gamePlayNavContainer">
+          <div className="gamePlayNav">
+            <ul className="gamePlayButtons">
+            {backButton}
+            {confirmButton}
+            {gemButton}
+            {deleteButton}
+            </ul>
+          </div>
+        </div>
         <CardContainer 
           gameState={this.state.gameState}
           cards={this.state.cards}
@@ -548,12 +559,9 @@ class GameplayContainer extends Component {
           handleGemmedCard={this.selectGemmedCard}
         />
         <p className="errorText">{this.state.errorMessage}</p>
-        <ul className="gamePlayButtons">
-          {backButton}
-          {confirmButton}
-          {gemButton}
-          {deleteButton}
-        </ul>
+        {showCollectedCards}
+        <h4>{yourGems} {currentPlayerName} {message} {opponentName} {opponentGems}</h4>
+        {completeScreen}
       </div>
     )
   }

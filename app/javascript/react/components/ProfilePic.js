@@ -49,7 +49,7 @@ const ProfilePic = (props) => {
     if (props.whichPic === "unknown") {
       image_url = "/rankicons/Unknown-Opponent"
     }
-  } else if (props.where === "GamePage") {
+  } else if (props.where === "GamePage" || props.where === "GamePlayPageTop") {
       image_url = "/tokens/"
       if (props.whichPic === 1) {
         image_url = image_url + "Branch"
@@ -88,6 +88,8 @@ const ProfilePic = (props) => {
     }
   } else if (props.where === "GamePage") {
     image_class = "gameIndex-profilePic"
+  } else if (props.where === "GamePlayPageTop") {
+    image_class = "gamePlayPage-TopIcon"
   }
   
   image_url = image_url + ".png"
