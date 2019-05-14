@@ -15,7 +15,7 @@ feature 'user signs in', %Q{
 
     click_button 'Log in'
 
-    expect(page).to have_content(`Spirits of the Forest\nHow to Play My Games Account Sign Out`)  #successful login
+    expect(page).to have_content('How to Play')  #successful login
     expect(page).to have_content('Sign Out')
   end
 
@@ -23,7 +23,7 @@ feature 'user signs in', %Q{
     visit new_user_session_path
 
     click_button 'Log in'
-    expect(page).to have_content(`Spirits of the Forest\nSign In Sign Up\nEmail\nPassword\nRemember me\nSign up Forgot your password?`) #unsuccessful login
+    expect(page).to have_content('Sign In') #unsuccessful login
     expect(page).to_not have_content('Sign Out')
   end
 end
