@@ -20,10 +20,10 @@ feature 'user signs out', %Q{
 
     click_button 'Log in'
 
-    expect(page).to have_content(`Spirits of the Forest\nHow to Play My Games Account Sign Out`) #successful login
+    expect(page).to have_content('How to Play') #successful login
 
     click_link 'Sign Out'
-    expect(page).to have_content(`Spirits of the Forest\nSign In Sign Up\n\"Once an age, a mythic wind lifts the veil between the spirit world and ours. Whimsical seraphs, drawn to the vigor of an ancient forest, descend through clouds to once again take up their centennial game. You are one of these seraphs – a being of great power and curiosity. The life of the forest fascinates you, and you eagerly gather plant, animal, and sprite alike to add to your mystical menagerie. But beware, for you are not alone. Other beings just like yourself contest to collect the life of the forest as well!\"\nSign In Sign Up`) #successful signout
+    expect(page).to have_content('Once an age') #successful signout
   end
 
   scenario 'unauthenticated user attempts to sign out' do

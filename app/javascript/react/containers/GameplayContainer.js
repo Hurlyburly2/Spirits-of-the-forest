@@ -6,6 +6,7 @@ import CardContainer from './CardContainer'
 import CollectedCardsTile from '../components/CollectedCardsTile'
 import EndGameTile from '../components/EndGameTile'
 import GemTile from '../components/GemTile'
+import ProfilePic from '../components/ProfilePic'
 
 class GameplayContainer extends Component {
   constructor(props) {
@@ -440,7 +441,11 @@ class GameplayContainer extends Component {
     let confirmButton = null
     let completeScreen
     let deleteButton
-    let backButton = <Link to='/'><li>MY GAMES</li></Link>
+    let profilePic
+    if (this.state.currentUser) {
+      profilePic = <ProfilePic key="ProfilePic" whichPic={this.state.currentUser.which_profile_pic} whichRank={this.state.currentUser.rank} where="GamePlayPageTop" who="player"/>
+    }
+    let backButton = <Link to='/'>{profilePic}<li>My Games</li></Link>
     let errorMessage
     let yourGems = []
     let opponentGems = []
@@ -450,9 +455,20 @@ class GameplayContainer extends Component {
     
     if (this.state.gameState === "play"){
       if (this.state.currentUser && this.state.opponent) {  
-        
-        currentPlayerName = <span onClick={this.togglePlayerCollectedTile}>{this.state.currentUser.username}</span>
-        opponentName = <span onClick={this.toggleOpponentCollectedTile}>{this.state.opponent.username}</span>
+        currentPlayerName = <div className="gameplayCurrentPlayerBox" onClick={this.togglePlayerCollectedTile}>
+            <ProfilePic key="ProfilePic" whichPic={this.state.currentUser.which_profile_pic} whichRank={this.state.currentUser.rank} where="GameplayBottomUser" who="player"/>
+            <div className="gameplay-CurrentPlayerBox-Content">
+              <h4>{this.state.currentUser.username}</h4>
+              {yourGems}
+            </div>
+          </div>
+        opponentName = <div className="gameplayOpponentPlayerBox" onClick={this.toggleOpponentCollectedTile}>
+            <ProfilePic key="ProfilePic" whichPic={this.state.opponent.which_profile_pic} whichRank={this.state.opponent.rank} where="GameplayOpponent" who="player"/>
+            <div className="gameplay-OpponentPlayerBox-Content">
+              <h4>{this.state.opponent.username}</h4>
+              {opponentGems}
+            </div>
+          </div>
         if (this.state.showCollectedTile === "player") {
           showCollectedCards = <CollectedCardsTile 
             whose="player"
@@ -473,7 +489,7 @@ class GameplayContainer extends Component {
         
         if (this.state.whose_turn.id === this.state.currentUser.id) {
           message = "Your Turn"
-          confirmButton = <li onClick={handleConfirmCardSelection}>CONFIRM SELECTION</li>
+          confirmButton = <li onClick={handleConfirmCardSelection}>Confirm Selection</li>
           
           if (this.state.yourTotalGems > 0 && this.state.gemMode === false) {
             gemButton = <li onClick={handleGemToggle}>Place Gems</li>
@@ -489,7 +505,7 @@ class GameplayContainer extends Component {
           message = `${this.state.whose_turn.username}'s Turn`
         }
       }
-      deleteButton = <li onClick={handleDeleteGame}>CONCEDE</li>
+      deleteButton = <li onClick={handleDeleteGame}>Concede</li>
       endGame = "CONCEDE"
       errorMessage = this.state.errorMessage
       
@@ -514,10 +530,10 @@ class GameplayContainer extends Component {
       errorMessage = this.state.errorMessage
     } else if (this.state.gameState === "pending") {
       message = "Waiting for Opponent..."
-      deleteButton = <li onClick={handleDeleteGame}>DELETE GAME</li>
+      deleteButton = <li onClick={handleDeleteGame}>Delete Game</li>
       errorMessage = this.state.errorMessage
     } else if (this.state.gameState === "complete") {
-      backButton = <li onClick={handleDeleteGame}>OK</li>
+      backButton = <li onClick={handleDeleteGame} className="endGame-doneButton">Done</li>
       completeScreen = <EndGameTile 
                           yourCards={this.state.yourCards}
                           yourTokens={this.state.yourTokens}
@@ -531,29 +547,42 @@ class GameplayContainer extends Component {
                         />
     }
     
+    let cardContainerInsert
+    let gamePlayBottom
+    if (this.state.gameState !== "complete") {
+      cardContainerInsert = <CardContainer 
+        gameState={this.state.gameState}
+        cards={this.state.cards}
+        handleSelectCard={this.selectCard}
+        checkTurn={this.checkTurn}
+        selected={this.state.selected}
+        gemMode={this.state.gemMode}
+        handleGemPlacement={this.gemPlacement}
+        currentUser={this.state.currentUser}
+        handleGemmedCard={this.selectGemmedCard}
+      />
+      gamePlayBottom = <div className="gameplayBottomWrapper">
+        {currentPlayerName} <h4 className="whoseTurn">{message}</h4> {opponentName}
+      </div>
+    }
+    
     return(
-      <div className="gamesContainerPage">
-        {showCollectedCards}
-        <h4>{yourGems} {currentPlayerName} {message} {opponentName} {opponentGems}</h4>
-        {completeScreen}
-        <CardContainer 
-          gameState={this.state.gameState}
-          cards={this.state.cards}
-          handleSelectCard={this.selectCard}
-          checkTurn={this.checkTurn}
-          selected={this.state.selected}
-          gemMode={this.state.gemMode}
-          handleGemPlacement={this.gemPlacement}
-          currentUser={this.state.currentUser}
-          handleGemmedCard={this.selectGemmedCard}
-        />
+      <div className="gameplayContainer">
+        <div className="gamePlayNavContainer">
+          <div className="gamePlayNav">
+            <ul className="gamePlayButtons">
+            {backButton}
+            {confirmButton}
+            {gemButton}
+            {deleteButton}
+            </ul>
+          </div>
+        </div>
+        {cardContainerInsert}
         <p className="errorText">{this.state.errorMessage}</p>
-        <ul className="gamePlayButtons">
-          {backButton}
-          {confirmButton}
-          {gemButton}
-          {deleteButton}
-        </ul>
+        {showCollectedCards}
+        {gamePlayBottom}
+        {completeScreen}
       </div>
     )
   }

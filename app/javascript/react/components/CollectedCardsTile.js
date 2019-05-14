@@ -128,18 +128,20 @@ const CollectedCardsTile = (props) => {
   
   
   return(
-    <div className ={whoseClassName} onClick={props.toggleAppearance}>
-      <h1>{props.name}'s Cards:</h1>
-      {branchCardTiles}
-      {dewCardTiles}
-      {flowerCardTiles}
-      {fruitCardTiles}
-      {leafCardTiles}
-      {mossCardTiles}
-      {mushroomCardTiles}
-      {spiderCardTiles}
-      {vineCardTiles}
-      {collectedTokens}
+    <div className = "collected-cards">
+      <div className ={whoseClassName} onClick={props.toggleAppearance}>
+        <h1 className="collected-cards-text">{props.name}'s Cards:</h1>
+        {branchCardTiles}
+        {dewCardTiles}
+        {flowerCardTiles}
+        {fruitCardTiles}
+        {leafCardTiles}
+        {mossCardTiles}
+        {mushroomCardTiles}
+        {spiderCardTiles}
+        {vineCardTiles}
+        {collectedTokens}
+      </div>
     </div>
   )
 }

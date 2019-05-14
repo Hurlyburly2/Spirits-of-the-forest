@@ -7,7 +7,7 @@ const ProfilePic = (props) => {
   //  where="GameTile"/>
   let image_url = "/rankicons/"
   
-  if (props.where === "GameTile") {
+  if (props.where === "GameTile" || props.where === "GameplayBottomUser" || props.where === "GameplayOpponent") {
     if (props.whichPic === 1) {
       image_url = image_url + "Branch"
     } else if (props.whichPic === 2) {
@@ -49,7 +49,7 @@ const ProfilePic = (props) => {
     if (props.whichPic === "unknown") {
       image_url = "/rankicons/Unknown-Opponent"
     }
-  } else if (props.where === "GamePage") {
+  } else if (props.where === "GamePage" || props.where === "GamePlayPageTop") {
       image_url = "/tokens/"
       if (props.whichPic === 1) {
         image_url = image_url + "Branch"
@@ -88,6 +88,12 @@ const ProfilePic = (props) => {
     }
   } else if (props.where === "GamePage") {
     image_class = "gameIndex-profilePic"
+  } else if (props.where === "GamePlayPageTop") {
+    image_class = "gamePlayPage-TopIcon"
+  } else if (props.where === "GameplayBottomUser") {
+    image_class = "gamePlayPage-BottomUser"
+  } else if (props.where === "GameplayOpponent") {
+    image_class = "gamePlayPage-BottomOpponent"
   }
   
   image_url = image_url + ".png"

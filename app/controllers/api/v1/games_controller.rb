@@ -719,8 +719,14 @@ class Api::V1::GamesController < ApplicationController
     
     if score["user"]["branch"] > score["opponent"]["branch"]
       score["user"]["total"] += score["user"]["branch"]
+      if score["opponent"]["branch"] == 0
+        score["opponent"]["total"] -= 3
+      end
     elsif score["user"]["branch"] < score["opponent"]["branch"]
       score["opponent"]["total"] += score["opponent"]["branch"]
+      if score["user"]["branch"] == 0
+        score["user"]["total"] -= 3
+      end
     else
       score["user"]["total"] += score["user"]["branch"]
       score["opponent"]["total"] += score["opponent"]["branch"]
@@ -728,8 +734,14 @@ class Api::V1::GamesController < ApplicationController
     
     if score["user"]["dew"] > score["opponent"]["dew"]
       score["user"]["total"] += score["user"]["dew"]
+      if score["opponent"]["dew"] == 0
+        score["opponent"]["total"] -= 3
+      end
     elsif score["user"]["dew"] < score["opponent"]["dew"]
       score["opponent"]["total"] += score["opponent"]["dew"]
+      if score["user"]["dew"] == 0
+        score["user"]["total"] -= 3
+      end
     else
       score["user"]["total"] += score["user"]["dew"]
       score["opponent"]["total"] += score["opponent"]["dew"]
@@ -737,17 +749,29 @@ class Api::V1::GamesController < ApplicationController
     
     if score["user"]["flower"] > score["opponent"]["flower"]
       score["user"]["total"] += score["user"]["flower"]
+      if score["opponent"]["flower"] == 0
+        score["opponent"]["total"] -= 3
+      end
     elsif score["user"]["flower"] < score["opponent"]["flower"]
       score["opponent"]["total"] += score["opponent"]["flower"]
+      if score["user"]["flower"] == 0
+        score["user"]["total"] -= 3
+      end
     else
       score["user"]["total"] += score["user"]["flower"]
       score["opponent"]["total"] += score["opponent"]["flower"]
     end
     
     if score["user"]["fruit"] > score["opponent"]["fruit"]
+      if score["opponent"]["fruit"] == 0
+        score["opponent"]["total"] -= 3
+      end
       score["user"]["total"] += score["user"]["fruit"]
     elsif score["user"]["fruit"] < score["opponent"]["fruit"]
       score["opponent"]["total"] += score["opponent"]["fruit"]
+      if score["user"]["fruit"] == 0
+        score["user"]["total"] -= 3
+      end
     else
       score["user"]["total"] += score["user"]["fruit"]
       score["opponent"]["total"] += score["opponent"]["fruit"]
@@ -755,8 +779,14 @@ class Api::V1::GamesController < ApplicationController
     
     if score["user"]["leaf"] > score["opponent"]["leaf"]
       score["user"]["total"] += score["user"]["leaf"]
+      if score["opponent"]["leaf"] == 0
+        score["opponent"]["total"] -= 3
+      end
     elsif score["user"]["leaf"] < score["opponent"]["leaf"]
       score["opponent"]["total"] += score["opponent"]["leaf"]
+      if score["user"]["leaf"] == 0
+        score["user"]["total"] -= 3
+      end
     else
       score["user"]["total"] += score["user"]["leaf"]
       score["opponent"]["total"] += score["opponent"]["leaf"]
@@ -764,8 +794,14 @@ class Api::V1::GamesController < ApplicationController
       
     if score["user"]["moss"] > score["opponent"]["moss"]
       score["user"]["total"] += score["user"]["moss"]
+      if score["opponent"]["moss"] == 0
+        score["opponent"]["total"] -= 3
+      end
     elsif score["user"]["moss"] < score["opponent"]["moss"]
       score["opponent"]["total"] += score["opponent"]["moss"]
+      if score["user"]["moss"] == 0
+        score["user"]["total"] -= 3
+      end
     else
       score["user"]["total"] += score["user"]["moss"]
       score["opponent"]["total"] += score["opponent"]["moss"]
@@ -773,8 +809,14 @@ class Api::V1::GamesController < ApplicationController
     
     if score["user"]["mushroom"] > score["opponent"]["mushroom"]
       score["user"]["total"] += score["user"]["mushroom"]
+      if score["opponent"]["mushroom"] == 0
+        score["opponent"]["total"] -= 3
+      end
     elsif score["user"]["mushroom"] < score["opponent"]["mushroom"]
       score["opponent"]["total"] += score["opponent"]["mushroom"]
+      if score["user"]["mushroom"] == 0
+        score["user"]["total"] -= 3
+      end
     else
       score["user"]["total"] += score["user"]["mushroom"]
       score["opponent"]["total"] += score["opponent"]["mushroom"]
@@ -782,8 +824,14 @@ class Api::V1::GamesController < ApplicationController
     
     if score["user"]["spider"] > score["opponent"]["spider"]
       score["user"]["total"] += score["user"]["spider"]
+      if score["opponent"]["spider"] == 0
+        score["opponent"]["total"] -= 3
+      end
     elsif score["user"]["spider"] < score["opponent"]["spider"]
       score["opponent"]["total"] += score["opponent"]["spider"]
+      if score["user"]["spider"] == 0
+        score["user"]["total"] -= 3
+      end
     else
       score["user"]["total"] += score["user"]["spider"]
       score["opponent"]["total"] += score["opponent"]["spider"]
@@ -791,8 +839,14 @@ class Api::V1::GamesController < ApplicationController
     
     if score["user"]["vine"] > score["opponent"]["vine"]
       score["user"]["total"] += score["user"]["vine"]
+      if score["opponent"]["vine"] == 0
+        score["opponent"]["total"] -= 3
+      end
     elsif score["user"]["vine"] < score["opponent"]["vine"]
       score["opponent"]["total"] += score["opponent"]["vine"]
+      if score["user"]["vine"] == 0
+        score["user"]["total"] -= 3
+      end
     else
       score["user"]["total"] += score["user"]["vine"]
       score["opponent"]["total"] += score["opponent"]["vine"]
@@ -800,8 +854,14 @@ class Api::V1::GamesController < ApplicationController
     
     if score["user"]["moon"] > score["opponent"]["moon"]
       score["user"]["total"] += score["user"]["moon"]
+      if score["opponent"]["moon"] == 0
+        score["opponent"]["total"] -= 3
+      end
     elsif score["user"]["moon"] < score["opponent"]["moon"]
       score["opponent"]["total"] += score["opponent"]["moon"]
+      if score["user"]["moon"] == 0
+        score["user"]["total"] -= 3
+      end
     else
       score["user"]["total"] += score["user"]["moon"]
       score["opponent"]["total"] += score["opponent"]["moon"]
@@ -809,8 +869,14 @@ class Api::V1::GamesController < ApplicationController
     
     if score["user"]["sun"] > score["opponent"]["sun"]
       score["user"]["total"] += score["user"]["sun"]
+      if score["opponent"]["sun"] == 0
+        score["opponent"]["total"] -= 3
+      end
     elsif score["user"]["sun"] < score["opponent"]["sun"]
       score["opponent"]["total"] += score["opponent"]["sun"]
+      if score["user"]["sun"] == 0
+        score["user"]["total"] -= 3
+      end
     else
       score["user"]["total"] += score["user"]["sun"]
       score["opponent"]["total"] += score["opponent"]["sun"]
@@ -818,8 +884,14 @@ class Api::V1::GamesController < ApplicationController
     
     if score["user"]["wind"] > score["opponent"]["wind"]
       score["user"]["total"] += score["user"]["wind"]
+      if score["opponent"]["wind"] == 0
+        score["opponent"]["total"] -= 3
+      end
     elsif score["user"]["wind"] < score["opponent"]["wind"]
       score["opponent"]["total"] += score["opponent"]["wind"]
+      if score["user"]["wind"] == 0
+        score["user"]["total"] -= 3
+      end
     else
       score["user"]["total"] += score["user"]["wind"]
       score["opponent"]["total"] += score["opponent"]["wind"]

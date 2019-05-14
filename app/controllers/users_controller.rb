@@ -103,16 +103,16 @@ class UsersController < ApplicationController
     @progress_bar_style = ""
     if current_user.rankup_score >= 0 && current_user.rankup_score < 100
       rank_up_percentage = current_user.rankup_score
-      @progress_bar_style = "width:#{rank_up_percentage}%;background-color:#CD7F32;"
+      @progress_bar_style = "width:#{rank_up_percentage}%;background-color:#CD7F32;border-width:1px;height:28px"
     elsif current_user.rankup_score >= 100 && current_user.rankup_score < 200
       rank_up_percentage = current_user.rankup_score - 100
-      @progress_bar_style = "width:#{rank_up_percentage}%;background-color:#C0C0C0;"
+      @progress_bar_style = "width:#{rank_up_percentage}%;background-color:#C0C0C0;border-width:1px;height:28px"
     elsif current_user.rankup_score >= 200 && current_user.rankup_score < 300
       rank_up_percentage = current_user.rankup_score - 200
-      @progress_bar_style = "width:#{rank_up_percentage}%;background-color:#FFD700;"
+      @progress_bar_style = "width:#{rank_up_percentage}%;background-color:#FFD700;border-width:1px;height:28px"
     elsif current_user.rankup_score >= 300 && current_user.rankup_score < 400
       rank_up_percentage = current_user.rankup_score - 300
-      @progress_bar_style = "width:#{rank_up_percentage}%;background-color:#B9F2FF;"
+      @progress_bar_style = "width:#{rank_up_percentage}%;background-color:#B9F2FF;border-width:1px;height:28px"
     else
       @progress_bar_style = "width:100%;background-color:#ff3276;"
     end
