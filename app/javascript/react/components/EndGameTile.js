@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 
 import ScoreCardTile from './ScoreCardTile'
 import TokenTile from './TokenTile'
+import ProfilePic from './ProfilePic'
 
 const EndGameTile = (props) => {
   let userBranchCards = props.yourCards.filter(card => card.spirit === "branch")
@@ -35,13 +36,19 @@ const EndGameTile = (props) => {
   
   let userBranchClass = "score-user-branch"
   let opponentBranchClass = "score-opponent-branch"
+  let userBranchIcon
+  let opponentBranchIcon
   if (props.score.user.branch > props.score.opponent.branch) {
     userBranchClass += " score-winner"
+    userBranchIcon = <img src="/tiny-icons/BranchIcon-small.png" className="userBranchIcon"/>
   } else if (props.score.user.branch < props.score.opponent.branch) {
     opponentBranchClass += " score-winner"
+    opponentBranchIcon = <img src="/tiny-icons/BranchIcon-small.png" className="opponentBranchIcon"/>
   } else {
     userBranchClass += " score-winner"
     opponentBranchClass += " score-winner"
+    userBranchIcon = <img src="/tiny-icons/BranchIcon-small.png" className="userBranchIcon"/>
+    opponentBranchIcon = <img src="/tiny-icons/BranchIcon-small.png" className="opponentBranchIcon"/>
   }
   
   let userDewCards = props.yourCards.filter(card => card.spirit === "dew")
@@ -74,13 +81,19 @@ const EndGameTile = (props) => {
   
   let userDewClass = "score-user-dew"
   let opponentDewClass = "score-opponent-dew"
+  let userDewIcon
+  let opponentDewIcon
   if (props.score.user.dew > props.score.opponent.dew) {
     userDewClass += " score-winner"
+    userDewIcon = <img src="/tiny-icons/DewIcon-small.png" className="userDewIcon"/>
   } else if (props.score.user.dew < props.score.opponent.dew) {
     opponentDewClass += " score-winner"
+    opponentDewIcon = <img src="/tiny-icons/DewIcon-small.png" className="opponentDewIcon"/>
   } else {
     userDewClass += " score-winner"
     opponentDewClass += " score-winner"
+    userDewIcon = <img src="/tiny-icons/DewIcon-small.png" className="userDewIcon"/>
+    opponentDewIcon = <img src="/tiny-icons/DewIcon-small.png" className="opponentDewIcon"/>
   }
   
   let userFlowerCards = props.yourCards.filter(card => card.spirit === "flower")
@@ -113,13 +126,19 @@ const EndGameTile = (props) => {
   
   let userFlowerClass = "score-user-flower"
   let opponentFlowerClass = "score-opponent-flower"
+  let userFlowerIcon
+  let opponentFlowerIcon
   if (props.score.user.flower > props.score.opponent.flower) {
     userFlowerClass += " score-winner"
+    userFlowerIcon = <img src="/tiny-icons/FlowerIcon-small.png" className="userFlowerIcon"/>
   } else if (props.score.user.flower < props.score.opponent.flower) {
     opponentFlowerClass += " score-winner"
+    opponentFlowerIcon = <img src="/tiny-icons/FlowerIcon-small.png" className="opponentFlowerIcon"/>
   } else {
     userFlowerClass += " score-winner"
     opponentFlowerClass += " score-winner"
+    userFlowerIcon = <img src="/tiny-icons/FlowerIcon-small.png" className="userFlowerIcon"/>
+    opponentFlowerIcon = <img src="/tiny-icons/FlowerIcon-small.png" className="opponentFlowerIcon"/>
   }
   
   let userFruitCards = props.yourCards.filter(card => card.spirit === "fruit")
@@ -152,13 +171,19 @@ const EndGameTile = (props) => {
   
   let userFruitClass = "score-user-fruit"
   let opponentFruitClass = "score-opponent-fruit"
+  let userFruitIcon
+  let opponentFruitIcon
   if (props.score.user.fruit > props.score.opponent.fruit) {
     userFruitClass += " score-winner"
+    userFruitIcon = <img src="/tiny-icons/FruitIcon-small.png" className="userFruitIcon"/>
   } else if (props.score.user.fruit < props.score.opponent.fruit) {
     opponentFruitClass += " score-winner"
+    opponentFruitIcon = <img src="/tiny-icons/FruitIcon-small.png" className="opponentFruitIcon"/>
   } else {
     userFruitClass += " score-winner"
     opponentFruitClass += " score-winner"
+    userFruitIcon = <img src="/tiny-icons/FruitIcon-small.png" className="userFruitIcon"/>
+    opponentFruitIcon = <img src="/tiny-icons/FruitIcon-small.png" className="opponentFruitIcon"/>
   }
   
   let userLeafCards = props.yourCards.filter(card => card.spirit === "leaf")
@@ -191,13 +216,19 @@ const EndGameTile = (props) => {
   
   let userLeafClass = "score-user-leaf"
   let opponentLeafClass = "score-opponent-leaf"
+  let userLeafIcon
+  let opponentLeafIcon
   if (props.score.user.leaf > props.score.opponent.leaf) {
     userLeafClass += " score-winner"
+    userLeafIcon = <img src="/tiny-icons/LeafIcon-small.png" className="userLeafIcon"/>
   } else if (props.score.user.leaf < props.score.opponent.leaf) {
     opponentLeafClass += " score-winner"
+    opponentLeafIcon = <img src="/tiny-icons/LeafIcon-small.png" className="opponentLeafIcon"/>
   } else {
     userLeafClass += " score-winner"
     opponentLeafClass += " score-winner"
+    userLeafIcon = <img src="/tiny-icons/LeafIcon-small.png" className="userLeafIcon"/>
+    opponentLeafIcon = <img src="/tiny-icons/LeafIcon-small.png" className="opponentLeafIcon"/>
   }
   
   let userMossCards = props.yourCards.filter(card => card.spirit === "moss")
@@ -230,13 +261,19 @@ const EndGameTile = (props) => {
   
   let userMossClass = "score-user-moss"
   let opponentMossClass = "score-opponent-moss"
+  let userMossIcon
+  let opponentMossIcon
   if (props.score.user.moss > props.score.opponent.moss) {
     userMossClass += " score-winner"
+    userMossIcon = <img src="/tiny-icons/MossIcon-small.png" className="userMossIcon"/>
   } else if (props.score.user.moss < props.score.opponent.moss) {
     opponentMossClass += " score-winner"
+    opponentMossIcon = <img src="/tiny-icons/MossIcon-small.png" className="opponentMossIcon"/>
   } else {
     userMossClass += " score-winner"
     opponentMossClass += " score-winner"
+    userMossIcon = <img src="/tiny-icons/MossIcon-small.png" className="userMossIcon"/>
+    opponentMossIcon = <img src="/tiny-icons/MossIcon-small.png" className="opponentMossIcon"/>
   }
   
   let userMushroomCards = props.yourCards.filter(card => card.spirit === "mushroom")
@@ -269,13 +306,19 @@ const EndGameTile = (props) => {
   
   let userMushroomClass = "score-user-mushroom"
   let opponentMushroomClass = "score-opponent-mushroom"
+  let userMushroomIcon
+  let opponentMushroomIcon
   if (props.score.user.mushroom > props.score.opponent.mushroom) {
     userMushroomClass += " score-winner"
+    userMushroomIcon = <img src="/tiny-icons/MushroomIcon-small.png" className="userMushroomIcon"/>
   } else if (props.score.user.mushroom < props.score.opponent.mushroom) {
     opponentMushroomClass += " score-winner"
+    opponentMushroomIcon = <img src="/tiny-icons/MushroomIcon-small.png" className="opponentMushroomIcon"/>
   } else {
     userMushroomClass += " score-winner"
     opponentMushroomClass += " score-winner"
+    userMushroomIcon = <img src="/tiny-icons/MushroomIcon-small.png" className="userMushroomIcon"/>
+    opponentMushroomIcon = <img src="/tiny-icons/MushroomIcon-small.png" className="opponentMushroomIcon"/>
   }
   
   let userSpiderCards = props.yourCards.filter(card => card.spirit === "spider")
@@ -308,13 +351,19 @@ const EndGameTile = (props) => {
   
   let userSpiderClass = "score-user-spider"
   let opponentSpiderClass = "score-opponent-spider"
+  let userSpiderIcon
+  let opponentSpiderIcon
   if (props.score.user.spider > props.score.opponent.spider) {
     userSpiderClass += " score-winner"
+    userSpiderIcon = <img src="/tiny-icons/SpiderIcon-small.png" className="userSpiderIcon"/>
   } else if (props.score.user.spider < props.score.opponent.spider) {
     opponentSpiderClass += " score-winner"
+    opponentSpiderIcon = <img src="/tiny-icons/SpiderIcon-small.png" className="opponentSpiderIcon"/>
   } else {
     userSpiderClass += " score-winner"
     opponentSpiderClass += " score-winner"
+    userSpiderIcon = <img src="/tiny-icons/SpiderIcon-small.png" className="userSpiderIcon"/>
+    opponentSpiderIcon = <img src="/tiny-icons/SpiderIcon-small.png" className="opponentSpiderIcon"/>
   }
   
   let userVineCards = props.yourCards.filter(card => card.spirit === "vine")
@@ -347,13 +396,19 @@ const EndGameTile = (props) => {
   
   let userVineClass = "score-user-vine"
   let opponentVineClass = "score-opponent-vine"
+  let userVineIcon
+  let opponentVineIcon
   if (props.score.user.vine > props.score.opponent.vine) {
     userVineClass += " score-winner"
+    userVineIcon = <img src="/tiny-icons/VineIcon-small.png" className="userVineIcon"/>
   } else if (props.score.user.vine < props.score.opponent.vine) {
     opponentVineClass += " score-winner"
+    opponentVineIcon = <img src="/tiny-icons/VineIcon-small.png" className="opponentVineIcon"/>
   } else {
     userVineClass += " score-winner"
     opponentVineClass += " score-winner"
+    userVineIcon = <img src="/tiny-icons/VineIcon-small.png" className="userVineIcon"/>
+    opponentVineIcon = <img src="/tiny-icons/VineIcon-small.png" className="opponentVineIcon"/>
   }
   
   let userSunCards = props.yourCards.filter(card => card.element === "sun")
@@ -388,13 +443,19 @@ const EndGameTile = (props) => {
     
   let userSunClass = "score-user-sun"
   let opponentSunClass = "score-opponent-sun"
+  let userSunIcon
+  let opponentSunIcon
   if (props.score.user.sun > props.score.opponent.sun) {
     userSunClass += " score-winner"
+    userSunIcon = <img src="/tiny-icons/SunIcon-small.png" className="userSunIcon"/>
   } else if (props.score.user.sun < props.score.opponent.sun) {
     opponentSunClass += " score-winner"
+    opponentSunIcon = <img src="/tiny-icons/SunIcon-small.png" className="opponentSunIcon"/>
   } else {
     userSunClass += " score-winner"
     opponentSunClass += " score-winner"
+    userSunIcon = <img src="/tiny-icons/SunIcon-small.png" className="userSunIcon"/>
+    opponentSunIcon = <img src="/tiny-icons/SunIcon-small.png" className="opponentSunIcon"/>
   }
   
   let userMoonCards = props.yourCards.filter(card => card.element === "moon")
@@ -429,13 +490,19 @@ const EndGameTile = (props) => {
   
   let userMoonClass = "score-user-moon"
   let opponentMoonClass = "score-opponent-moon"
+  let userMoonIcon
+  let opponentMoonIcon
   if (props.score.user.moon > props.score.opponent.moon) {
     userMoonClass += " score-winner"
+    userMoonIcon = <img src="/tiny-icons/MoonIcon-small.png" className="userMoonIcon"/>
   } else if (props.score.user.moon < props.score.opponent.moon) {
     opponentMoonClass += " score-winner"
+    opponentMoonIcon = <img src="/tiny-icons/MoonIcon-small.png" className="opponentMoonIcon"/>
   } else {
     userMoonClass += " score-winner"
     opponentMoonClass += " score-winner"
+    userMoonIcon = <img src="/tiny-icons/MoonIcon-small.png" className="userMoonIcon"/>
+    opponentMoonIcon = <img src="/tiny-icons/MoonIcon-small.png" className="opponentMoonIcon"/>
   }
   
   let userWindCards = props.yourCards.filter(card => card.element === "wind")
@@ -470,13 +537,19 @@ const EndGameTile = (props) => {
   
   let userWindClass = "score-user-wind"
   let opponentWindClass = "score-opponent-wind"
+  let userWindIcon
+  let opponentWindIcon
   if (props.score.user.wind > props.score.opponent.wind) {
     userWindClass += " score-winner"
+    userWindIcon = <img src="/tiny-icons/WindIcon-small.png" className="userWindIcon"/>
   } else if (props.score.user.wind < props.score.opponent.wind) {
     opponentWindClass += " score-winner"
+    opponentWindIcon = <img src="/tiny-icons/WindIcon-small.png" className="opponentWindIcon"/>
   } else {
     userWindClass += " score-winner"
     opponentWindClass += " score-winner"
+    userWindIcon = <img src="/tiny-icons/WindIcon-small.png" className="userWindIcon"/>
+    opponentWindIcon = <img src="/tiny-icons/WindIcon-small.png" className="opponentWindIcon"/>
   }
     
     let endGameMessage
@@ -495,65 +568,129 @@ const EndGameTile = (props) => {
         endGameMessage = "You Conceded- Opponent Wins"
       }
     }
+    
+    let playerName = <div className="gameplayCurrentPlayerBox scoreScreenPlayerBox">
+        <ProfilePic key="ProfilePic" whichPic={props.currentUser.which_profile_pic} whichRank={props.currentUser.rank} where="GameplayBottomUser" who="player"/>
+        <div className="gameplay-CurrentPlayerBox-Content">
+          <h4>{props.currentUser.username}</h4>
+        </div>
+      </div>
+    
+    let opponentName = <div className="gameplayOpponentPlayerBox scoreScreenOpponentBox">
+      <ProfilePic key="ProfilePic" whichPic={props.opponent.which_profile_pic} whichRank={props.opponent.rank} where="GameplayOpponent" who="player"/>
+      <div className="gameplay-OpponentPlayerBox-Content">
+        <h4>{props.opponent.username}</h4>
+      </div>
+    </div>
   
   return(
     <div className="score-grid-wrapper">
-      <h1>{endGameMessage}</h1>
-      <div className="score-grid">
-        <div className="score-player-one-name">{props.currentUser.username}</div>
-        <div className="score-player-two-name">{props.opponent.username}</div>
-        
-        <div className="score-icon-branch">branch</div>
-        <div className={userBranchClass}>{userBranchCardTiles}</div>
-        <div className={opponentBranchClass}>{opponentBranchCardTiles}</div>
-        
-        <div className="score-icon-dew">dew</div>
-        <div className={userDewClass}>{userDewCardTiles}</div>
-        <div className={opponentDewClass}>{opponentDewCardTiles}</div>
-        
-        <div className="score-icon-flower">flower</div>
-        <div className={userFlowerClass}>{userFlowerCardTiles}</div>
-        <div className={opponentFlowerClass}>{opponentFlowerCardTiles}</div>
-        
-        <div className="score-icon-fruit">fruit</div>
-        <div className={userFruitClass}>{userFruitCardTiles}</div>
-        <div className={opponentFruitClass}>{opponentFruitCardTiles}</div>
-        
-        <div className="score-icon-leaf">leaf</div>
-        <div className={userLeafClass}>{userLeafCardTiles}</div>
-        <div className={opponentLeafClass}>{opponentLeafCardTiles}</div>
-        
-        <div className="score-icon-moss">moss</div>
-        <div className={userMossClass}>{userMossCardTiles}</div>
-        <div className={opponentMossClass}>{opponentMossCardTiles}</div>
-        
-        <div className="score-icon-mushroom">mushroom</div>
-        <div className={userMushroomClass}>{userMushroomCardTiles}</div>
-        <div className={opponentMushroomClass}>{opponentMushroomCardTiles}</div>
-        
-        <div className="score-icon-spider">spider</div>
-        <div className={userSpiderClass}>{userSpiderCardTiles}</div>
-        <div className={opponentSpiderClass}>{opponentSpiderCardTiles}</div>
-        
-        <div className="score-icon-vine">vine</div>
-        <div className={userVineClass}>{userVineCardTiles}</div>
-        <div className={opponentVineClass}>{opponentVineCardTiles}</div>
-        
-        <div className="score-icon-sun">sun</div>
-        <div className={userSunClass}>{userSunCardTiles}</div>
-        <div className={opponentSunClass}>{opponentSunCardTiles}</div>
-        
-        <div className="score-icon-moon">moon</div>
-        <div className={userMoonClass}>{userMoonCardTiles}</div>
-        <div className={opponentMoonClass}>{opponentMoonCardTiles}</div>
-        
-        <div className="score-icon-wind">wind</div>
-        <div className={userWindClass}>{userWindCardTiles}</div>
-        <div className={opponentWindClass}>{opponentWindCardTiles}</div>
-        
-        <div className="score-icon-total">total</div>
-        <div className="score-user-total">{props.score.user.total}</div>
-        <div className="score-opponent-total">{props.score.opponent.total}</div>
+      <div className = "gameplayBottomWrapper">
+        {playerName}<h4 className="whoseTurn"><span className="endGame-Message">{endGameMessage}</span></h4>{opponentName}
+      </div>
+      <div id="score-user-total">{props.score.user.total}</div>
+      <div id="score-text-total">Total</div>
+      <div id="score-opponent-total">{props.score.opponent.total}</div>
+      <div className = "grid-container">
+        <div className="score-grid">
+          
+          <hr className = "branchLine" />
+          
+          <div className={userBranchClass}>{userBranchCardTiles}</div>
+          {userBranchIcon}
+          <div className="score-text-branch">Branch</div>
+          {opponentBranchIcon}
+          <div className={opponentBranchClass}>{opponentBranchCardTiles}</div>
+          
+          <hr className = "dewLine" />
+          
+          <div className={userDewClass}>{userDewCardTiles}</div>
+          {userDewIcon}
+          <div className="score-text-dew">Dew</div>
+          {opponentDewIcon}
+          <div className={opponentDewClass}>{opponentDewCardTiles}</div>
+          
+          <hr className = "flowerLine" />
+          
+          <div className={userFlowerClass}>{userFlowerCardTiles}</div>
+          {userFlowerIcon}
+          <div className="score-text-flower">Flower</div>
+          {opponentFlowerIcon}
+          <div className={opponentFlowerClass}>{opponentFlowerCardTiles}</div>
+          
+          <hr className = "fruitLine" />
+          
+          <div className={userFruitClass}>{userFruitCardTiles}</div>
+          {userFruitIcon}
+          <div className="score-text-fruit">Fruit</div>
+          {opponentFruitIcon}
+          <div className={opponentFruitClass}>{opponentFruitCardTiles}</div>
+          
+          <hr className = "leafLine" />
+          
+          <div className={userLeafClass}>{userLeafCardTiles}</div>
+          {userLeafIcon}
+          <div className="score-text-leaf">Leaf</div>
+          {opponentLeafIcon}
+          <div className={opponentLeafClass}>{opponentLeafCardTiles}</div>
+          
+          <hr className = "mossLine" />
+          
+          <div className={userMossClass}>{userMossCardTiles}</div>
+          {userMossIcon}
+          <div className="score-text-moss">Moss</div>
+          {opponentMossIcon}
+          <div className={opponentMossClass}>{opponentMossCardTiles}</div>
+          
+          <hr className = "mushroomLine" />
+          
+          <div className={userMushroomClass}>{userMushroomCardTiles}</div>
+          {userMushroomIcon}
+          <div className="score-text-mushroom">Mushroom</div>
+          {opponentMushroomIcon}
+          <div className={opponentMushroomClass}>{opponentMushroomCardTiles}</div>
+          
+          <hr className = "spiderLine" />
+          
+          <div className={userSpiderClass}>{userSpiderCardTiles}</div>
+          {userSpiderIcon}
+          <div className="score-text-spider">Spider</div>
+          {opponentSpiderIcon}
+          <div className={opponentSpiderClass}>{opponentSpiderCardTiles}</div>
+          
+          <hr className = "vineLine" />
+          
+          <div className={userVineClass}>{userVineCardTiles}</div>
+          {userVineIcon}
+          <div className="score-text-vine">Vine</div>
+          {opponentVineIcon}
+          <div className={opponentVineClass}>{opponentVineCardTiles}</div>
+          
+          <hr className = "sunLine" />
+          
+          <div className={userSunClass}>{userSunCardTiles}</div>
+          {userSunIcon}
+          <div className="score-text-sun">Sun</div>
+          {opponentSunIcon}
+          <div className={opponentSunClass}>{opponentSunCardTiles}</div>
+          
+          <hr className = "moonLine" />
+          
+          <div className={userMoonClass}>{userMoonCardTiles}</div>
+          {userMoonIcon}
+          <div className="score-text-moon">Moon</div>
+          {opponentMoonIcon}
+          <div className={opponentMoonClass}>{opponentMoonCardTiles}</div>
+          
+          <hr className = "windLine" />
+          
+          <div className={userWindClass}>{userWindCardTiles}</div>
+          {userWindIcon}
+          <div className="score-text-wind">Wind</div>
+          {opponentWindIcon}
+          <div className={opponentWindClass}>{opponentWindCardTiles}</div>
+          
+        </div>
       </div>
     </div>
   )

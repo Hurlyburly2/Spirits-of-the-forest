@@ -3,7 +3,8 @@
 }
 
 .score-card {
-  width: 10%;
+  height: 40px;
+  width: auto;
   margin-right: 10px;
 }
 
@@ -11,167 +12,407 @@
   width: 15%;
 }
 
+.endGame-doneButton {
+  border-radius: 0 25px 0 0;
+}
+
+.endGame-Message {
+  position: relative;
+  top: 15px;
+}
+
+.scoreScreenPlayerBox {
+  border-radius: 25px 0 0 0;
+}
+
+.scoreScreenOpponentBox {
+  border-radius: 0 25px 0 0;
+}
+
+#score-text-total {
+  font-family: antiquarian, sans-sans-serif;
+  font-size: 40px;
+  color: white;
+  display: inline-block;
+  margin: 0 20px;
+}
+#score-user-total, #score-opponent-total {
+  font-family: mr-eaves-modern, sans-serif;
+  color: white;
+  font-size: 60px;
+  display: inline-block;
+}
+
+.grid-container {
+  margin: 0 15%;
+  text-align: center;
+}
+
 .score-grid {
+  margin-bottom: 30px;
   text-align: left;
   color: white;
   display: grid;
-  grid-template-columns: 18% 3% 38% 3% 38%;
-  grid-template-rows: 20px;
+  grid-template-columns: auto 10px auto 10px auto 10px auto 10px auto;
+  grid-template-rows: auto;
   grid-template-areas: 
-  ". . player-one . player-two"
-  "branch-icon . player-one-branch . player-two-branch"
-  "dew-icon . player-one-dew . player-two-dew"
-  "flower-icon . player-one-flower . player-two-flower"
-  "fruit-icon . player-one-fruit . player-two-fruit"
-  "leaf-icon . player-one-leaf . player-two-leaf"
-  "moss-icon . player-one-moss . player-two-moss"
-  "mushroom-icon . player-one-mushroom . player-two-mushroom"
-  "spider-icon . player-one-spider . player-two-spider"
-  "vine-icon . player-one-vine . player-two-vine"
-  "sun-icon . player-one-sun . player-two-sun"
-  "moon-icon . player-one-moon . player-two-moon"
-  "wind-icon . player-one-wind . player-two-wind"
-  "total-icon . player-one-total . player-two-total"
+  "branch-line branch-line branch-line branch-line branch-line branch-line branch-line branch-line branch-line"
+  "player-one-branch . player-one-branch-icon . branch-text . player-two-branch-icon . player-two-branch"
+  "dew-line dew-line dew-line dew-line dew-line dew-line dew-line dew-line dew-line"
+  "player-one-dew . player-one-dew-icon . dew-text . player-two-dew-icon . player-two-dew"
+  "flower-line flower-line flower-line flower-line flower-line flower-line flower-line flower-line flower-line"
+  "player-one-flower . player-one-flower-icon . flower-text . player-two-flower-icon . player-two-flower"
+  "fruit-line fruit-line fruit-line fruit-line fruit-line fruit-line fruit-line fruit-line fruit-line"
+  "player-one-fruit . player-one-fruit-icon . fruit-text . player-two-fruit-icon . player-two-fruit"
+  "leaf-line leaf-line leaf-line leaf-line leaf-line leaf-line leaf-line leaf-line leaf-line"
+  "player-one-leaf . player-one-leaf-icon . leaf-text . player-two-leaf-icon . player-two-leaf"
+  "moss-line moss-line moss-line moss-line moss-line moss-line moss-line moss-line moss-line"
+  "player-one-moss . player-one-moss-icon . moss-text . player-two-moss-icon . player-two-moss"
+  "mushroom-line mushroom-line mushroom-line mushroom-line mushroom-line mushroom-line mushroom-line mushroom-line mushroom-line"
+  "player-one-mushroom . player-one-mushroom-icon . mushroom-text . player-two-mushroom-icon . player-two-mushroom"
+  "spider-line spider-line spider-line spider-line spider-line spider-line spider-line spider-line spider-line"
+  "player-one-spider . player-one-spider-icon . spider-text . player-two-spider-icon . player-two-spider"
+  "vine-line vine-line vine-line vine-line vine-line vine-line vine-line vine-line vine-line"
+  "player-one-vine . player-one-vine-icon . vine-text . player-two-vine-icon . player-two-vine"
+  "sun-line sun-line sun-line sun-line sun-line sun-line sun-line sun-line sun-line"
+  "player-one-sun . player-one-sun-icon . sun-text . player-two-sun-icon . player-two-sun"
+  "moon-line moon-line moon-line moon-line moon-line moon-line moon-line moon-line moon-line"
+  "player-one-moon . player-one-moon-icon . moon-text . player-two-moon-icon . player-two-moon"
+  "wind-line wind-line wind-line wind-line wind-line wind-line wind-line wind-line wind-line"
+  "player-one-wind . player-one-wind-icon . wind-text . player-two-wind-icon . player-two-wind"
 }
 
-.score-player-one-name {
-  grid-area: player-one;
-}
-.score-player-two-name {
-  grid-area: player-two;
+.score-grid hr {
+  margin: 5px 0;
 }
 
-.score-icon-branch {
-  grid-area: branch-icon;
+.branchLine {
+  grid-area: branch-line;
+  border: 1px solid #c1bf97;
+}
+
+.score-text-branch {
+  text-align: center;
+  font-size: 18px;
+  position: relative;
+  top: 20%;
+  grid-area: branch-text;
 }
 .score-user-branch {
+  text-align: right;
   grid-area: player-one-branch;
 }
 .score-opponent-branch {
   grid-area: player-two-branch;
 }
 
-.score-icon-dew {
-  grid-area: dew-icon;
+.userBranchIcon {
+  height: 43px;
+  grid-area: player-one-branch-icon
+}
+
+.opponentBranchIcon {
+  height: 43px;
+  grid-area: player-two-branch-icon
+}
+
+.dewLine {
+  grid-area: dew-line;
+  border: 1px solid #c1bf97;
+}
+.score-text-dew {
+  text-align: center;
+  font-size: 18px;
+  position: relative;
+  top: 20%;
+  grid-area: dew-text;
 }
 .score-user-dew {
+  text-align: right;
   grid-area: player-one-dew;
 }
 .score-opponent-dew {
   grid-area: player-two-dew;
 }
+.userDewIcon {
+  height: 43px;
+  grid-area: player-one-dew-icon
+}
+.opponentDewIcon {
+  height: 43px;
+  grid-area: player-two-dew-icon
+}
 
-.score-icon-flower {
-  grid-area: flower-icon;
+.flowerLine {
+  grid-area: flower-line;
+  border: 1px solid #c1bf97;
+}
+.score-text-flower {
+  text-align: center;
+  font-size: 18px;
+  position: relative;
+  top: 20%;
+  grid-area: flower-text;
 }
 .score-user-flower {
+  text-align: right;
   grid-area: player-one-flower;
 }
 .score-opponent-flower {
   grid-area: player-two-flower;
 }
+.userFlowerIcon {
+  height: 43px;
+  grid-area: player-one-flower-icon
+}
+.opponentFlowerIcon {
+  height: 43px;
+  grid-area: player-two-flower-icon
+}
 
-.score-icon-fruit {
-  grid-area: fruit-icon;
+.fruitLine {
+  grid-area: fruit-line;
+  border: 1px solid #c1bf97;
+}
+.score-text-fruit {
+  text-align: center;
+  font-size: 18px;
+  position: relative;
+  top: 20%;
+  grid-area: fruit-text;
 }
 .score-user-fruit {
+  text-align: right;
   grid-area: player-one-fruit;
 }
 .score-opponent-fruit {
   grid-area: player-two-fruit;
 }
+.userFruitIcon {
+  height: 43px;
+  grid-area: player-one-fruit-icon
+}
+.opponentFruitIcon {
+  height: 43px;
+  grid-area: player-two-fruit-icon
+}
 
-.score-icon-leaf {
-  grid-area: leaf-icon;
+.leafLine {
+  grid-area: leaf-line;
+  border: 1px solid #c1bf97;
+}
+.score-text-leaf {
+  text-align: center;
+  font-size: 18px;
+  position: relative;
+  top: 20%;
+  grid-area: leaf-text;
 }
 .score-user-leaf {
+  text-align: right;
   grid-area: player-one-leaf;
 }
 .score-opponent-leaf {
   grid-area: player-two-leaf;
 }
+.userLeafIcon {
+  height: 43px;
+  grid-area: player-one-leaf-icon
+}
+.opponentLeafIcon {
+  height: 43px;
+  grid-area: player-two-leaf-icon
+}
 
-.score-icon-moss {
-  grid-area: moss-icon;
+.mossLine {
+  grid-area: moss-line;
+  border: 1px solid #c1bf97;
+}
+.score-text-moss {
+  text-align: center;
+  font-size: 18px;
+  position: relative;
+  top: 20%;
+  grid-area: moss-text;
 }
 .score-user-moss {
+  text-align: right;
   grid-area: player-one-moss;
 }
 .score-opponent-moss {
   grid-area: player-two-moss;
 }
+.userMossIcon {
+  height: 43px;
+  grid-area: player-one-moss-icon
+}
+.opponentMossIcon {
+  height: 43px;
+  grid-area: player-two-moss-icon
+}
 
-.score-icon-mushroom {
-  grid-area: mushroom-icon;
+.mushroomLine {
+  grid-area: mushroom-line;
+  border: 1px solid #c1bf97;
+}
+.score-text-mushroom {
+  text-align: center;
+  font-size: 18px;
+  position: relative;
+  top: 20%;
+  grid-area: mushroom-text;
 }
 .score-user-mushroom {
+  text-align: right;
   grid-area: player-one-mushroom;
 }
 .score-opponent-mushroom {
   grid-area: player-two-mushroom;
 }
+.userMushroomIcon {
+  height: 43px;
+  grid-area: player-one-mushroom-icon
+}
+.opponentMushroomIcon {
+  height: 43px;
+  grid-area: player-two-mushroom-icon
+}
 
-.score-icon-spider {
-  grid-area: spider-icon;
+.spiderLine {
+  grid-area: spider-line;
+  border: 1px solid #c1bf97;
+}
+.score-text-spider {
+  text-align: center;
+  font-size: 18px;
+  position: relative;
+  top: 20%;
+  grid-area: spider-text;
 }
 .score-user-spider {
+  text-align: right;
   grid-area: player-one-spider;
 }
 .score-opponent-spider {
   grid-area: player-two-spider;
 }
+.userSpiderIcon {
+  height: 43px;
+  grid-area: player-one-spider-icon
+}
+.opponentSpiderIcon {
+  height: 43px;
+  grid-area: player-two-spider-icon
+}
 
-
-.score-icon-vine {
-  grid-area: vine-icon;
+.vineLine {
+  grid-area: vine-line;
+  border: 1px solid #c1bf97;
+}
+.score-text-vine {
+  text-align: center;
+  font-size: 18px;
+  position: relative;
+  top: 20%;
+  grid-area: vine-text;
 }
 .score-user-vine {
+  text-align: right;
   grid-area: player-one-vine;
 }
 .score-opponent-vine {
   grid-area: player-two-vine;
 }
+.userVineIcon {
+  height: 43px;
+  grid-area: player-one-vine-icon
+}
+.opponentVineIcon {
+  height: 43px;
+  grid-area: player-two-vine-icon
+}
 
-.score-icon-sun {
-  grid-area: sun-icon;
+.sunLine {
+  grid-area: sun-line;
+  border: 1px solid #c1bf97;
+}
+.score-text-sun {
+  text-align: center;
+  font-size: 18px;
+  position: relative;
+  top: 20%;
+  grid-area: sun-text;
 }
 .score-user-sun {
+  text-align: right;
   grid-area: player-one-sun;
 }
 .score-opponent-sun {
   grid-area: player-two-sun;
 }
+.userSunIcon {
+  height: 43px;
+  grid-area: player-one-sun-icon
+}
+.opponentSunIcon {
+  height: 43px;
+  grid-area: player-two-sun-icon
+}
 
-.score-icon-moon {
-  grid-area: moon-icon;
+.moonLine {
+  grid-area: moon-line;
+  border: 1px solid #c1bf97;
+}
+.score-text-moon {
+  text-align: center;
+  font-size: 18px;
+  position: relative;
+  top: 20%;
+  grid-area: moon-text;
 }
 .score-user-moon {
+  text-align: right;
   grid-area: player-one-moon;
 }
 .score-opponent-moon {
   grid-area: player-two-moon;
 }
+.userMoonIcon {
+  height: 43px;
+  grid-area: player-one-moon-icon
+}
+.opponentMoonIcon {
+  height: 43px;
+  grid-area: player-two-moon-icon
+}
 
-.score-icon-wind {
-  grid-area: wind-icon;
+.windLine {
+  grid-area: wind-line;
+  border: 1px solid #c1bf97;
+}
+.score-text-wind {
+  text-align: center;
+  font-size: 18px;
+  position: relative;
+  top: 20%;
+  grid-area: wind-text;
 }
 .score-user-wind {
+  text-align: right;
   grid-area: player-one-wind;
 }
 .score-opponent-wind {
   grid-area: player-two-wind;
 }
-
-.score-icon-total {
-  grid-area: total-icon;
+.userWindIcon {
+  height: 43px;
+  grid-area: player-one-wind-icon
 }
-.score-user-total {
-  grid-area: player-one-total;
-}
-.score-opponent-total {
-  grid-area: player-two-total;
+.opponentWindIcon {
+  height: 43px;
+  grid-area: player-two-wind-icon
 }
 
 .score-winner {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.1);
 }

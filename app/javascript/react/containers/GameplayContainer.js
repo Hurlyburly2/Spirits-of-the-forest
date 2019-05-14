@@ -530,10 +530,10 @@ class GameplayContainer extends Component {
       errorMessage = this.state.errorMessage
     } else if (this.state.gameState === "pending") {
       message = "Waiting for Opponent..."
-      deleteButton = <li onClick={handleDeleteGame}>DELETE GAME</li>
+      deleteButton = <li onClick={handleDeleteGame}>Delete Game</li>
       errorMessage = this.state.errorMessage
     } else if (this.state.gameState === "complete") {
-      backButton = <li onClick={handleDeleteGame}>OK</li>
+      backButton = <li onClick={handleDeleteGame} className="endGame-doneButton">Done</li>
       completeScreen = <EndGameTile 
                           yourCards={this.state.yourCards}
                           yourTokens={this.state.yourTokens}
@@ -545,6 +545,25 @@ class GameplayContainer extends Component {
                           winner={this.state.winner}
                           concession={this.state.concession}
                         />
+    }
+    
+    let cardContainerInsert
+    let gamePlayBottom
+    if (this.state.gameState !== "complete") {
+      cardContainerInsert = <CardContainer 
+        gameState={this.state.gameState}
+        cards={this.state.cards}
+        handleSelectCard={this.selectCard}
+        checkTurn={this.checkTurn}
+        selected={this.state.selected}
+        gemMode={this.state.gemMode}
+        handleGemPlacement={this.gemPlacement}
+        currentUser={this.state.currentUser}
+        handleGemmedCard={this.selectGemmedCard}
+      />
+      gamePlayBottom = <div className="gameplayBottomWrapper">
+        {currentPlayerName} <h4 className="whoseTurn">{message}</h4> {opponentName}
+      </div>
     }
     
     return(
@@ -559,22 +578,10 @@ class GameplayContainer extends Component {
             </ul>
           </div>
         </div>
-        <CardContainer 
-          gameState={this.state.gameState}
-          cards={this.state.cards}
-          handleSelectCard={this.selectCard}
-          checkTurn={this.checkTurn}
-          selected={this.state.selected}
-          gemMode={this.state.gemMode}
-          handleGemPlacement={this.gemPlacement}
-          currentUser={this.state.currentUser}
-          handleGemmedCard={this.selectGemmedCard}
-        />
+        {cardContainerInsert}
         <p className="errorText">{this.state.errorMessage}</p>
         {showCollectedCards}
-        <div className="gameplayBottomWrapper">
-          {currentPlayerName} <h4 className="whoseTurn">{message}</h4> {opponentName}
-        </div>
+        {gamePlayBottom}
         {completeScreen}
       </div>
     )
