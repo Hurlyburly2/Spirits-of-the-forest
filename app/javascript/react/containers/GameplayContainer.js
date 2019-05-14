@@ -455,8 +455,20 @@ class GameplayContainer extends Component {
     
     if (this.state.gameState === "play"){
       if (this.state.currentUser && this.state.opponent) {  
-        currentPlayerName = <span onClick={this.togglePlayerCollectedTile}>{this.state.currentUser.username}</span>
-        opponentName = <span onClick={this.toggleOpponentCollectedTile}>{this.state.opponent.username}</span>
+        currentPlayerName = <div className="gameplayCurrentPlayerBox" onClick={this.togglePlayerCollectedTile}>
+            <ProfilePic key="ProfilePic" whichPic={this.state.currentUser.which_profile_pic} whichRank={this.state.currentUser.rank} where="GameplayBottomUser" who="player"/>
+            <div className="gameplay-CurrentPlayerBox-Content">
+              <h4>{this.state.currentUser.username}</h4>
+              {yourGems}
+            </div>
+          </div>
+        opponentName = <div className="gameplayOpponentPlayerBox" onClick={this.toggleOpponentCollectedTile}>
+            <ProfilePic key="ProfilePic" whichPic={this.state.opponent.which_profile_pic} whichRank={this.state.opponent.rank} where="GameplayOpponent" who="player"/>
+            <div className="gameplay-OpponentPlayerBox-Content">
+              <h4>{this.state.opponent.username}</h4>
+              {opponentGems}
+            </div>
+          </div>
         if (this.state.showCollectedTile === "player") {
           showCollectedCards = <CollectedCardsTile 
             whose="player"
@@ -560,7 +572,9 @@ class GameplayContainer extends Component {
         />
         <p className="errorText">{this.state.errorMessage}</p>
         {showCollectedCards}
-        <h4>{yourGems} {currentPlayerName} {message} {opponentName} {opponentGems}</h4>
+        <div className="gameplayBottomWrapper">
+          {currentPlayerName} <h4 className="whoseTurn">{message}</h4> {opponentName}
+        </div>
         {completeScreen}
       </div>
     )
