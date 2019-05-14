@@ -23,7 +23,7 @@ feature 'user signs out', %Q{
     expect(page).to have_content('How to Play') #successful login
 
     click_link 'Sign Out'
-    expect(page).to have_content(`Once an age`) #successful signout
+    expect(page).to have_content('Once an age') #successful signout
   end
 
   scenario 'unauthenticated user attempts to sign out' do
