@@ -1,38 +1,139 @@
 .gamesContainerPage {
+  text-align: left;
+  margin: 0 15% 0 15%;
+}
+
+.gamesContainerNav {
+  text-align: right;
+}
+
+.gamesContainerNav-partone {
+  display: inline-block;
+  margin: 25px 25px 25px 0;
+  height: 45px;
+  position: relative;
+}
+
+.gameIndex-profilePic {
+  border: 3px solid #c1bf97;
+  border-radius: 100%;
+  left: 25px;
+  position: absolute;
+  width: 58px;
+}
+
+.gamesContainer-myGames {
   text-align: center;
+  width: auto;
+  margin-left: 25px;
 }
 
-.gameTileContainer {
-  /* text-align: center; */
-}
-
-.gamesListButtons {
-  margin-top: 70px;
-  /* list-style-type: none; */
+.gamesListButtons ul {
+  display: inline;
 }
 
 .gamesListButtons li {
-  width: 250px;
-  background-color: orange;
-  padding: 20px 60px;
   display: inline-block;
-  margin: 20px 20px 0 20px;
+  background-color: white;
+  border: 3px solid #c1bf97;
+  padding: 5px 25px;
+  margin: 0 15px;
+  font-size: 25px;
 }
 
-.gamesListButtons a {
-  /* display: inline; */
-  color: white;
+#gamesListMyGames {
+  width: 215px;
 }
+
+#gamesListJoin {
+  border-radius: 0 25px 0 0;
+}
+
+
+/* .gamesListButtons a {
+  color: white;
+} */
 
 .gameTile {
   color: white;
-  margin: 50px 20px 0 20px;
-  background-color: black;
-  padding: 20px;
+  background-color: rgba(20, 27, 31, 0.95);
+  width: 450px;
   display: inline-block;
+  margin: 30px 15px 0 15px;
+  position: relative;
+  border-radius: 0 25px 0 25px;
+  border: 3px solid #c1bf97;
+  transition-property: transform;
+  transition-duration: 0.3s;
 }
 
-.gameTileLink {
-  /* width: 200px; */
-  /* margin: 30px; */
+.gameTile:hover {
+  border: 3px solid orange;
+  z-index: 500;
+  transform: scale(1.1, 1.1)
 }
+
+.gameTile-textbox hr {
+  margin: 0;
+  padding: 0;
+  border: 1.5px solid #c1bf97;
+}
+
+.gameTile:hover #gameTile-divider {
+  border: 1.5px solid orange;
+}
+
+.gameTile-textbox {
+  font-family: mr-eaves-modern, sans-serif;
+  font-weight: 200;
+  font-size: 30px;
+  margin: 5px 0px 5px 0px;
+  padding: 5px 0 5px 0;
+}
+
+
+.gameTile-playerName {
+  margin: 0 80px;
+  text-align: left;
+}
+
+.gameTile-opponentName {
+  margin: 0 80px;
+  text-align: right;
+}
+
+.gameTile img {
+  width: 80px;
+}
+
+img.gameTile-left-image {
+  width: 80px;
+  position: absolute;
+  left: -20px;
+  top: -20px;
+}
+
+img.gameTile-right-image {
+  width: 80px;
+  position: absolute;
+  right: -20px;
+  bottom: -20px;
+}
+
+.gameTile .gameTile-arrow {
+  position: relative;
+  bottom: 3px;
+  width: 10px;
+}
+
+.gameTile .gameTile-arrow-player {
+  margin-left: 5px;
+}
+
+.gameTile .gameTile-arrow-opponent {
+  margin-right: 5px;
+}
+
+/* .gameTile .gameTile-arrow-opponent-two {
+  margin: 0;
+} */

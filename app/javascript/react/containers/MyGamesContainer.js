@@ -2,6 +2,7 @@ import React, { Component }  from 'react';
 import { Link } from 'react-router'
 
 import GameTile from '../components/GameTile'
+import ProfilePic from '../components/ProfilePic'
 
 class MyGamesContainer extends Component {
   constructor(props) {
@@ -77,6 +78,7 @@ class MyGamesContainer extends Component {
     let opponent = "Waiting for Opponent"
     let opponentPic = ""
     let opponentRank = ""
+    let profilePic;
     let games = this.state.myGames.map(game => {
       if (game.users[0].id === this.state.currentUser.id) {
         if (game.users[1]) {
@@ -96,7 +98,11 @@ class MyGamesContainer extends Component {
       if (opponent !== "Waiting for Opponent") {
         opponent = `vs ${opponent}`
       }
-      debugger
+      
+      if (this.state.currentUser) {
+        profilePic = <ProfilePic key="ProfilePic" whichPic={this.state.currentUser.which_profile_pic} whichRank={this.state.currentUser.rank} where="GamePage" who="player"/>
+      }
+      
       return(
         <GameTile
           key={game.id}
@@ -113,13 +119,20 @@ class MyGamesContainer extends Component {
     
     return(
       <div className="gamesContainerPage">
-        <h1>MY GAMES</h1>
+        <div className="gamesContainerNav">
+          <div className = "gamesContainerNav-partone">
+            {profilePic}
+            <div className="gamesContainer-myGames">
+              <ul className="gamesListButtons">
+                  <li id="gamesListMyGames">My Games</li>
+                  <a href="#" onClick={this.handleNewGame}><li>Create Game</li></a>
+                  <Link to='/matches'><li id="gamesListJoin">Join a Game</li></Link>
+              </ul>
+            </div>
+          </div>
+        </div>
         {this.state.errorMessage}
         <div className="gameTileContainer">{games}</div>
-        <ul className="gamesListButtons">
-          <a href="#" onClick={this.handleNewGame}><li>CREATE GAME</li></a>
-          <Link to='/matches'><li>JOIN A GAME</li></Link>
-        </ul>
       </div>
     )
   }
