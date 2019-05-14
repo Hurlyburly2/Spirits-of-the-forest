@@ -24,7 +24,7 @@ feature 'User signed in, and navbar links are clicked' do
     visit new_user_session_path
   
     click_link 'Sign In'
-    expect(page).to have_content("Spirits of the Forest\nSign In Sign Up\nEmail\nPassword\nRemember me\nSign up Forgot your password?")
+    expect(page).to have_content("Forgot your password?")
   
     click_link 'Sign Up'
     expect(page).to have_content('confirmation')
