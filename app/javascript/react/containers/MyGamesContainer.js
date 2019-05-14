@@ -2,6 +2,7 @@ import React, { Component }  from 'react';
 import { Link } from 'react-router'
 
 import GameTile from '../components/GameTile'
+import ProfilePic from '../components/ProfilePic'
 
 class MyGamesContainer extends Component {
   constructor(props) {
@@ -75,41 +76,63 @@ class MyGamesContainer extends Component {
   
   render() {
     let opponent = "Waiting for Opponent"
+    let opponentPic = ""
+    let opponentRank = ""
+    let profilePic;
     let games = this.state.myGames.map(game => {
       if (game.users[0].id === this.state.currentUser.id) {
         if (game.users[1]) {
           opponent = game.users[1].username
+          opponentPic = game.users[1].which_profile_pic
+          opponentRank = game.users[1].rank
         } else {
           opponent = "Waiting for Opponent"
+          opponentPic = "unknown"
+          opponentRank = "unknown"
         }
       } else {
         opponent = game.users[0].username
+        opponentPic = game.users[0].which_profile_pic
+        opponentRank = game.users[0].rank
       }
       if (opponent !== "Waiting for Opponent") {
         opponent = `vs ${opponent}`
       }
       
+      if (this.state.currentUser) {
+        profilePic = <ProfilePic key="ProfilePic" whichPic={this.state.currentUser.which_profile_pic} whichRank={this.state.currentUser.rank} where="GamePage" who="player"/>
+      }
       
       return(
         <GameTile
           key={game.id}
           id={game.id}
-          current_player={this.currentUser}
+          current_player={this.state.currentUser}
           opponent={opponent}
+          opponentPic={opponentPic}
+          opponentRank={opponentRank}
           clickable={true}
+          whose_turn={game.whose_turn_id}
         />
       )
     })
     
     return(
       <div className="gamesContainerPage">
-        <h1>MY GAMES</h1>
+        <div className="gamesContainerNav">
+          <div className = "gamesContainerNav-partone">
+            {profilePic}
+            <div className="gamesContainer-myGames">
+              <ul className="gamesListButtons">
+                  <li id="gamesListMyGames">My Games</li>
+                  <a href="#" onClick={this.handleNewGame}><li id="gamesListCreate">Create Game</li></a>
+                  <Link to='/matches'><li id="gamesListJoin">Join a Game</li></Link>
+              </ul>
+            </div>
+          </div>
+        </div>
         {this.state.errorMessage}
         <div className="gameTileContainer">{games}</div>
-        <ul className="gamesListButtons">
-          <a href="#" onClick={this.handleNewGame}><li>CREATE GAME</li></a>
-          <Link to='/matches'><li>JOIN A GAME</li></Link>
-        </ul>
       </div>
     )
   }

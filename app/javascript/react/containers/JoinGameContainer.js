@@ -2,6 +2,7 @@ import React, { Component }  from 'react';
 import { Link } from 'react-router'
 
 import GameTile from '../components/GameTile'
+import ProfilePic from '../components/ProfilePic'
 
 class JoinGameContainer extends Component {
   constructor(props) {
@@ -55,6 +56,7 @@ class JoinGameContainer extends Component {
     let games
     let clickable = true
     let handleMoreMatches = () => { this.seeMoreMatches() }
+    let profilePic
     
     if (this.state.currentGameCount >= 18) {
       clickable = false
@@ -66,26 +68,50 @@ class JoinGameContainer extends Component {
           <GameTile
             key={game.id}
             id={game.id}
-            current_player={this.state.currentUser}
+            current_player="unknown"
             opponent={opponent_text}
+            opponentPic={game.users[0].which_profile_pic}
+            opponentRank={game.users[0].rank}
+            whose_turn="unknown"
             clickable={clickable}
           />
         )
       })
     }
     
+    if (this.state.currentUser) {
+      profilePic = <ProfilePic key="ProfilePic" whichPic={this.state.currentUser.which_profile_pic} whichRank={this.state.currentUser.rank} where="GamePage" who="player"/>
+    }
+    
     return(
       <div className="gamesContainerPage">
-        <h1>JOIN A GAME</h1>
+        <div className="gamesContainerNav">
+          <div className = "gamesContainerNav-partone">
+            {profilePic}
+            <div className="gamesContainer-myGames">
+              <ul className="gamesListButtons">
+                  <li id="gamesListMyGames">Join a Game</li>
+                  <Link to='/'><li id="gamesListCreate">MY GAMES</li></Link>
+                  <a href="#" onClick={handleMoreMatches}><li id="gamesListJoin">SEE MORE</li></a>
+              </ul>
+            </div>
+          </div>
+        </div>
         {this.state.errorMessage}
         <div className="gameTileContainer">{games}</div>
-        <ul className="gamesListButtons">
-          <Link to='/'><li>MY GAMES</li></Link>
-          <a href="#" onClick={handleMoreMatches}><li>SEE MORE</li></a>
-        </ul>
       </div>
     )
   }
 }
 
 export default JoinGameContainer
+
+// <div className="gamesContainerPage">
+//   <h1>JOIN A GAME</h1>
+//   {this.state.errorMessage}
+//   <div className="gameTileContainer">{games}</div>
+//   <ul className="gamesListButtons">
+//     <Link to='/'><li>MY GAMES</li></Link>
+//     <a href="#" onClick={handleMoreMatches}><li>SEE MORE</li></a>
+//   </ul>
+// </div>

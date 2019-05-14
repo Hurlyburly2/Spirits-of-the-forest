@@ -66,33 +66,48 @@ class User < ApplicationRecord
      player
    end
    
-   def self.return_image_url(which_profile_pic)
-     image_url = ""
+   def self.return_image_url(rank, which_profile_pic)
+     image_url = "/rankicons/"
      case which_profile_pic
      when 1
-       image_url = "/tokens/BranchToken.png"
+       image_url += "Branch"
      when 2
-       image_url = "/tokens/DewToken.png"
+       image_url += "Dew"
      when 3
-       image_url = "/tokens/FlowerToken.png"
+       image_url += "Flower"
      when 4
-       image_url = "/tokens/FruitToken.png"
+       image_url += "Fruit"
      when 5
-       image_url = "/tokens/MossToken.png"
+       image_url += "Moss"
      when 6
-       image_url = "/tokens/MushroomToken.png"
+       image_url += "Mushroom"
      when 7
-       image_url = "/tokens/MoonToken.png"
+       image_url += "Moon"
      when 8
-       image_url = "/tokens/SpiderToken.png"
+       image_url += "Spider"
      when 9
-        image_url = "/tokens/VineToken.png"
+        image_url += "Vine"
       when 10
-        image_url = "/tokens/LeafToken.png"
+        image_url += "Leaf"
       when 11
-        image_url = "/tokens/SunToken.png"
+        image_url += "Sun"
       when 12
-        image_url = "/tokens/WindToken.png"
+        image_url += "Wind"
      end
+     
+     case rank
+     when "bronze"
+       image_url += "Bronze"
+     when "silver"
+       image_url += "Silver"
+     when "gold"
+       image_url += "Gold"
+     when "diamond"
+       image_url += "Diamond"
+     when "master"
+       image_url += "Master"
+     end
+     
+     return image_url += ".png"
    end
 end

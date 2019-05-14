@@ -4,8 +4,9 @@ feature 'User signed in, and navbar links are clicked' do
   scenario 'specify valid credentials' do
     user = FactoryBot.create(:user)
     visit new_user_session_path
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
+
+    fill_in 'login-field-border-1', with: user.email
+    fill_in 'login-field-border-2', with: user.password
     click_button 'Log in'
 
     visit root_path
@@ -23,7 +24,7 @@ feature 'User signed in, and navbar links are clicked' do
     visit new_user_session_path
   
     click_link 'Sign In'
-    expect(page).to have_content("Sign In Sign Up\nLog in\nEmail\nPassword\nRemember me\nSign up Forgot your password?")
+    expect(page).to have_content("Spirits of the Forest\nSign In Sign Up\nEmail\nPassword\nRemember me\nSign up Forgot your password?")
   
     click_link 'Sign Up'
     expect(page).to have_content('confirmation')

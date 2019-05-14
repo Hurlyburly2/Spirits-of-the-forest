@@ -1,33 +1,125 @@
+.window_wrapper {
+  width: 70%;
+  margin: 50px auto;
+  text-align: center;
+  background-color: white;
+  border: 3px solid #c1bf97;
+  border-radius: 0 0 25px 25px;
+}
+
+.entry-page-flavor-text {
+  font-family: mr-eaves-modern, sans-serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 18px;
+  margin: 20px 10% 0 10%;
+}
+
 .content_wrapper {
-  margin: 0 30%;
+  /* margin: 0 30% */
 }
 
 .large_buttons {
+  margin-top: 60px;
   list-style-type: none;
-  margin: 0 auto;
-  position: absolute;
-  top: 70%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
 }
 
 .large_buttons li {
-  text-align: center;
-  margin: 10px;
+  margin-left: 25px;
+  background-color: #4f3e37;
+  display: inline-block;
+  padding: 5px 60px 0 60px;
+}
+
+.large_buttons li:hover {
   background-color: orange;
+  color: #F1EECE;
+}
+
+#entry-page-left-button {
+  border-radius: 0 0 0 25px;
+}
+
+#entry-page-right-button {
+  border-radius: 0 0 25px 0;
 }
 
 .large_buttons a {
-  display: block;
+  font-size: 30px;
+  font-family: antiquarian, sans-serif;
   color: white;
-  padding: 20px 60px;
 }
 
-.window_wrapper {
-  position: absolute;
-  top: 25%;
-  width: 40%;
-  padding: 20px;
-  background-color: white;
+.login-styling {
+
+}
+
+.login-field {
+  width: 30%;
+  margin-top: 30px;
+  margin-left: 10px;
+  display: inline-block;
+  text-align: left;
+}
+
+.login-field-no-top-margin {
+  margin-top: 0px;
+}
+
+#login-field-border-1 {
+  border-color: #c1bf97;
+  border-width: 1.5px;
+}
+
+#login-field-border-2 {
+  border-color: #c1bf97;
+  border-width: 1.5px;
+}
+
+.login-field label {
+  font-size: 18px;
+}
+
+.login-remember_me {
+  width: 100%;
+  text-align: right;
+}
+
+.remember-alignment {
+  margin-bottom: 25px;
+  text-align: right;
+  margin-right: 17%;
+}
+
+.remember-alignment label {
+  font-size: 16px;
+}
+
+#login-submit-button {
+  border: none;
+  font-family: antiquarian, sans-serif;
+  font-size: 30px;
+  color: white;
+  background-color: #4f3e37;
+  width: 30%;
+  border-radius: 0 0 25px 25px;
+  margin-bottom: 20px;
+  padding-top: 5px;
+}
+
+#login-submit-button:hover {
+  background-color: orange;
+  color: #F1EECE;
+}
+
+.login-devise-link {
+  padding: 0 4%;
+  color: #da9d54;
+  font-size: 20px;
+  margin: 15px auto 0 auto;
+}
+
+.signup-shared-links {
+  text-align: left;
+  margin-left: 33%;
 }
