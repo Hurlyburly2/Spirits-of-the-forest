@@ -13,16 +13,26 @@ const GameTile = (props) => {
   
   let playerArrows=""
   let opponentArrows=""
-  if (props.whose_turn === props.current_player.id) {
+  if (props.whose_turn === "unknown") {
+    playerArrows = ""
+    opponentArrows = ""
+  } else if (props.whose_turn === props.current_player.id) {
     playerArrows = "/misc/smallarrow-left.png"
   } else if (props.opponent !== "Waiting for Opponent") {
     opponentArrows = "/misc/smallarrow-right.png"
   }
   
+  let pictureOne
+  if (props.current_player === "unknown") {
+    pictureOne = <ProfilePic key={`${props.id}pic1`} whichPic="unknown" whichRank="unknown" where="GameTile" who="player"/>
+  } else {
+    pictureOne = <ProfilePic key={`${props.id}pic1`} whichPic={props.current_player.which_profile_pic} whichRank={props.current_player.rank} where="GameTile" who="player"/>
+  }
+  
   return(
     <Link to={url}>
       <div className="gameTile">
-        <ProfilePic key={`${props.id}pic1`} whichPic={props.current_player.which_profile_pic} whichRank={props.current_player.rank} where="GameTile" who="player"/>
+        {pictureOne}
         
         <div className = "gameTile-textbox">
           <div className = "gameTile-playerName">

@@ -49,11 +49,11 @@ describe('JoinGameContainer', () => {
   it('should render a Game Tile component with the proper props', (done) => {
     setTimeout(() => {
       expect(wrapper.find(GameTile).props().id).toEqual(1)
-      expect(wrapper.find(GameTile).props().current_player).toEqual({
-        email: "email@email.com",
-        id: 3,
-        username: "SIGNED IN USER"
-      })
+      // expect(wrapper.find(GameTile).props().current_player).toEqual({
+      //   email: "email@email.com",
+      //   id: 3,
+      //   username: "SIGNED IN USER"
+      // })  //JOIN GAME CONTAINERS NO LONGER LOOK LIKE THIS, BUT KEPT FOR REFERENCE
       expect(wrapper.find(GameTile).props().opponent).toEqual("vs OTHER USER")
       done()
     }, 0)

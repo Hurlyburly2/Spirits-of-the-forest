@@ -32,16 +32,16 @@ class UsersController < ApplicationController
         "Dew",
         "Flower",
         "Fruit",
-        "Leaf",
         "Moss",
-        "Moon",
         "Mushroom",
+        "Moon",
         "Spider",
-        "Sun",
         "Vine",
+        "Leaf",
+        "Sun",
         "Wind"
       ]
-      @default_pic = @profile_image_collection[current_user.which_profile_pic]
+      @default_pic = @profile_image_collection[(current_user.which_profile_pic) - 1]
     
   end
   
@@ -131,16 +131,16 @@ class UsersController < ApplicationController
         "Dew",
         "Flower",
         "Fruit",
-        "Leaf",
         "Moss",
-        "Moon",
         "Mushroom",
+        "Moon",
         "Spider",
-        "Sun",
         "Vine",
+        "Leaf",
+        "Sun",
         "Wind"
       ]
-
+      @default_pic = @profile_image_collection[(current_user.which_profile_pic) - 1]
     render :index
   end
 end
