@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import InstructionsComponent from '../components/InstructionsComponent'
+
 class InstructionsContainer extends Component {
   constructor(props) {
     super(props)
@@ -12,6 +14,7 @@ class InstructionsContainer extends Component {
     return(
       <div>
         <h1>INSTRUCTIONS</h1>
+        <InstructionsComponent />
       </div>
     )
   }
