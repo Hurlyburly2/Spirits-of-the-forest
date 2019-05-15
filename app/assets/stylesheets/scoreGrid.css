@@ -47,7 +47,7 @@
   margin: 0 15%;
   text-align: center;
 }
-
+ 
 .score-grid {
   margin-bottom: 30px;
   text-align: left;
@@ -79,7 +79,7 @@
   "moon-line moon-line moon-line moon-line moon-line moon-line moon-line moon-line moon-line"
   "player-one-moon . player-one-moon-icon . moon-text . player-two-moon-icon . player-two-moon"
   "wind-line wind-line wind-line wind-line wind-line wind-line wind-line wind-line wind-line"
-  "player-one-wind . player-one-wind-icon . wind-text . player-two-wind-icon . player-two-wind"
+  "player-one-wind . player-one-wind-icon . wind-text . player-two-wind-icon . player-two-wind";
 }
 
 .score-grid hr {
@@ -98,6 +98,7 @@
   top: 20%;
   grid-area: branch-text;
 }
+
 .score-user-branch {
   text-align: right;
   grid-area: player-one-branch;
@@ -415,4 +416,4 @@
 
 .score-winner {
   background-color: rgba(255, 255, 255, 0.1);
-}
+} 
