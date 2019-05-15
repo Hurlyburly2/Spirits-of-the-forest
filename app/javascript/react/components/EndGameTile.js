@@ -563,9 +563,9 @@ const EndGameTile = (props) => {
       }
     } else {
       if (props.currentUser.username === props.winner.username) {
-        endGameMessage = "Opponent Conceded- You Win!"
+        endGameMessage = <div>Concession:<br /> You Win!</div>
       } else {
-        endGameMessage = "You Conceded- Opponent Wins"
+        endGameMessage = <div>Concession:<br /> You Lose</div>
       }
     }
     
