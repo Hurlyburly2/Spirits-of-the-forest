@@ -47,7 +47,7 @@
   margin: 0 15%;
   text-align: center;
 }
-/* 
+ 
 .score-grid {
   margin-bottom: 30px;
   text-align: left;
@@ -98,7 +98,7 @@
   top: 20%;
   grid-area: branch-text;
 }
-.score-user-branch {
+/* .score-user-branch {
   text-align: right;
   grid-area: player-one-branch;
 }
