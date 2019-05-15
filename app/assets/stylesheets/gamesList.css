@@ -171,4 +171,12 @@ img.gameTile-right-image {
     width: 215px;
     border-radius: 0 0 0 0;
   }
+  
+  .gameTileContainer {
+    text-align: center;
+  }
+  
+  .gameTile {
+    width: 90%;
+  }
 }
