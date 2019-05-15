@@ -5,6 +5,7 @@ import MyGamesContainer from '../containers/MyGamesContainer'
 import AccountContainer from '../containers/AccountContainer'
 import JoinGameContainer from '../containers/JoinGameContainer'
 import GameplayContainer from '../containers/GameplayContainer'
+import InstructionsContainer from '../containers/InstructionsContainer'
 
 export const App = (props) => {
   return(
@@ -13,6 +14,7 @@ export const App = (props) => {
       <Route path='/Account' component={AccountContainer} />
       <Route path='/matches' component={JoinGameContainer} />
       <Route path='/games/:id' component={GameplayContainer} />
+      <Route path='/instructions' component={InstructionsContainer} />
       <Route path='/users' />
     </Router>
   )
