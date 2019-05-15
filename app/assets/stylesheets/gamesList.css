@@ -149,6 +149,26 @@ img.gameTile-right-image {
   margin-right: 5px;
 }
 
-/* .gameTile .gameTile-arrow-opponent-two {
-  margin: 0;
-} */
+@media (max-width:320px)  {
+  .gamesContainerPage {
+    margin: 0;
+  }
+  
+  .gamesContainerNav {
+    margin-top: 0;
+    text-align: center;
+  }
+  
+  .gamesListButtons li {
+    margin-bottom: 10px;
+  }
+  
+  #gamesListCreate {
+    width: 215px;
+  }
+  
+  #gamesListJoin {
+    width: 215px;
+    border-radius: 0 0 0 0;
+  }
+}
