@@ -85,12 +85,12 @@
 .score-grid hr {
   margin: 5px 0;
 }
-/*
+
 .branchLine {
   grid-area: branch-line;
   border: 1px solid #c1bf97;
 }
-
+/*
 .score-text-branch {
   text-align: center;
   font-size: 18px;
