@@ -98,7 +98,7 @@
   top: 20%;
   grid-area: branch-text;
 }
-/*
+
 .score-user-branch {
   text-align: right;
   grid-area: player-one-branch;
@@ -416,4 +416,4 @@
 
 .score-winner {
   background-color: rgba(255, 255, 255, 0.1);
-} */
+} 
