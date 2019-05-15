@@ -90,7 +90,7 @@
   grid-area: branch-line;
   border: 1px solid #c1bf97;
 }
-/*
+
 .score-text-branch {
   text-align: center;
   font-size: 18px;
@@ -98,6 +98,7 @@
   top: 20%;
   grid-area: branch-text;
 }
+/*
 .score-user-branch {
   text-align: right;
   grid-area: player-one-branch;
