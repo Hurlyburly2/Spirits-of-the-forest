@@ -27,6 +27,8 @@ class InstructionsContainer extends Component {
     let rightArrow
     let leftArrowAction
     let rightArrowAction
+    let leftArrowHover
+    let rightArrowHover
     
     if (this.state.whichPage === 1) {
       content = <div>
@@ -40,8 +42,10 @@ Each spirit card also features a number at the bottom of the card (3) that signi
       </div>
       image = "/instructions/CardParts.png"
       leftArrow = "/instructions/ArrowGray-Left.png"
+      leftArrowHover = false
       rightArrow = "/instructions/ArrowGreen-Right.png"
       rightArrowAction = () => { this.handleClickRight() }
+      rightArrowHover = true
     } else if (this.state.whichPage === 2) {
       content = <div>
         <h1>How to Play</h1>
@@ -49,8 +53,8 @@ Each spirit card also features a number at the bottom of the card (3) that signi
         <h2>Collect Cards:</h2>
         <p>On each turn, the player collects cards from either of the two ends of the forest, choosing one of the following actions:</p>
         <ol>
-          <li>Take a tile with two spirit symbols on it</li>
           <li>Take up to two tiles of the same color that have only one spirit symbol.</li>
+          <li>Take a tile with two spirit symbols on it</li>
         </ol>
         <p>Taking two adjacent tiles with one spirit symbol on each IS allowed- by taking the first, the adjacent will become the “end of the forest.” (3)
 After collecting cards, the player adds them to their collection, where they can be viewed by clicking the player’s name. If the player is unable to collect any tiles, their turn is skipped.</p>
@@ -58,8 +62,10 @@ After collecting cards, the player adds them to their collection, where they can
       image = "/instructions/LegalMoves.png"
       leftArrow = "/instructions/ArrowGreen-Left.png"
       leftArrowAction = () => { this.handleClickLeft() }
+      leftArrowHover = true
       rightArrow = "/instructions/ArrowGreen-Right.png"
       rightArrowAction = () => { this.handleClickRight() }
+      rightArrowHover = true
     } else if (this.state.whichPage === 3) {
       content = <div>
         <h1>How to Play</h1>
@@ -71,8 +77,10 @@ Favor symbols with the ‘+’ icon give you an extra gem. (4)</p>
       image = "/instructions/TokenGuide.png"
       leftArrow = "/instructions/ArrowGreen-Left.png"
       leftArrowAction = () => { this.handleClickLeft() }
+      leftArrowHover = true
       rightArrow = "/instructions/ArrowGreen-Right.png"
       rightArrowAction = () => { this.handleClickRight() }
+      rightArrowHover = true
     } else if (this.state.whichPage === 4) {
       content = <div>
         <h1>How to Play</h1>
@@ -82,9 +90,11 @@ To collect a card with an opponent’s gemstone on it, a player must remove one 
       </div>
       image = "/instructions/GemGuide.png"
       leftArrow = "/instructions/ArrowGreen-Left.png"
+      leftArrowHover = true
       leftArrowAction = () => { this.handleClickLeft() }
       rightArrow = "/instructions/ArrowGreen-Right.png"
       rightArrowAction = () => { this.handleClickRight() }
+      rightArrowHover = true
     } else if (this.state.whichPage === 5) {
       content = <div>
         <h1>How to Play</h1>
@@ -99,12 +109,14 @@ To collect a card with an opponent’s gemstone on it, a player must remove one 
       image = "/instructions/ScoreGuide.png"
       leftArrow = "/instructions/ArrowGreen-Left.png"
       leftArrowAction = () => { this.handleClickLeft() }
+      leftArrowHover = true
       rightArrow = "/instructions/ArrowGray-Right.png"
+      rightArrowHover = false
     }
     
     return(
       <div>
-        <InstructionsComponent content={content} image={image} leftArrow={leftArrow} rightArrow={rightArrow} leftArrowAction={leftArrowAction} rightArrowAction={rightArrowAction}/>
+        <InstructionsComponent content={content} image={image} leftArrow={leftArrow} rightArrow={rightArrow} leftArrowAction={leftArrowAction} rightArrowAction={rightArrowAction} leftArrowHover={leftArrowHover} rightArrowHover={rightArrowHover}/>
       </div>
     )
   }
