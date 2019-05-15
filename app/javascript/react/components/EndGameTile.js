@@ -355,15 +355,15 @@ const EndGameTile = (props) => {
   let opponentSpiderIcon
   if (props.score.user.spider > props.score.opponent.spider) {
     userSpiderClass += " score-winner"
-    userSpiderIcon = <img src="/tiny-icons/SpiderIcon-small.png" className="userSpiderIcon"/>
+    userSpiderIcon = <img src="/tiny-icons/SpiderIcon-Small.png" className="userSpiderIcon"/>
   } else if (props.score.user.spider < props.score.opponent.spider) {
     opponentSpiderClass += " score-winner"
-    opponentSpiderIcon = <img src="/tiny-icons/SpiderIcon-small.png" className="opponentSpiderIcon"/>
+    opponentSpiderIcon = <img src="/tiny-icons/SpiderIcon-Small.png" className="opponentSpiderIcon"/>
   } else {
     userSpiderClass += " score-winner"
     opponentSpiderClass += " score-winner"
-    userSpiderIcon = <img src="/tiny-icons/SpiderIcon-small.png" className="userSpiderIcon"/>
-    opponentSpiderIcon = <img src="/tiny-icons/SpiderIcon-small.png" className="opponentSpiderIcon"/>
+    userSpiderIcon = <img src="/tiny-icons/SpiderIcon-Small.png" className="userSpiderIcon"/>
+    opponentSpiderIcon = <img src="/tiny-icons/SpiderIcon-Small.png" className="opponentSpiderIcon"/>
   }
   
   let userVineCards = props.yourCards.filter(card => card.spirit === "vine")
@@ -400,15 +400,15 @@ const EndGameTile = (props) => {
   let opponentVineIcon
   if (props.score.user.vine > props.score.opponent.vine) {
     userVineClass += " score-winner"
-    userVineIcon = <img src="/tiny-icons/VineIcon-small.png" className="userVineIcon"/>
+    userVineIcon = <img src="/tiny-icons/VineIcon-Small.png" className="userVineIcon"/>
   } else if (props.score.user.vine < props.score.opponent.vine) {
     opponentVineClass += " score-winner"
-    opponentVineIcon = <img src="/tiny-icons/VineIcon-small.png" className="opponentVineIcon"/>
+    opponentVineIcon = <img src="/tiny-icons/VineIcon-Small.png" className="opponentVineIcon"/>
   } else {
     userVineClass += " score-winner"
     opponentVineClass += " score-winner"
-    userVineIcon = <img src="/tiny-icons/VineIcon-small.png" className="userVineIcon"/>
-    opponentVineIcon = <img src="/tiny-icons/VineIcon-small.png" className="opponentVineIcon"/>
+    userVineIcon = <img src="/tiny-icons/VineIcon-Small.png" className="userVineIcon"/>
+    opponentVineIcon = <img src="/tiny-icons/VineIcon-Small.png" className="opponentVineIcon"/>
   }
   
   let userSunCards = props.yourCards.filter(card => card.element === "sun")
@@ -447,15 +447,15 @@ const EndGameTile = (props) => {
   let opponentSunIcon
   if (props.score.user.sun > props.score.opponent.sun) {
     userSunClass += " score-winner"
-    userSunIcon = <img src="/tiny-icons/SunIcon-small.png" className="userSunIcon"/>
+    userSunIcon = <img src="/tiny-icons/SunIcon-Small.png" className="userSunIcon"/>
   } else if (props.score.user.sun < props.score.opponent.sun) {
     opponentSunClass += " score-winner"
-    opponentSunIcon = <img src="/tiny-icons/SunIcon-small.png" className="opponentSunIcon"/>
+    opponentSunIcon = <img src="/tiny-icons/SunIcon-Small.png" className="opponentSunIcon"/>
   } else {
     userSunClass += " score-winner"
     opponentSunClass += " score-winner"
-    userSunIcon = <img src="/tiny-icons/SunIcon-small.png" className="userSunIcon"/>
-    opponentSunIcon = <img src="/tiny-icons/SunIcon-small.png" className="opponentSunIcon"/>
+    userSunIcon = <img src="/tiny-icons/SunIcon-Small.png" className="userSunIcon"/>
+    opponentSunIcon = <img src="/tiny-icons/SunIcon-Small.png" className="opponentSunIcon"/>
   }
   
   let userMoonCards = props.yourCards.filter(card => card.element === "moon")
@@ -541,15 +541,15 @@ const EndGameTile = (props) => {
   let opponentWindIcon
   if (props.score.user.wind > props.score.opponent.wind) {
     userWindClass += " score-winner"
-    userWindIcon = <img src="/tiny-icons/WindIcon-small.png" className="userWindIcon"/>
+    userWindIcon = <img src="/tiny-icons/WindIcon-Small.png" className="userWindIcon"/>
   } else if (props.score.user.wind < props.score.opponent.wind) {
     opponentWindClass += " score-winner"
-    opponentWindIcon = <img src="/tiny-icons/WindIcon-small.png" className="opponentWindIcon"/>
+    opponentWindIcon = <img src="/tiny-icons/WindIcon-Small.png" className="opponentWindIcon"/>
   } else {
     userWindClass += " score-winner"
     opponentWindClass += " score-winner"
-    userWindIcon = <img src="/tiny-icons/WindIcon-small.png" className="userWindIcon"/>
-    opponentWindIcon = <img src="/tiny-icons/WindIcon-small.png" className="opponentWindIcon"/>
+    userWindIcon = <img src="/tiny-icons/WindIcon-Small.png" className="userWindIcon"/>
+    opponentWindIcon = <img src="/tiny-icons/WindIcon-Small.png" className="opponentWindIcon"/>
   }
     
     let endGameMessage
