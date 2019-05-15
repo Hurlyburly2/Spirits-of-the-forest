@@ -81,11 +81,11 @@
   "wind-line wind-line wind-line wind-line wind-line wind-line wind-line wind-line wind-line"
   "player-one-wind . player-one-wind-icon . wind-text . player-two-wind-icon . player-two-wind";
 }
-/* 
+
 .score-grid hr {
   margin: 5px 0;
 }
-
+/*
 .branchLine {
   grid-area: branch-line;
   border: 1px solid #c1bf97;
