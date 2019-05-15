@@ -179,4 +179,14 @@ img.gameTile-right-image {
   .gameTile {
     width: 90%;
   }
+  
+  .accountpage-settings {
+    text-align: left;
+    margin-left: 10%;
+  }
+  
+  #accountpage-submit {
+    border-radius: 0 0 2px 2px;
+    margin-bottom: 30px;
+  }
 }
