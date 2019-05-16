@@ -66,3 +66,13 @@
 .arrowButton-active:hover {
   -webkit-filter: brightness(50%); 
 }
+
+@media (max-width:320px)  {
+  .instructions-wrapper {
+    margin: 0;
+  }
+  
+  .instructions-grid {
+    display: block;
+  }
+}

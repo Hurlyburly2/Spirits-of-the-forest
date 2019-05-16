@@ -123,3 +123,49 @@
   text-align: left;
   margin-left: 33%;
 }
+
+@media (max-width:320px)  {
+  .window_wrapper {
+    margin: 0;
+    width: 100%;
+    border: 1px solid #c1bf97;
+  }
+  
+  #entry-page-left-button {
+    border-radius: 0 0 25px 25px;
+    margin: 0;
+    width: 75%;
+  }
+  
+  #entry-page-right-button {
+    border-radius: 0 0 25px 25px;
+    margin: 10px 0 0 0;
+    width: 75%;
+  }
+  
+  .login-field {
+    display: block;
+    width: 90%;
+    margin: 10px auto 0 auto;
+  }
+  
+  .remember-alignment {
+    margin: 0;
+  }
+  
+  .signup-shared-links {
+    text-align: center;
+    margin: 0;
+  }
+  
+  .login-devise-link {
+    margin: 0;
+    padding: 0;
+    display: block;
+  }
+  
+  #login-submit-button {
+    margin-top: 10px;
+    width: 75%;
+  }
+}

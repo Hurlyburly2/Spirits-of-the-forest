@@ -192,3 +192,38 @@
   width: 25px;
   margin-right: 10px;
 }
+
+@media (max-width:320px)  {
+  .accountpage-wrapper {
+    margin: 0;
+  }
+  
+  .accountpage-info-window {
+    margin: 0;
+    border-radius: 0 0 0 0;
+  }
+  
+  .railsElements {
+    text-align: center;
+  }
+  
+  .accountpage-image-class {
+    width: 50%;
+    margin: 0;
+    position: absolute;
+    left: 25%;
+  }
+  
+  .accountpage-info-window-content {
+    margin: 200px 10px 0 10px;
+  }
+  
+  .accountpage-account-topten-grid {
+    display: block;
+  }
+  
+  .accountpage-topten {
+    text-align: left;
+    margin-left: 10%;
+  }
+}

@@ -228,7 +228,7 @@ export const CardContainer = (props) => {
   }
   
   return(
-    <div>
+    <div className="gameplay-cardContainer">
       {row_one}<br/>
       {row_two}<br/>
       {row_three}<br/>
