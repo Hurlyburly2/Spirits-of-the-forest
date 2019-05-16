@@ -417,3 +417,213 @@
 .score-winner {
   background-color: rgba(255, 255, 255, 0.1);
 } 
+
+@media (max-width:320px)  {
+  .score-grid-wrapper {
+    margin: 0 1% 0 1%;
+  }
+  
+  .grid-container {
+    margin: 0 2%;
+    text-align: center;
+  }
+  
+  .score-grid {
+    grid-template-columns: auto 10px 30px 10px auto 10px 30px 10px auto;
+  }
+  
+  .score-card {
+    height: 30px;
+    width: auto;
+    margin-right: 2px;
+  }
+  
+  .userBranchIcon {
+    height: 30px;
+  }
+  .userDewIcon {
+    height: 30px;
+  }
+  .userFlowerIcon {
+    height: 30px;
+  }
+  .userFruitIcon {
+    height: 30px;
+  }
+  .userLeafIcon {
+    height: 30px;
+  }
+  .userMossIcon {
+    height: 30px;
+  }
+  .userMushroomIcon {
+    height: 30px;
+  }
+  .userSpiderIcon {
+    height: 30px;
+  }
+  .userVineIcon {
+    height: 30px;
+  }
+  .userSunIcon {
+    height: 30px;
+  }
+  .userMoonIcon {
+    height: 30px;
+  }
+  .userWindIcon {
+    height: 30px;
+  }
+  
+  .opponentBranchIcon {
+    height: 30px;
+  }
+  .opponentDewIcon {
+    height: 30px;
+  }
+  .opponentFlowerIcon {
+    height: 30px;
+  }
+  .opponentFruitIcon {
+    height: 30px;
+  }
+  .opponentLeafIcon {
+    height: 30px;
+  }
+  .opponentMossIcon {
+    height: 30px;
+  }
+  .opponentMushroomIcon {
+    height: 30px;
+  }
+  .opponentSpiderIcon {
+    height: 30px;
+  }
+  .opponentVineIcon {
+    height: 30px;
+  }
+  .opponentSunIcon {
+    height: 30px;
+  }
+  .opponentMoonIcon {
+    height: 30px;
+  }
+  .opponentWindIcon {
+    height: 30px;
+  }
+  
+  .endGame-doneButton {
+    border-radius: 0 0 0 0;
+    text-align: center;
+    margin: 0;
+  }
+  
+  .gamePlayNav {
+    display: block;
+  }
+}
+
+@media (min-width: 321px) and (max-width:480px)  {
+  .score-grid-wrapper {
+    margin: 0 1% 0 1%;
+  }
+  
+  .grid-container {
+    margin: 0 2%;
+    text-align: center;
+  }
+  
+  .score-grid {
+    grid-template-columns: auto 10px 30px 10px auto 10px 30px 10px auto;
+  }
+  
+  .score-card {
+    height: 30px;
+    width: auto;
+    margin-right: 2px;
+  }
+  
+  .userBranchIcon {
+    height: 30px;
+  }
+  .userDewIcon {
+    height: 30px;
+  }
+  .userFlowerIcon {
+    height: 30px;
+  }
+  .userFruitIcon {
+    height: 30px;
+  }
+  .userLeafIcon {
+    height: 30px;
+  }
+  .userMossIcon {
+    height: 30px;
+  }
+  .userMushroomIcon {
+    height: 30px;
+  }
+  .userSpiderIcon {
+    height: 30px;
+  }
+  .userVineIcon {
+    height: 30px;
+  }
+  .userSunIcon {
+    height: 30px;
+  }
+  .userMoonIcon {
+    height: 30px;
+  }
+  .userWindIcon {
+    height: 30px;
+  }
+  
+  .opponentBranchIcon {
+    height: 30px;
+  }
+  .opponentDewIcon {
+    height: 30px;
+  }
+  .opponentFlowerIcon {
+    height: 30px;
+  }
+  .opponentFruitIcon {
+    height: 30px;
+  }
+  .opponentLeafIcon {
+    height: 30px;
+  }
+  .opponentMossIcon {
+    height: 30px;
+  }
+  .opponentMushroomIcon {
+    height: 30px;
+  }
+  .opponentSpiderIcon {
+    height: 30px;
+  }
+  .opponentVineIcon {
+    height: 30px;
+  }
+  .opponentSunIcon {
+    height: 30px;
+  }
+  .opponentMoonIcon {
+    height: 30px;
+  }
+  .opponentWindIcon {
+    height: 30px;
+  }
+  
+  .endGame-doneButton {
+    border-radius: 0 0 0 0;
+    text-align: center;
+    margin: 0;
+  }
+  
+  .gamePlayNav {
+    display: block;
+  }
+}
