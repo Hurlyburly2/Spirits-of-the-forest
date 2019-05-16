@@ -298,3 +298,13 @@ img.gameTile-right-image {
     width: 45%;
   }
 }
+
+@media (min-width: 802px) and (max-width:1025px) {
+  .gamesContainerPage {
+    margin: 10px 5% 0 5%;
+  }
+  
+  .gameTile {
+    width: 45%;
+  }
+}
