@@ -169,3 +169,41 @@
     width: 75%;
   }
 }
+
+@media (min-width: 321px) and (max-width:480px)  {
+  .window_wrapper {
+    margin: 10px auto 10px auto;
+    width: 98%;
+    border: 1px solid #c1bf97;
+  }
+  
+  #entry-page-left-button {
+    margin-left: 0;
+  }
+  
+  .login-field {
+    display: block;
+    width: 90%;
+    margin: 10px auto 0 auto;
+  }
+  
+  .remember-alignment {
+    margin-right: 5px;
+  }
+  
+  .login-devise-link {
+    margin: 0;
+    padding: 0;
+    display: block;
+  }
+  
+  .signup-shared-links {
+    text-align: center;
+    margin: 0;
+  }
+  
+  #login-submit-button {
+    margin-top: 10px;
+    width: 60%;
+  }
+}
