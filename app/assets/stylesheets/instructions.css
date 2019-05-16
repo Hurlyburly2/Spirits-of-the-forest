@@ -76,3 +76,13 @@
     display: block;
   }
 }
+
+@media (min-width: 321px) and (max-width:480px)  {
+  .instructions-wrapper {
+    margin: 10px 5% 0 5%;
+  }
+  
+  .instructions-grid {
+    display: block;
+  }
+}

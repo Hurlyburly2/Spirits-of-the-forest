@@ -313,7 +313,7 @@ h4 {
   
   .gamePlayPage-BottomUser {
     position: static;
-    width: 50%;
+    width: 40%;
     height: auto;
   }
   
@@ -336,7 +336,99 @@ h4 {
   .gamePlayPage-BottomOpponent {
     position: static;
     height: auto;
-    width: 50%;
+    width: 40%;
+  }
+  
+  .gameplay-OpponentPlayerBox-Content  {
+    margin: 0;
+  }
+}
+
+@media (min-width: 321px) and (max-width:480px)  {
+  .gamePlayNav {
+  }
+  
+  .gamePlayNavContainer {
+    text-align: center;
+  }
+  
+  .gamePlayButtons ul {
+    margin: 0;
+  }
+  
+  .gamePlayButtons li {
+    width: 90%;
+    text-align: center;
+    margin: 0 0 5px 0;
+  }
+  
+  .gamePlayPage-TopIcon {
+    left: 25px;
+    position: absolute;
+    width: 58px;
+  }
+  
+  .gameplay-cardContainer {
+    margin-top: 30px;
+  }
+  
+  .card {
+    width: 7%;
+    margin: 2px 2px;
+  }
+  
+  .gameplayBottomWrapper {
+    margin: 10px 0 20px 0;
+    display: grid;
+    grid-template-columns: 48% auto 48%;
+    grid-template-rows: auto;
+    grid-template-areas:
+    "topbar topbar topbar"
+    "user . opponent"
+  }
+  
+  .whoseTurn {
+    grid-area: topbar;
+    font-size: 24px;
+    margin: 10px 0 -5px 0;
+  }
+  
+  .gameplayCurrentPlayerBox {
+    width: 100%;
+    grid-area: user;
+    margin: 0;
+  }
+  
+  .gameplayCurrentPlayerBox h4 {
+    font-size: 20px;
+  }
+  
+  .gamePlayPage-BottomUser {
+    position: static;
+    width: 25%;
+    height: auto;
+  }
+  
+  .gameplay-CurrentPlayerBox-Content {
+    margin: 0;
+  }
+  
+  .gameplayOpponentPlayerBox {
+    width: 100%;
+    grid-area: opponent;
+    margin: 0;
+  }
+  
+  .gameplayOpponentPlayerBox h4 {
+    font-size: 20px;
+    width: 100%;
+    grid-area: opponent;
+  }
+  
+  .gamePlayPage-BottomOpponent {
+    position: static;
+    height: auto;
+    width: 25%;
   }
   
   .gameplay-OpponentPlayerBox-Content  {
