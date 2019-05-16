@@ -666,3 +666,23 @@
     width: 100%;
   }
 }
+
+@media (min-width: 802px) and (max-width:1025px) {
+  .gamePlayNav {
+    display: block;
+    margin-bottom: 90px;
+  }
+  
+  li.endGame-doneButton {
+    width: 33%;
+  }
+  
+  .score-grid-wrapper {
+    margin: 0 5%;
+  }
+  
+  .grid-container {
+    margin: 0 2%;
+    width: 100%;
+  }
+}

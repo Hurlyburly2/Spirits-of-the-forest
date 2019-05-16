@@ -568,3 +568,50 @@ h4 {
     font-size: 25px;
   }
 }
+
+@media (min-width: 802px) and (max-width:1025px) {
+  .gamePlayNavContainer {
+    text-align: center;
+    margin: 0 7% 30px 7%;
+  }
+  
+  ul.gamePlayButtons {
+    margin: 0;
+  }
+  
+  .gamePlayButtons li {
+    width: 48%;
+    text-align: center;
+    margin: 0 5px 5px 0;
+  }
+  
+  .gamePlayPage-TopIcon {
+    left: -3%;
+    position: absolute;
+    width: 58px;
+  }
+  
+  .card {
+    width: 6%;
+  }
+  
+  .gameplayBottomWrapper {
+    margin: 0 5%;
+  }
+  
+  .gamePlayPage-BottomUser {
+    right: -20%;
+  }
+  
+  .gamePlayPage-BottomOpponent {
+    left: -20%;
+  }
+  
+  .gameplayOpponentPlayerBox h4 {
+    font-size: 25px;
+  }
+  
+  .gameplayCurrentPlayerBox h4 {
+    font-size: 25px;
+  }
+}
