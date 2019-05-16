@@ -254,7 +254,6 @@ h4 {
 
 @media (max-width:320px)  {
   .gamePlayNav {
-    text-align: center;  
   }
   
   .gamePlayNavContainer {
@@ -284,11 +283,63 @@ h4 {
   .card {
     width: 7%;
     margin: 1px 1px;
-    display: inline-block;
-    position: relative;
-    top: 0;
-    left: 0;
-    transition-property: transform;
-    transition-duration: 0.3s;
+  }
+  
+  .gameplayBottomWrapper {
+    margin: 10px 0 20px 0;
+    display: grid;
+    grid-template-columns: 48% auto 48%;
+    grid-template-rows: auto;
+    grid-template-areas:
+    "topbar topbar topbar"
+    "user . opponent"
+  }
+  
+  .whoseTurn {
+    grid-area: topbar;
+    font-size: 24px;
+    margin: 10px 0 -5px 0;
+  }
+  
+  .gameplayCurrentPlayerBox {
+    width: 100%;
+    grid-area: user;
+    margin: 0;
+  }
+  
+  .gameplayCurrentPlayerBox h4 {
+    font-size: 20px;
+  }
+  
+  .gamePlayPage-BottomUser {
+    position: static;
+    width: 50%;
+    height: auto;
+  }
+  
+  .gameplay-CurrentPlayerBox-Content {
+    margin: 0;
+  }
+  
+  .gameplayOpponentPlayerBox {
+    width: 100%;
+    grid-area: opponent;
+    margin: 0;
+  }
+  
+  .gameplayOpponentPlayerBox h4 {
+    font-size: 20px;
+    width: 100%;
+    grid-area: opponent;
+  }
+  
+  .gamePlayPage-BottomOpponent {
+    position: static;
+    height: auto;
+    width: 50%;
+  }
+  
+  .gameplay-OpponentPlayerBox-Content  {
+    margin: 0;
   }
 }
