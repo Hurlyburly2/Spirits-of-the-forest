@@ -241,3 +241,25 @@
     margin: 0;
   }
 }
+
+@media (min-width:601px) and (max-width: 801px) {
+  .login-field {
+    display: block;
+    width: 70%;
+    margin: 10px auto 0 auto;
+  }
+  
+  .remember-alignment {
+    margin-right: 15%;
+  }
+  
+  #login-submit-button {
+    margin-top: 10px;
+    width: 50%;
+  }
+  
+  .signup-shared-links {
+    text-align: center;
+    margin: 0;
+  }
+}
