@@ -235,3 +235,51 @@ img.gameTile-right-image {
     width: 90%;
   }
 }
+
+@media (min-width: 481px) and (max-width: 600px) {
+  #inGameMenu {
+    display: block !important;
+    margin-bottom: 5px;
+  }
+  
+  .gamesContainerPage {
+    margin: 0 5%;
+  }
+  
+  .gamesContainer-myGames {
+    margin: 0;
+  }
+  
+  #gamesListMyGames {
+    margin: 0;
+  }
+  
+  #gamesListMyGames {
+    width: 98%;
+    margin-bottom: 10px;
+  }
+  
+  #gamesListCreate {
+    border-radius: 0 0 0 0;
+    width: 46%;
+    margin-left: 0;
+  }
+  
+  #gamesListJoin {
+    border-radius: 0 0 0 0;
+    width: 46%;
+    margin-right: 0;
+  }
+  
+  .gameTileContainer {
+    margin: 15px 0 0 0;
+  }
+  
+  .gameIndex-profilePic {
+    left: 0;
+  }
+  
+  .gameTile {
+    width: 90%;
+  }
+}

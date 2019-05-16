@@ -435,3 +435,68 @@ h4 {
     margin: 0;
   }
 }
+
+@media (min-width: 481px) and (max-width: 600px) {
+  .card {
+    width: 6.8%;
+    margin: 2px 2px;
+  }
+  
+  .gameplayBottomWrapper {
+    margin: 10px 5% 20px 5%;
+    display: grid;
+    grid-template-columns: 48% auto 48%;
+    grid-template-rows: auto;
+    grid-template-areas:
+    "topbar topbar topbar"
+    "user . opponent"
+  }
+  
+  .whoseTurn {
+    grid-area: topbar;
+    font-size: 24px;
+    margin: 10px 0 -5px 0;
+  }
+  
+  .gameplayCurrentPlayerBox {
+    width: 100%;
+    grid-area: user;
+    margin: 0;
+  }
+  
+  .gameplayCurrentPlayerBox h4 {
+    font-size: 20px;
+  }
+  
+  .gamePlayPage-BottomUser {
+    position: static;
+    width: 25%;
+    height: auto;
+  }
+  
+  .gameplay-CurrentPlayerBox-Content {
+    margin: 0;
+  }
+  
+  .gameplayOpponentPlayerBox {
+    width: 100%;
+    grid-area: opponent;
+    margin: 0;
+  }
+  
+  .gameplayOpponentPlayerBox h4 {
+    font-size: 20px;
+    width: 100%;
+    grid-area: opponent;
+  }
+  
+  .gamePlayPage-BottomOpponent {
+    position: static;
+    height: auto;
+    width: 25%;
+  }
+  
+  .gameplay-OpponentPlayerBox-Content  {
+    margin: 0;
+  }
+}

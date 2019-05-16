@@ -627,3 +627,14 @@
     display: block;
   }
 }
+
+@media (min-width: 481px) and (max-width: 600px) {
+  .score-grid-wrapper {
+    margin: 0 5%;
+  }
+  
+  .grid-container {
+    margin: 0 2%;
+    text-align: center;
+  }
+}
