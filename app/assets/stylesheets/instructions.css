@@ -89,6 +89,12 @@
 
 @media (min-width: 481px) and (max-width: 600px) {
   .instructions-wrapper {
-    margin: 10px 5% 0 5%;
+    margin: 10px 5% 30px 5%;
+  }
+}
+
+@media (min-width:601px) and (max-width: 801px) {
+  .instructions-wrapper {
+    margin: 10px 5% 30px 5%;
   }
 }

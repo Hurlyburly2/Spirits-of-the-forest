@@ -283,3 +283,18 @@ img.gameTile-right-image {
     width: 90%;
   }
 }
+
+@media (min-width:601px) and (max-width: 801px) {
+  #inGameMenu {
+    margin-right: 5%
+  }
+  
+  .gamesContainerPage {
+    text-align: left;
+    margin: 10px 5% 0 5%;
+  }
+  
+  .gameTile {
+    width: 45%;
+  }
+}

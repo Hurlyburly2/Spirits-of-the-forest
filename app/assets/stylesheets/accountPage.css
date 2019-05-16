@@ -276,3 +276,13 @@
     margin-left: 0;
   }
 }
+
+@media (min-width:601px) and (max-width: 801px) {
+  .accountpage-wrapper {
+    margin: 0 10% 20px 10%;
+  }
+  
+  .accountpage-image-class {
+    margin-left: 5%;
+  }
+}
