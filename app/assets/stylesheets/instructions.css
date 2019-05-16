@@ -86,3 +86,9 @@
     display: block;
   }
 }
+
+@media (min-width: 481px) and (max-width: 600px) {
+  .instructions-wrapper {
+    margin: 10px 5% 0 5%;
+  }
+}
