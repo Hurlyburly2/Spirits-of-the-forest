@@ -251,3 +251,44 @@ h4 {
 .collectedCards-Token {
   width: 7%;
 }
+
+@media (max-width:320px)  {
+  .gamePlayNav {
+    text-align: center;  
+  }
+  
+  .gamePlayNavContainer {
+    text-align: center;
+  }
+  
+  .gamePlayButtons ul {
+    margin: 0;
+  }
+  
+  .gamePlayButtons li {
+    width: 90%;
+    text-align: center;
+    margin: 0 0 5px 0;
+  }
+  
+  .gamePlayPage-TopIcon {
+    left: 5px;
+    position: absolute;
+    width: 58px;
+  }
+  
+  .gameplay-cardContainer {
+    margin-top: 30px;
+  }
+  
+  .card {
+    width: 7%;
+    margin: 1px 1px;
+    display: inline-block;
+    position: relative;
+    top: 0;
+    left: 0;
+    transition-property: transform;
+    transition-duration: 0.3s;
+  }
+}
