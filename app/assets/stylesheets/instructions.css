@@ -98,3 +98,9 @@
     margin: 10px 5% 30px 5%;
   }
 }
+
+@media (min-width: 802px) and (max-width:1025px) {
+  .instructions-wrapper {
+    margin: 10px 10% 30px 10%;
+  }
+}
