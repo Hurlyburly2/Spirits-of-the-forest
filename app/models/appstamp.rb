@@ -85,33 +85,36 @@ class Appstamp < ApplicationRecord
     # puts response.status_code
     # puts response.body
     # puts response.headers
-    
-    data = JSON.parse('{
-    "personalizations": [
-      {
-        "to": [
-          {
-            "email": "dougdougmann@gmail.com"
+    email = "dougdougmann@gmail.com"
+    subject = "Hello World from the SendGrid Ruby Library"
+    from = "test@example.com"
+    content = "Hello, Email!"
+    data = {
+      "personalizations"=> [
+        {
+          "to" => [
+            {
+              "email"=> email
+              }
+            ],
+            "subject"=> subject
           }
         ],
-        "subject": "Hello World from the SendGrid Ruby Library!"
-      }
-    ],
-    "from": {
-      "email": "test@example.com"
-    },
-    "content": [
-      {
-        "type": "text/plain",
-        "value": "Hello, Email!"
-      }
-    ]
-  }')
-  sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
-  response = sg.client.mail._("send").post(request_body: data)
-  puts response.status_code
-  puts response.body
-  puts response.headers
+        "from" => {
+          "email"=> from
+        },
+        "content" => [
+          {
+            "type"=>"text/plain",
+            "value"=> content
+          }
+        ]
+    }
+    sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
+    response = sg.client.mail._("send").post(request_body: data)
+    puts response.status_code
+    puts response.body
+    puts response.headers
 
   end
 end
