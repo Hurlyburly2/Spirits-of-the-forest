@@ -56,39 +56,11 @@ class Appstamp < ApplicationRecord
   end
   
   def self.sendReminder(user)
-    
-    message = "Hi #{user.username}!
+    to = user.email
+    subject = "You have idle games ongoing in Spirits of the Forest!"
+    from = "Spirits-of-the-Forest-Game@Spirits-of-the-Forest-game.com"
+    content = "Hi #{user.username}!
     You have games in Spirits of the Forest you've been idle in for over 24 hours! If you don't take a move in another 24 hours, you will automatically concede :("
-    
-    from = Email.new(email: 'Spirits-of-the-Forest-Game@Spirits-of-the-Forest-game.com')
-    to = Email.new(email: user.email)
-    subject = 'You have idle games ongoing in Spirits of the Forest!'
-    content = Content.new(type: 'text/plain', value: message)
-    mail = Mail.new(from, subject, to, content)
-
-    sg = SendGrid::API.new(api_key: ENV["SENDGRID_API_KEY"])
-    response = sg.client.mail._('send').post(request_body: mail.to_json)
-    puts response.status_code
-    puts response.body
-    puts response.headers
-  end
-  
-  def self.email_test
-    # from = Email.new(email: 'test@example.com')
-    # to = Email.new(email: 'dougdougmann@gmail.com')
-    # subject = 'Sending with SendGrid is Fun'
-    # content = Content.new(type: 'text/plain', value: 'and easy to do anywhere, even with Ruby')
-    # mail = Mail.new(from, subject, to, content)
-    # 
-    # sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
-    # response = sg.client.mail._('send').post(request_body: mail.to_json)
-    # puts response.status_code
-    # puts response.body
-    # puts response.headers
-    email = "dougdougmann@gmail.com"
-    subject = "Hello World from the SendGrid Ruby Library"
-    from = "test@example.com"
-    content = "Hello, Email!"
     data = {
       "personalizations"=> [
         {
@@ -115,6 +87,5 @@ class Appstamp < ApplicationRecord
     puts response.status_code
     puts response.body
     puts response.headers
-
   end
 end

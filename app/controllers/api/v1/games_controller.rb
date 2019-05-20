@@ -1,6 +1,5 @@
 class Api::V1::GamesController < ApplicationController
   def index
-    Appstamp.email_test
     Appstamp.check_for_inactive_games
     
     games = current_user.games
