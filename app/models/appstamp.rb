@@ -79,6 +79,7 @@ class Appstamp < ApplicationRecord
     subject = 'Sending with SendGrid is Fun'
     content = Content.new(type: 'text/plain', value: 'and easy to do anywhere, even with Ruby')
     mail = Mail.new(from, subject, to, content)
+    response = sg.client.mail._('send').post(request_body: mail.to_json)
     
     sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
     response = sg.client.mail._('send').post(request_body: mail.to_json)
