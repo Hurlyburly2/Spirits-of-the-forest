@@ -91,8 +91,8 @@ class JoinGameContainer extends Component {
             <div className="gamesContainer-myGames">
               <ul className="gamesListButtons">
                   <li id="gamesListMyGames">Join a Game</li>
-                  <Link to='/'><li id="gamesListCreate">MY GAMES</li></Link>
-                  <a href="#" onClick={handleMoreMatches}><li id="gamesListJoin">SEE MORE</li></a>
+                  <Link to='/'><li id="gamesListCreate">My Games</li></Link>
+                  <a href="#" onClick={handleMoreMatches}><li id="gamesListJoin">See More</li></a>
               </ul>
             </div>
           </div>
