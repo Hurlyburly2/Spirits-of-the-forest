@@ -74,7 +74,6 @@ class Appstamp < ApplicationRecord
   end
   
   def self.email_test
-    binding.pry
     from = Email.new(email: 'test@example.com')
     to = Email.new(email: 'dougdougmann@gmail.com')
     subject = 'Sending with SendGrid is Fun'
