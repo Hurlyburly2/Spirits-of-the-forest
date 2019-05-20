@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   def index
     @progress_bar_style = ""
     if current_user.rankup_score >= 0 && current_user.rankup_score < 100
-      rank_up_percentage = current_user.rankup_score
+      rank_up_percentage = current_user.rankup_score  
       @progress_bar_style = "width:#{rank_up_percentage}%;background-color:#CD7F32;border-width:1px;height:28px"
     elsif current_user.rankup_score >= 100 && current_user.rankup_score < 200
       rank_up_percentage = current_user.rankup_score - 100
