@@ -244,6 +244,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  actionmailer
   active_model_serializers
   bootsnap (>= 1.1.0)
   capybara

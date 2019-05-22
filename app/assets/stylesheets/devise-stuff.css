@@ -112,6 +112,27 @@
   color: #F1EECE;
 }
 
+#password-reset-button {
+  border: none;
+  font-family: antiquarian, sans-serif;
+  font-size: 30px;
+  color: white;
+  width: 40%;
+  background-color: #4f3e37;
+  border-radius: 0 0 25px 25px;
+  margin-bottom: 3px;
+  padding-top: 5px;
+}
+
+#password-reset-button:hover {
+  background-color: orange;
+  color: #F1EECE;
+}
+
+#forgot-password-heading {
+  
+}
+
 .login-devise-link {
   padding: 0 4%;
   color: #da9d54;
@@ -122,6 +143,10 @@
 .signup-shared-links {
   text-align: left;
   margin-left: 33%;
+}
+
+.password-forgot-login-shared-links {
+  margin-bottom: 20px;
 }
 
 @media (max-width:320px)  {
