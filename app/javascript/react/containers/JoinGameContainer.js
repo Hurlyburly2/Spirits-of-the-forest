@@ -97,7 +97,7 @@ class JoinGameContainer extends Component {
             </div>
           </div>
         </div>
-        {this.state.errorMessage}
+        <div id="joinErrorMessage">{this.state.errorMessage}</div>
         <div className="gameTileContainer">{games}</div>
       </div>
     )
