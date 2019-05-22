@@ -25,3 +25,9 @@
 # puts response.status_code
 # puts response.body
 # puts response.headers
+
+#DEVISE LINK TO FORGOT PASSWORD PAGE
+
+# <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+#   <%= link_to "Forgot your password?", new_password_path(resource_name), :class => "login-devise-link" %>
+# <% end %>
