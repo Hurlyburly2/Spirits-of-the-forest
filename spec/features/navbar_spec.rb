@@ -24,7 +24,7 @@ feature 'User signed in, and navbar links are clicked' do
     visit new_user_session_path
 
     click_link 'Sign In'
-    expect(page).to have_content("Forgot your password?")
+    expect(page).to have_content("Remember me")
 
     click_link 'Sign Up'
     expect(page).to have_content('confirmation')
