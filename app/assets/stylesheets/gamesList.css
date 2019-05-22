@@ -149,6 +149,17 @@ img.gameTile-right-image {
   margin-right: 5px;
 }
 
+#joinErrorMessage {
+  margin: 0 auto;
+  background-color: white;
+  border: 3px solid #c1bf97;
+  font-family: mr-eaves-modern, sans-serif;
+  font-size: 20px;
+  width: 40%;
+  text-align: center;
+  padding: 10px;
+}
+
 @media (max-width:320px)  {
   .gamesContainerPage {
     margin: 0;
