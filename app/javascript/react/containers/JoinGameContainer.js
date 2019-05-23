@@ -83,6 +83,11 @@ class JoinGameContainer extends Component {
       profilePic = <ProfilePic key="ProfilePic" whichPic={this.state.currentUser.which_profile_pic} whichRank={this.state.currentUser.rank} where="GamePage" who="player"/>
     }
     
+    let errorBox = null
+    if (this.state.errorMessage !== "") {
+      errorBox = <div id="joinErrorMessage">{this.state.errorMessage}</div>
+    }
+    
     return(
       <div className="gamesContainerPage">
         <div className="gamesContainerNav">
@@ -97,7 +102,7 @@ class JoinGameContainer extends Component {
             </div>
           </div>
         </div>
-        <div id="joinErrorMessage">{this.state.errorMessage}</div>
+        {errorBox}
         <div className="gameTileContainer">{games}</div>
       </div>
     )
