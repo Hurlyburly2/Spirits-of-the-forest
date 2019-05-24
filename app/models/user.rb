@@ -129,4 +129,21 @@ class User < ApplicationRecord
        progress_bar_style = "width:100%;background-color:#ff3276;"
      end
    end
+   
+   def self.profile_image_collection
+     [
+       "Branch",
+       "Dew",
+       "Flower",
+       "Fruit",
+       "Moss",
+       "Mushroom",
+       "Moon",
+       "Spider",
+       "Vine",
+       "Leaf",
+       "Sun",
+       "Wind"
+     ]
+   end
 end

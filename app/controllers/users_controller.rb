@@ -13,21 +13,9 @@ class UsersController < ApplicationController
     @user = current_user
     @image_url = User.return_image_url(current_user.rank, current_user.which_profile_pic)
     
-    @profile_image_collection = [
-        "Branch",
-        "Dew",
-        "Flower",
-        "Fruit",
-        "Moss",
-        "Mushroom",
-        "Moon",
-        "Spider",
-        "Vine",
-        "Leaf",
-        "Sun",
-        "Wind"
-      ]
-      @default_pic = @profile_image_collection[(current_user.which_profile_pic) - 1]
+    @profile_image_collection = User.profile_image_collection
+    binding.pry
+    @default_pic = @profile_image_collection[(current_user.which_profile_pic) - 1]
     
   end
   
@@ -96,23 +84,11 @@ class UsersController < ApplicationController
       [true, "On"],
       [false, "Off"]
     ]
+    
     @image_url = User.return_image_url(current_user.rank, current_user.which_profile_pic)
     
-    @profile_image_collection = [
-        "Branch",
-        "Dew",
-        "Flower",
-        "Fruit",
-        "Moss",
-        "Mushroom",
-        "Moon",
-        "Spider",
-        "Vine",
-        "Leaf",
-        "Sun",
-        "Wind"
-      ]
-      @default_pic = @profile_image_collection[(current_user.which_profile_pic) - 1]
+    @profile_image_collection = User.profile_image_collection
+    @default_pic = @profile_image_collection[(current_user.which_profile_pic) - 1]
     render :index
   end
 end
