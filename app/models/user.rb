@@ -110,4 +110,23 @@ class User < ApplicationRecord
      
      return image_url += ".png"
    end
+   
+   def self.get_progress_bar_style(rankup_score)
+     progress_bar_style = ""
+     if rankup_score >= 0 && rankup_score < 100
+       rank_up_percentage = rankup_score  
+       progress_bar_style = "width:#{rank_up_percentage}%;background-color:#CD7F32;border-width:1px;height:28px"
+     elsif rankup_score >= 100 && rankup_score < 200
+       rank_up_percentage = rankup_score - 100
+       progress_bar_style = "width:#{rank_up_percentage}%;background-color:#C0C0C0;border-width:1px;height:28px"
+     elsif rankup_score >= 200 && rankup_score < 300
+       rank_up_percentage = rankup_score - 200
+       progress_bar_style = "width:#{rank_up_percentage}%;background-color:#FFD700;border-width:1px;height:28px"
+     elsif rankup_score >= 300 && rankup_score < 400
+       rank_up_percentage = rankup_score - 300
+       progress_bar_style = "width:#{rank_up_percentage}%;background-color:#B9F2FF;border-width:1px;height:28px"
+     else
+       progress_bar_style = "width:100%;background-color:#ff3276;"
+     end
+   end
 end
