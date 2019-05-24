@@ -66,7 +66,7 @@ class Appstamp < ApplicationRecord
         {
           "to" => [
             {
-              "email"=> email
+              "email"=> to
               }
             ],
             "subject"=> subject
