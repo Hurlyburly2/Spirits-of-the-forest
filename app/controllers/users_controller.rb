@@ -14,9 +14,7 @@ class UsersController < ApplicationController
     @image_url = User.return_image_url(current_user.rank, current_user.which_profile_pic)
     
     @profile_image_collection = User.profile_image_collection
-    binding.pry
     @default_pic = @profile_image_collection[(current_user.which_profile_pic) - 1]
-    
   end
   
   def update
