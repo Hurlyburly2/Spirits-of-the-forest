@@ -1,21 +1,7 @@
 class UsersController < ApplicationController
   def index
     @progress_bar_style = ""
-    if current_user.rankup_score >= 0 && current_user.rankup_score < 100
-      rank_up_percentage = current_user.rankup_score  
-      @progress_bar_style = "width:#{rank_up_percentage}%;background-color:#CD7F32;border-width:1px;height:28px"
-    elsif current_user.rankup_score >= 100 && current_user.rankup_score < 200
-      rank_up_percentage = current_user.rankup_score - 100
-      @progress_bar_style = "width:#{rank_up_percentage}%;background-color:#C0C0C0;border-width:1px;height:28px"
-    elsif current_user.rankup_score >= 200 && current_user.rankup_score < 300
-      rank_up_percentage = current_user.rankup_score - 200
-      @progress_bar_style = "width:#{rank_up_percentage}%;background-color:#FFD700;border-width:1px;height:28px"
-    elsif current_user.rankup_score >= 300 && current_user.rankup_score < 400
-      rank_up_percentage = current_user.rankup_score - 300
-      @progress_bar_style = "width:#{rank_up_percentage}%;background-color:#B9F2FF;border-width:1px;height:28px"
-    else
-      @progress_bar_style = "width:100%;background-color:#ff3276;"
-    end
+    @progress_bar_style = User.get_progress_bar_style(current_user.rankup_score)
     
     @top_ten = User.all.order(rankup_score: :desc).limit(10)
     @top_ten = @top_ten.order(:created_at)
@@ -27,22 +13,8 @@ class UsersController < ApplicationController
     @user = current_user
     @image_url = User.return_image_url(current_user.rank, current_user.which_profile_pic)
     
-    @profile_image_collection = [
-        "Branch",
-        "Dew",
-        "Flower",
-        "Fruit",
-        "Moss",
-        "Mushroom",
-        "Moon",
-        "Spider",
-        "Vine",
-        "Leaf",
-        "Sun",
-        "Wind"
-      ]
-      @default_pic = @profile_image_collection[(current_user.which_profile_pic) - 1]
-    
+    @profile_image_collection = User.profile_image_collection
+    @default_pic = @profile_image_collection[(current_user.which_profile_pic) - 1]
   end
   
   def update
@@ -101,21 +73,7 @@ class UsersController < ApplicationController
     current_user.save
     
     @progress_bar_style = ""
-    if current_user.rankup_score >= 0 && current_user.rankup_score < 100
-      rank_up_percentage = current_user.rankup_score
-      @progress_bar_style = "width:#{rank_up_percentage}%;background-color:#CD7F32;border-width:1px;height:28px"
-    elsif current_user.rankup_score >= 100 && current_user.rankup_score < 200
-      rank_up_percentage = current_user.rankup_score - 100
-      @progress_bar_style = "width:#{rank_up_percentage}%;background-color:#C0C0C0;border-width:1px;height:28px"
-    elsif current_user.rankup_score >= 200 && current_user.rankup_score < 300
-      rank_up_percentage = current_user.rankup_score - 200
-      @progress_bar_style = "width:#{rank_up_percentage}%;background-color:#FFD700;border-width:1px;height:28px"
-    elsif current_user.rankup_score >= 300 && current_user.rankup_score < 400
-      rank_up_percentage = current_user.rankup_score - 300
-      @progress_bar_style = "width:#{rank_up_percentage}%;background-color:#B9F2FF;border-width:1px;height:28px"
-    else
-      @progress_bar_style = "width:100%;background-color:#ff3276;"
-    end
+    @progress_bar_style = User.get_progress_bar_style(current_user.rankup_score)
     
     @top_ten = User.all.order(rankup_score: :desc).limit(10)
     @top_ten = @top_ten.order(:created_at)
@@ -124,23 +82,11 @@ class UsersController < ApplicationController
       [true, "On"],
       [false, "Off"]
     ]
+    
     @image_url = User.return_image_url(current_user.rank, current_user.which_profile_pic)
     
-    @profile_image_collection = [
-        "Branch",
-        "Dew",
-        "Flower",
-        "Fruit",
-        "Moss",
-        "Mushroom",
-        "Moon",
-        "Spider",
-        "Vine",
-        "Leaf",
-        "Sun",
-        "Wind"
-      ]
-      @default_pic = @profile_image_collection[(current_user.which_profile_pic) - 1]
+    @profile_image_collection = User.profile_image_collection
+    @default_pic = @profile_image_collection[(current_user.which_profile_pic) - 1]
     render :index
   end
 end

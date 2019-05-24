@@ -1,18 +1,7 @@
 class Api::V1::GamesController < ApplicationController
   def index
     Appstamp.check_for_inactive_games
-    
-    games = current_user.games
-    serialized_games = games.map do |game|
-      match = game.matches.where(user: current_user)[0]
-      if match.endgame_confirm == false
-        GameIndexSerializer.new(game)
-      else
-      end
-    end
-    serialized_games = serialized_games.select do |match|
-      match != nil
-    end
+    serialized_games = Game.get_games_list(current_user)
     render json: {
       currentUser: current_user,
       games: serialized_games

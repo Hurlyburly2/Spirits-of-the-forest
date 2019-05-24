@@ -19,4 +19,20 @@ class Game < ApplicationRecord
     game.concession = true
     game.save
   end
+  
+  def self.get_games_list(user)
+    games = user.games
+    serialized_games = games.map do |game|
+      match = game.matches.where(user: user)[0]
+      if match.endgame_confirm == false
+        GameIndexSerializer.new(game)
+      else
+      end
+    end
+    serialized_games = serialized_games.select do |match|
+      match != nil
+    end
+    
+    serialized_games
+  end
 end
