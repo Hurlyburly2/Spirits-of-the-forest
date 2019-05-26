@@ -357,16 +357,6 @@ class Api::V1::GamesController < ApplicationController
         opponent_has_valid_moves = true
       end
       
-      # all_cards.each do |card|
-      #   if card["gem"]
-      #     if card["gem"]["id"] == opponent.id
-      #       opponent_has_valid_moves = true
-      #     end
-      #   else
-      #     opponent_has_valid_moves = true
-      #   end
-      # end
-      # OLD CHECKER (DOESN'T WORK IN EDGE CASES?)
       bad_row_count = 0 #IF THIS EQUAL FOUR, INVALID MOVE FOR OPPONENT'
       all_rows.each do |row|
         valid_moves_in_row = true
@@ -896,55 +886,4 @@ class Api::V1::GamesController < ApplicationController
     
     return score
   end
-  
-  # def ranking_change(player, game_result)
-  #   if player.rank == "bronze"
-  #     if game_result == "loss"
-  #       player.rankup_score = player.rankup_score - 3
-  #       if player.rankup_score < 0
-  #         player.rankup_score = 0
-  #       end
-  #     else
-  #       player.rankup_score = player.rankup_score + 10
-  #     end
-  #   elsif player.rank == "silver"
-  #     if game_result == "loss"
-  #       player.rankup_score = player.rankup_score - 4
-  #     else
-  #       player.rankup_score = player.rankup_score + 10
-  #     end
-  #   elsif player.rank == "gold"
-  #     if game_result == "loss"
-  #       player.rankup_score = player.rankup_score - 5
-  #     else
-  #       player.rankup_score = player.rankup_score + 10
-  #     end
-  #   elsif player.rank == "diamond"
-  #     if game_result == "loss"
-  #       player.rankup_score = player.rankup_score - 7
-  #     else
-  #       player.rankup_score = player.rankup_score + 10
-  #     end
-  #   else
-  #     if game_result == "loss"
-  #       player.rankup_score = player.rankup_score - 9
-  #     else
-  #       player.rankup_score = player.rankup_score + 10
-  #     end
-  #   end
-  # 
-  #   if player.rankup_score >= 0 && player.rankup_score < 100
-  #     player.rank = "bronze"
-  #   elsif player.rankup_score >= 100 && player.rankup_score < 200
-  #     player.rank = "silver"
-  #   elsif player.rankup_score >= 200 && player.rankup_score < 300
-  #     player.rank = "gold"
-  #   elsif player.rankup_score >= 300 && player.rankup_score < 400
-  #     player.rank = "diamond"
-  #   else
-  #     player.rank = "master"
-  #   end
-  #   player.save
-  #   player
-  # end
 end
