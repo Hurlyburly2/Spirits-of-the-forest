@@ -3,6 +3,21 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
 import CardTile from '../components/CardTile'
 
+function generateEmptyRowOfCards() {
+  let card = <CardTile which_card="/cardback.png" />
+  let generate_layout = []
+  let counter = 0
+  while (counter < 48) {
+    counter ++
+      generate_layout = generate_layout.concat(<CardTile which_card="cardback" key={counter} /> )
+  }
+  return generate_layout
+}
+
+function generateRowOfCards() {
+  alert("test function")
+}
+
 export const CardContainer = (props) => {
   let renderCards = []
   let statusText = ""
@@ -10,22 +25,16 @@ export const CardContainer = (props) => {
   let row_two = []
   let row_three = []
   let row_four = []
-  //props.GemMode
   
   if (props.gameState === "pending") {
     statusText = "Waiting on Opponent"
-    let card = <CardTile which_card="/cardback.png" />
-    let generate_layout = []
-    let counter = 0
-    while (counter < 48) {
-      counter ++
-        generate_layout = generate_layout.concat(<CardTile which_card="cardback" key={counter} /> )
-    }
-    row_four = generate_layout.splice(36)
-    row_three = generate_layout.splice(24)
-    row_two = generate_layout.splice(12)
-    row_one = generate_layout
+    let empty_rows = generateEmptyRowOfCards();
+    row_four = empty_rows.splice(36)
+    row_three = empty_rows.splice(24)
+    row_two = empty_rows.splice(12)
+    row_one = empty_rows
   } else if (props.gameState === "play") {
+    testFunction()
     let counter = 0
     let row_length = props.cards.row_one.length
     props.cards.row_one.forEach((card) => {
