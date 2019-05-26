@@ -14,8 +14,56 @@ function generateEmptyRowOfCards() {
   return generate_layout
 }
 
-function generateRowOfCards() {
-  alert("test function")
+function generateRowOfCards(row, props) {
+  let counter = 0
+  let exportRow = []
+  row.forEach((card) => {
+    let isAdjacentCardSelected = false
+    if (row.length > 1) {
+      if (card.id === row[1].id && props.selected.includes(row[0].id)) {
+        isAdjacentCardSelected = true
+      }
+      if (card.id === row[row.length - 2].id && props.selected.includes(row[row.length - 1].id)) {
+        isAdjacentCardSelected = true
+      }
+    }
+    
+    let token = card.token
+    if (((counter === 0 || counter === row.length - 1) && props.checkTurn() === true) || (isAdjacentCardSelected === true && props.checkTurn() === true)) {
+      let selectedClass = ""
+      if (props.selected.includes(card.id)) {
+        selectedClass = "card-selected"
+      }
+      let cardFunction
+      if (props.gemMode === false) {
+        cardFunction = props.handleSelectCard
+        if (card.gem && card.gem.id !== props.currentUser.id) {
+          cardFunction = props.handleGemmedCard
+        }
+      } else if (props.gemMode === true) {
+        cardFunction = props.handleGemPlacement
+      }
+      exportRow.push(<CardTile
+        key={card.id}
+        id={card.id}
+        which_card={card}
+        handleSelectCard={cardFunction}
+        selectedClass={selectedClass}
+        token={token}
+        type="card-in-game"
+        gem={card.gem}
+        currentUser={props.currentUser}
+        />)
+      } else {
+        let cardFunction = ""
+        if (props.gemMode === true) {
+          cardFunction = props.handleGemPlacement
+        }
+        exportRow.push(<CardTile key={card.id} id={card.id} which_card={card} handleSelectCard={cardFunction} token={token} type="card-in-game" gem={card.gem} currentUser={props.currentUser}/>)
+      }
+    counter++
+    })
+  return exportRow
 }
 
 export const CardContainer = (props) => {
@@ -34,7 +82,7 @@ export const CardContainer = (props) => {
     row_two = empty_rows.splice(12)
     row_one = empty_rows
   } else if (props.gameState === "play") {
-    testFunction()
+    let testRow = generateRowOfCards(props.cards.row_one, props)
     let counter = 0
     let row_length = props.cards.row_one.length
     props.cards.row_one.forEach((card) => {
@@ -83,6 +131,7 @@ export const CardContainer = (props) => {
         }
       counter++
     })
+    debugger
     
     counter = 0
     row_length = props.cards.row_two.length
