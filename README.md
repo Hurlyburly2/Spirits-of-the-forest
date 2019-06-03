@@ -4,14 +4,14 @@ Two-player card game based on the physical game of the same name.
 <h3>See the live, playable version here:</h3>
 http://spirits-of-the-forest-game.herokuapp.com/
 
+<h3>Screencast:</h3>
+https://www.youtube.com/watch?v=qZZw5Zh_8yE
+
 <h3>To run locally:</h3>
 <ul>
   <li>Download repo</li>
   <li>'bundle install' and 'yarn install' from your terminal</li>
   <li>'yarn run start' and 'rails s' from your terminal</li>
-    <ul>
-      <li>You may run into an issue with 'yarn install', if so type 'rm yarn.lock' and then 'yarn install' again
-    </ul>
   <li>Create the database: 'bundle exec rake db:create', 'bundle exec rake db:migrate', 'bundle exec rake db:seed'</li>
   <li>Navigate your browser to localhost:3000</li>
 </ul>
