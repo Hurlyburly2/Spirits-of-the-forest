@@ -15,6 +15,7 @@ http://spirits-of-the-forest-game.herokuapp.com/
   <li>Create the database: 'bundle exec rake db:create', 'bundle exec rake db:migrate', 'bundle exec rake db:seed'</li>
   <li>Navigate your browser to localhost:3000</li>
 </ul>
+Note: while running locally you will need a SENDGRID_API_KEY in your .env for email features, however, these are not required to play the game.
 
 If you download to play locally, you will still need two accounts to play against each other. To this end, once you have the server running simply open a separate instance of the application in another browser and create a second account.
 
