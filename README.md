@@ -1,3 +1,4 @@
+<h2>Spirits of the Forest</h2>
 Two-player card game based on the physical game of the same name. 
 
 <h3>See the live, playable version here:</h3>
