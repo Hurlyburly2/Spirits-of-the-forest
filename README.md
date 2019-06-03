@@ -12,6 +12,7 @@ http://spirits-of-the-forest-game.herokuapp.com/
     <ul>
       <li>You may run into an issue with 'yarn install', if so type 'rm yarn.lock' and then 'yarn install' again
     </ul>
+  <li>Create the database: 'bundle exec rake db:create', 'bundle exec rake db:migrate', 'bundle exec rake db:seed'</li>
   <li>Navigate your browser to localhost:3000</li>
 </ul>
 
