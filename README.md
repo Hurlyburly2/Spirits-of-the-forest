@@ -9,6 +9,9 @@ http://spirits-of-the-forest-game.herokuapp.com/
   <li>Download repo</li>
   <li>'bundle install' and 'yarn install' from your terminal</li>
   <li>'yarn run start' and 'rails s' from your terminal</li>
+    <ul>
+      <li>You may run into an issue with 'yarn install', if so type 'rm yarn.lock' and then 'yarn install' again
+    </ul>
   <li>Navigate your browser to localhost:3000</li>
 </ul>
 
