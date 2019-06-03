@@ -4,6 +4,9 @@ Two-player card game based on the physical game of the same name.
 <h3>See the live, playable version here:</h3>
 http://spirits-of-the-forest-game.herokuapp.com/
 
+<h3>Screencast:</h3>
+https://www.youtube.com/watch?v=qZZw5Zh_8yE
+
 <h3>To run locally:</h3>
 <ul>
   <li>Download repo</li>
