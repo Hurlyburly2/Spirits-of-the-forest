@@ -108,6 +108,7 @@
 }
 
 .userBranchIcon {
+  text-align: right;
   height: 43px;
   grid-area: player-one-branch-icon
 }
@@ -136,6 +137,7 @@
   grid-area: player-two-dew;
 }
 .userDewIcon {
+  text-align: right;
   height: 43px;
   grid-area: player-one-dew-icon
 }
@@ -163,6 +165,7 @@
   grid-area: player-two-flower;
 }
 .userFlowerIcon {
+  text-align: right;
   height: 43px;
   grid-area: player-one-flower-icon
 }
@@ -190,6 +193,7 @@
   grid-area: player-two-fruit;
 }
 .userFruitIcon {
+  text-align: right;
   height: 43px;
   grid-area: player-one-fruit-icon
 }
@@ -217,6 +221,7 @@
   grid-area: player-two-leaf;
 }
 .userLeafIcon {
+  text-align: right;
   height: 43px;
   grid-area: player-one-leaf-icon
 }
@@ -244,6 +249,7 @@
   grid-area: player-two-moss;
 }
 .userMossIcon {
+  text-align: right;
   height: 43px;
   grid-area: player-one-moss-icon
 }
@@ -271,6 +277,7 @@
   grid-area: player-two-mushroom;
 }
 .userMushroomIcon {
+  text-align: right;
   height: 43px;
   grid-area: player-one-mushroom-icon
 }
@@ -298,6 +305,7 @@
   grid-area: player-two-spider;
 }
 .userSpiderIcon {
+  text-align: right;
   height: 43px;
   grid-area: player-one-spider-icon
 }
@@ -325,6 +333,7 @@
   grid-area: player-two-vine;
 }
 .userVineIcon {
+  text-align: right;
   height: 43px;
   grid-area: player-one-vine-icon
 }
@@ -352,6 +361,7 @@
   grid-area: player-two-sun;
 }
 .userSunIcon {
+  text-align: right;
   height: 43px;
   grid-area: player-one-sun-icon
 }
@@ -379,6 +389,7 @@
   grid-area: player-two-moon;
 }
 .userMoonIcon {
+  text-align: right;
   height: 43px;
   grid-area: player-one-moon-icon
 }
@@ -406,6 +417,7 @@
   grid-area: player-two-wind;
 }
 .userWindIcon {
+  text-align: right;
   height: 43px;
   grid-area: player-one-wind-icon
 }
