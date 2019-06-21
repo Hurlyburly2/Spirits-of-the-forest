@@ -553,6 +553,7 @@ const EndGameTile = (props) => {
   }
     
     let endGameMessage
+    let scoreZone = null;
     if (props.concession === false) {
       if (props.score.user.total > props.score.opponent.total) {
         endGameMessage = "You Win!"
@@ -561,6 +562,11 @@ const EndGameTile = (props) => {
       } else {
         endGameMessage = "Tie Game!"
       }
+      scoreZone = <div>
+                    <div id="score-user-total">{props.score.user.total}</div>
+                    <div id="score-text-total">Total</div>
+                    <div id="score-opponent-total">{props.score.opponent.total}</div>
+                 </div>
     } else {
       if (props.currentUser.username === props.winner.username) {
         endGameMessage = <div>Concession:<br /> You Win!</div>
@@ -588,16 +594,14 @@ const EndGameTile = (props) => {
       <div className = "gameplayBottomWrapper">
         {playerName}<h4 className="whoseTurn"><span className="endGame-Message">{endGameMessage}</span></h4>{opponentName}
       </div>
-      <div id="score-user-total">{props.score.user.total}</div>
-      <div id="score-text-total">Total</div>
-      <div id="score-opponent-total">{props.score.opponent.total}</div>
+      {scoreZone}
       <div className = "grid-container">
         <div className="score-grid">
           
           <hr className = "branchLine" />
           
           <div className={userBranchClass}>{userBranchCardTiles}</div>
-          {userBranchIcon}
+          <div className="userBranchIcon">{userBranchIcon}</div>
           <div className="score-text-branch">Branch</div>
           {opponentBranchIcon}
           <div className={opponentBranchClass}>{opponentBranchCardTiles}</div>
@@ -605,7 +609,7 @@ const EndGameTile = (props) => {
           <hr className = "dewLine" />
           
           <div className={userDewClass}>{userDewCardTiles}</div>
-          {userDewIcon}
+          <div className="userDewIcon">{userDewIcon}</div>
           <div className="score-text-dew">Dew</div>
           {opponentDewIcon}
           <div className={opponentDewClass}>{opponentDewCardTiles}</div>
@@ -613,7 +617,7 @@ const EndGameTile = (props) => {
           <hr className = "flowerLine" />
           
           <div className={userFlowerClass}>{userFlowerCardTiles}</div>
-          {userFlowerIcon}
+          <div className="userFlowerIcon">{userFlowerIcon}</div>
           <div className="score-text-flower">Flower</div>
           {opponentFlowerIcon}
           <div className={opponentFlowerClass}>{opponentFlowerCardTiles}</div>
@@ -621,7 +625,7 @@ const EndGameTile = (props) => {
           <hr className = "fruitLine" />
           
           <div className={userFruitClass}>{userFruitCardTiles}</div>
-          {userFruitIcon}
+          <div className="userFruitIcon">{userFruitIcon}</div>
           <div className="score-text-fruit">Fruit</div>
           {opponentFruitIcon}
           <div className={opponentFruitClass}>{opponentFruitCardTiles}</div>
@@ -629,7 +633,7 @@ const EndGameTile = (props) => {
           <hr className = "leafLine" />
           
           <div className={userLeafClass}>{userLeafCardTiles}</div>
-          {userLeafIcon}
+          <div className="userLeafIcon">{userLeafIcon}</div>
           <div className="score-text-leaf">Leaf</div>
           {opponentLeafIcon}
           <div className={opponentLeafClass}>{opponentLeafCardTiles}</div>
@@ -637,7 +641,7 @@ const EndGameTile = (props) => {
           <hr className = "mossLine" />
           
           <div className={userMossClass}>{userMossCardTiles}</div>
-          {userMossIcon}
+          <div className="userMossIcon">{userMossIcon}</div>
           <div className="score-text-moss">Moss</div>
           {opponentMossIcon}
           <div className={opponentMossClass}>{opponentMossCardTiles}</div>
@@ -645,7 +649,7 @@ const EndGameTile = (props) => {
           <hr className = "mushroomLine" />
           
           <div className={userMushroomClass}>{userMushroomCardTiles}</div>
-          {userMushroomIcon}
+          <div className="userMushroomIcon">{userMushroomIcon}</div>
           <div className="score-text-mushroom">Mushroom</div>
           {opponentMushroomIcon}
           <div className={opponentMushroomClass}>{opponentMushroomCardTiles}</div>
@@ -653,7 +657,7 @@ const EndGameTile = (props) => {
           <hr className = "spiderLine" />
           
           <div className={userSpiderClass}>{userSpiderCardTiles}</div>
-          {userSpiderIcon}
+          <div className="userSpiderIcon">{userSpiderIcon}</div>
           <div className="score-text-spider">Spider</div>
           {opponentSpiderIcon}
           <div className={opponentSpiderClass}>{opponentSpiderCardTiles}</div>
@@ -661,7 +665,7 @@ const EndGameTile = (props) => {
           <hr className = "vineLine" />
           
           <div className={userVineClass}>{userVineCardTiles}</div>
-          {userVineIcon}
+          <div className="userVineIcon">{userVineIcon}</div>
           <div className="score-text-vine">Vine</div>
           {opponentVineIcon}
           <div className={opponentVineClass}>{opponentVineCardTiles}</div>
@@ -669,7 +673,7 @@ const EndGameTile = (props) => {
           <hr className = "sunLine" />
           
           <div className={userSunClass}>{userSunCardTiles}</div>
-          {userSunIcon}
+          <div className="userSunIcon">{userSunIcon}</div>
           <div className="score-text-sun">Sun</div>
           {opponentSunIcon}
           <div className={opponentSunClass}>{opponentSunCardTiles}</div>
@@ -677,7 +681,7 @@ const EndGameTile = (props) => {
           <hr className = "moonLine" />
           
           <div className={userMoonClass}>{userMoonCardTiles}</div>
-          {userMoonIcon}
+          <div className="userMoonIcon">{userMoonIcon}</div>
           <div className="score-text-moon">Moon</div>
           {opponentMoonIcon}
           <div className={opponentMoonClass}>{opponentMoonCardTiles}</div>
@@ -685,7 +689,7 @@ const EndGameTile = (props) => {
           <hr className = "windLine" />
           
           <div className={userWindClass}>{userWindCardTiles}</div>
-          {userWindIcon}
+          <div className="userWindIcon">{userWindIcon}</div>
           <div className="score-text-wind">Wind</div>
           {opponentWindIcon}
           <div className={opponentWindClass}>{opponentWindCardTiles}</div>
