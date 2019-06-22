@@ -55,7 +55,7 @@ function generateRowOfCards(row, props) {
         currentUser={props.currentUser}
         />)
       } else {
-        let cardFunction = ""
+        let cardFunction = props.cantSelectMiddleCard
         if (props.gemMode === true) {
           cardFunction = props.handleGemPlacement
         }
