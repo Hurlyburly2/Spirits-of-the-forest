@@ -470,7 +470,7 @@ class Api::V1::GamesController < ApplicationController
               opponent_match.gems_possessed += 1
               opponent_match.save
             elsif current_match.gems_possessed > 0 && current_game.gem_placed == true
-              error_message = "You have already placed a gem this turn"
+              error_message = "You have already placed a gem this turn. Either click a gem to remove it, or click 'Pick Cards' to switch back to card selection."
             else
               error_message = "You need to be holding a gem in order to remove your opponent's"
             end
@@ -484,7 +484,7 @@ class Api::V1::GamesController < ApplicationController
             current_match.gems_possessed -= 1
             current_match.save
           elsif current_match.gems_possessed > 0 && current_game.gem_placed == true
-            error_message = "You have already placed a gem this turn"
+            error_message = "You have already placed a gem this turn. Either click a gem to remove it, or click 'Pick Cards' to switch back to card selection."
           else
             error_message = "You don't have any gems left to place!"
           end
@@ -509,7 +509,7 @@ class Api::V1::GamesController < ApplicationController
               opponent_match.gems_possessed += 1
               opponent_match.save
             elsif current_match.gems_possessed > 0 && current_game.gem_placed == true
-              error_message = "You have already placed a gem this turn"
+              error_message = "You have already placed a gem this turn. Either click a gem to remove it, or click 'Pick Cards' to switch back to card selection."
             else
               error_message = "You need to be holding a gem in order to remove your opponent's"
             end
@@ -523,7 +523,7 @@ class Api::V1::GamesController < ApplicationController
             current_match.gems_possessed -= 1
             current_match.save
           elsif current_match.gems_possessed > 0 && current_game.gem_placed == true
-            error_message = "You have already placed a gem this turn"
+            error_message = "You have already placed a gem this turn. Either click a gem to remove it, or click 'Pick Cards' to switch back to card selection."
           else
             error_message = "You don't have any gems left to place!"
           end
@@ -548,7 +548,7 @@ class Api::V1::GamesController < ApplicationController
               opponent_match.gems_possessed += 1
               opponent_match.save
             elsif current_match.gems_possessed && current_game.gem_placed == true
-              error_message = "You have already placed a gem this turn"
+              error_message = "You have already placed a gem this turn. Either click a gem to remove it, or click 'Pick Cards' to switch back to card selection."
             else
               error_message = "You need to be holding a gem in order to remove your opponent's"
             end
@@ -562,7 +562,7 @@ class Api::V1::GamesController < ApplicationController
             current_match.gems_possessed -= 1
             current_match.save
           elsif current_match.gems_possessed > 0 && current_game.gem_placed == true
-            error_message = "You have already placed a gem this turn"
+            error_message = "You have already placed a gem this turn. Either click a gem to remove it, or click 'Pick Cards' to switch back to card selection."
           else
             error_message = "You don't have any gems left to place!"
           end
@@ -587,7 +587,7 @@ class Api::V1::GamesController < ApplicationController
               opponent_match.gems_possessed += 1
               opponent_match.save
             elsif current_match.gems_possessed > 0 && current_game.gem_placed == true
-              error_message = "You have already placed a gem this turn"
+              error_message = "You have already placed a gem this turn. Either click a gem to remove it, or click 'Pick Cards' to switch back to card selection."
             else
               error_message = "You need to be holding a gem in order to remove your opponent's"
             end
@@ -601,7 +601,7 @@ class Api::V1::GamesController < ApplicationController
             current_match.gems_possessed -= 1
             current_match.save
           elsif current_match.gems_possessed > 0 && current_game.gem_placed == true
-            error_message = "You have already placed a gem this turn"
+            error_message = "You have already placed a gem this turn. Either click a gem to remove it, or click 'Pick Cards' to switch back to card selection."
           else
             error_message = "You don't have any gems left to place!"
           end

@@ -50,6 +50,7 @@ class GameplayContainer extends Component {
     this.gemModeToggle = this.gemModeToggle.bind(this)
     this.gemPlacement = this.gemPlacement.bind(this)
     this.selectGemmedCard = this.selectGemmedCard.bind(this)
+    this.cantSelectMiddleCard = this.cantSelectMiddleCard.bind(this)
   }
   
   componentDidMount() {
@@ -327,6 +328,10 @@ class GameplayContainer extends Component {
     }
   }
   
+  cantSelectMiddleCard() {
+    this.setState({ errorMessage: "You may only select cards on the left or right edge of a row" })
+  }
+  
   checkTurn() {
     if (this.state.currentUser.id === this.state.whose_turn.id) {
       return true
@@ -365,14 +370,16 @@ class GameplayContainer extends Component {
       backgroundDiv.classList.remove('gemMode')
       backgroundDiv.classList.add('overlay')
       this.setState({
-        gemMode: false
+        gemMode: false,
+        errorMessage: ""
       })
     } else {
       let backgroundDiv = document.getElementById('overlay') 
       backgroundDiv.classList.remove('overlay')
       backgroundDiv.classList.add('gemMode')
       this.setState({
-        gemMode: true
+        gemMode: true,
+        errorMessage: ""
       })
     }
   }
@@ -560,6 +567,7 @@ class GameplayContainer extends Component {
         handleGemPlacement={this.gemPlacement}
         currentUser={this.state.currentUser}
         handleGemmedCard={this.selectGemmedCard}
+        cantSelectMiddleCard={this.cantSelectMiddleCard}
       />
       gamePlayBottom = <div className="gameplayBottomWrapper">
         {currentPlayerName} <h4 className="whoseTurn">{message}</h4> {opponentName}
