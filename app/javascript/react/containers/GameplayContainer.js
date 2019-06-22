@@ -329,7 +329,9 @@ class GameplayContainer extends Component {
   }
   
   cantSelectMiddleCard() {
-    this.setState({ errorMessage: "You may only select cards on the left or right edge of a row" })
+    if (this.state.whose_turn.id === this.state.currentUser.id) {
+      this.setState({ errorMessage: "You may only select cards on the left or right edge of a row" })
+    }
   }
   
   checkTurn() {
