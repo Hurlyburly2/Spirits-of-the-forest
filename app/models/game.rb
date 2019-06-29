@@ -300,4 +300,42 @@ class Game < ApplicationRecord
     
     return score
   end
+  
+  def self.remove_cards_from_row(card, row, cards, current_match, tokens)
+    if cards[row].any? { |find_card| find_card["id"] == card[:id]}
+      if cards[row][0]["id"] == card[:id]
+        if cards[row][0]["token"]
+          if cards[row][0]["token"]["spirit"] == "plus-1" || cards[row][0]["token"]["spirit"] == "plus-2"
+            current_match.gems_possessed += 1
+            current_match.gems_total += 1
+            current_match.save
+          end
+          tokens << cards[row][0]["token"]
+        end
+        if cards[row][0]["gem"]
+          current_match.gems_possessed += 1
+          current_match.save
+        end
+        cards[row].shift
+      elsif cards[row].last["id"] == card[:id]
+        if cards[row].last["token"]
+          if cards[row].last["token"]["spirit"] == "plus-1" || cards[row].last["token"]["spirit"] == "plus-2"
+            current_match.gems_possessed += 1
+            current_match.gems_total += 1
+            current_match.save
+          end
+          tokens << cards[row].last["token"]
+        end
+        if cards[row].last["gem"]
+          current_match.gems_possessed += 1
+          current_match.save
+        end
+        cards[row].pop
+      else
+        error = "Invalid selection"
+      end
+    end
+    
+    return cards, tokens
+  end
 end
