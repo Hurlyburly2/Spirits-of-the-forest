@@ -34,6 +34,10 @@
 
 
 
+
+
+
+
 #GENERATE ROW OF CARDS ----- OLD CODE ----- #
 # let counter = 0
 # let row_length = props.cards.row_one.length
@@ -234,3 +238,7 @@
 #   }
 #   counter++
 # })
+
+
+
+#CARD SELECTION: OLD CODE
