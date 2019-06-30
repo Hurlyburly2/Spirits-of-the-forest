@@ -29,4 +29,10 @@ task :check_inactivity => :environment do
         }
       ]
   }
+  
+  sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
+  response = sg.client.mail._("send").post(request_body: data)
+  puts response.status_code
+  puts response.body
+  puts response.headers
 end
