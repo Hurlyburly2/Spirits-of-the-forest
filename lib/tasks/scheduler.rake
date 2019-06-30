@@ -2,6 +2,7 @@ desc "Checks for inactive users in matches, sends reminders, and "
 task :check_inactivity => :environment do
   Appstamp.check_for_inactive_games
   
+  user = User.first
   to = "dougdougmann@gmail.com"
   subject = "You have idle games ongoing in Spirits of the Forest!"
   from = "Spirits-of-the-Forest-Game@Spirits-of-the-Forest-game.com"
