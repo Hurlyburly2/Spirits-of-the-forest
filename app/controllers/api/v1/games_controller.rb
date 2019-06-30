@@ -1,6 +1,5 @@
 class Api::V1::GamesController < ApplicationController
   def index
-    Appstamp.check_for_inactive_games
     serialized_games = Game.get_games_list(current_user)
     render json: {
       currentUser: current_user,
