@@ -377,3 +377,170 @@
 #     error = "Invalid selection"
 #   end
 # end
+
+
+
+#OLD GEM PLACEMENT CODE
+
+# ROW ONE
+
+      # card_to_gem_index = current_game_gameState["row_one"].index{ |card| card["id"] == params["gemmedCard"] }
+      # if current_game_gameState["row_one"][card_to_gem_index]["gem"] #IF THE CARD HAS A GEM
+      #   if current_game_gameState["row_one"][card_to_gem_index]["gem"]["id"] == user.id
+      #     current_game_gameState["row_one"][card_to_gem_index].delete("gem")
+      #     current_match.gems_possessed += 1
+      #     current_match.save
+      #   else
+      #     #OPPONENT GEM LOGIC
+      #     if current_match.gems_possessed > 0 && current_game.gem_placed == false
+      #       current_game_gameState["row_one"][card_to_gem_index].delete("gem")
+      #       current_game.gem_placed = true
+      #       current_game.save
+      #       current_match.gems_possessed -= 1
+      #       current_match.gems_total -= 1
+      #       current_match.save
+      #       opponent_match.gems_possessed += 1
+      #       opponent_match.save
+      #     elsif current_match.gems_possessed > 0 && current_game.gem_placed == true
+      #       error_message = "You have already placed a gem this turn. Either click a gem to remove it, or click 'Pick Cards' to switch back to card selection."
+      #     else
+      #       error_message = "You need to be holding a gem in order to remove your opponent's"
+      #     end
+      #   end
+      # else #IF THE CARD DOES NOT HAVE A GEM
+      #   if current_match.gems_possessed > 0 && current_game.gem_placed == false
+      #     card_to_gem_index = current_game_gameState["row_one"].index{ |card| card["id"] == params["gemmedCard"] }
+      #     current_game_gameState["row_one"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+      #     current_game.gem_placed = true
+      #     current_game.save
+      #     current_match.gems_possessed -= 1
+      #     current_match.save
+      #   elsif current_match.gems_possessed > 0 && current_game.gem_placed == true
+      #     error_message = "You have already placed a gem this turn. Either click a gem to remove it, or click 'Pick Cards' to switch back to card selection."
+      #   else
+      #     error_message = "You don't have any gems left to place!"
+      #   end
+      # end
+
+
+# ROW TWO
+
+      #   card_to_gem_index = current_game_gameState["row_two"].index{ |card| card["id"] == params["gemmedCard"] }
+      #   if current_game_gameState["row_two"][card_to_gem_index]["gem"] #IF THE CARD HAS A GEM
+      #     if current_game_gameState["row_two"][card_to_gem_index]["gem"]["id"] == user.id
+      #       current_game_gameState["row_two"][card_to_gem_index].delete("gem")
+      #       current_match.gems_possessed += 1
+      #       current_match.save
+      #     else
+      #       #OPPONENT GEM LOGIC
+      #       if current_match.gems_possessed > 0 && current_game.gem_placed == false
+      #         current_game_gameState["row_two"][card_to_gem_index].delete("gem")
+      #         current_game.gem_placed = true
+      #         current_game.save
+      #         current_match.gems_possessed -= 1
+      #         current_match.gems_total -= 1
+      #         current_match.save
+      #         opponent_match.gems_possessed += 1
+      #         opponent_match.save
+      #       elsif current_match.gems_possessed > 0 && current_game.gem_placed == true
+      #         error_message = "You have already placed a gem this turn. Either click a gem to remove it, or click 'Pick Cards' to switch back to card selection."
+      #       else
+      #         error_message = "You need to be holding a gem in order to remove your opponent's"
+      #       end
+      #     end
+      #   else #IF THE CARD DOES NOT HAVE A GEM
+      #     if current_match.gems_possessed > 0 && current_game.gem_placed == false
+      #       card_to_gem_index = current_game_gameState["row_two"].index{ |card| card["id"] == params["gemmedCard"] }
+      #       current_game_gameState["row_two"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+      #       current_game.gem_placed = true
+      #       current_game.save
+      #       current_match.gems_possessed -= 1
+      #       current_match.save
+      #     elsif current_match.gems_possessed > 0 && current_game.gem_placed == true
+      #       error_message = "You have already placed a gem this turn. Either click a gem to remove it, or click 'Pick Cards' to switch back to card selection."
+      #     else
+      #       error_message = "You don't have any gems left to place!"
+      #     end
+      #   end
+      # 
+
+# ROW THREE
+      #   card_to_gem_index = current_game_gameState["row_three"].index{ |card| card["id"] == params["gemmedCard"] }
+      #   if current_game_gameState["row_three"][card_to_gem_index]["gem"] #IF THE CARD HAS A GEM
+      #     if current_game_gameState["row_three"][card_to_gem_index]["gem"]["id"] == user.id
+      #       current_game_gameState["row_three"][card_to_gem_index].delete("gem")
+      #       current_match.gems_possessed += 1
+      #       current_match.save
+      #     else
+      #       #OPPONENT GEM LOGIC
+      #       if current_match.gems_possessed > 0 && current_game.gem_placed == false
+      #         current_game_gameState["row_three"][card_to_gem_index].delete("gem")
+      #         current_game.gem_placed = true
+      #         current_game.save
+      #         current_match.gems_possessed -= 1
+      #         current_match.gems_total -= 1
+      #         current_match.save
+      #         opponent_match.gems_possessed += 1
+      #         opponent_match.save
+      #       elsif current_match.gems_possessed && current_game.gem_placed == true
+      #         error_message = "You have already placed a gem this turn. Either click a gem to remove it, or click 'Pick Cards' to switch back to card selection."
+      #       else
+      #         error_message = "You need to be holding a gem in order to remove your opponent's"
+      #       end
+      #     end
+      #   else #IF THE CARD DOES NOT HAVE A GEM
+      #     if current_match.gems_possessed > 0 && current_game.gem_placed == false
+      #       card_to_gem_index = current_game_gameState["row_three"].index{ |card| card["id"] == params["gemmedCard"] }
+      #       current_game_gameState["row_three"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+      #       current_game.gem_placed = true
+      #       current_game.save
+      #       current_match.gems_possessed -= 1
+      #       current_match.save
+      #     elsif current_match.gems_possessed > 0 && current_game.gem_placed == true
+      #       error_message = "You have already placed a gem this turn. Either click a gem to remove it, or click 'Pick Cards' to switch back to card selection."
+      #     else
+      #       error_message = "You don't have any gems left to place!"
+      #     end
+      #   end
+      # 
+
+
+# ROW FOUR
+
+      # card_to_gem_index = current_game_gameState["row_four"].index{ |card| card["id"] == params["gemmedCard"] }
+      #   if current_game_gameState["row_four"][card_to_gem_index]["gem"] #IF THE CARD HAS A GEM
+      #     if current_game_gameState["row_four"][card_to_gem_index]["gem"]["id"] == user.id
+      #       current_game_gameState["row_four"][card_to_gem_index].delete("gem")
+      #       current_match.gems_possessed += 1
+      #       current_match.save
+      #     else
+      #       #OPPONENT GEM LOGIC
+      #       if current_match.gems_possessed > 0 && current_game.gem_placed == false
+      #         current_game_gameState["row_four"][card_to_gem_index].delete("gem")
+      #         current_game.gem_placed = true
+      #         current_game.save
+      #         current_match.gems_possessed -= 1
+      #         current_match.gems_total -= 1
+      #         current_match.save
+      #         opponent_match.gems_possessed += 1
+      #         opponent_match.save
+      #       elsif current_match.gems_possessed > 0 && current_game.gem_placed == true
+      #         error_message = "You have already placed a gem this turn. Either click a gem to remove it, or click 'Pick Cards' to switch back to card selection."
+      #       else
+      #         error_message = "You need to be holding a gem in order to remove your opponent's"
+      #       end
+      #     end
+      #   else #IF THE CARD DOES NOT HAVE A GEM
+      #     if current_match.gems_possessed > 0 && current_game.gem_placed == false
+      #       card_to_gem_index = current_game_gameState["row_four"].index{ |card| card["id"] == params["gemmedCard"] }
+      #       current_game_gameState["row_four"][card_to_gem_index]["gem"] = {"id" => params["currentUser"]["id"], "username" => params["currentUser"]["username"] }
+      #       current_game.gem_placed = true
+      #       current_game.save
+      #       current_match.gems_possessed -= 1
+      #       current_match.save
+      #     elsif current_match.gems_possessed > 0 && current_game.gem_placed == true
+      #       error_message = "You have already placed a gem this turn. Either click a gem to remove it, or click 'Pick Cards' to switch back to card selection."
+      #     else
+      #       error_message = "You don't have any gems left to place!"
+      #     end
+      #   end

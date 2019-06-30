@@ -338,4 +338,45 @@ class Game < ApplicationRecord
     
     return cards, tokens
   end
+  
+  def self.gem_placement(row, current_game_gameState, gemmedCard, user, current_match, current_game, opponent_match, error_message, current_user_id, current_user_username)
+    card_to_gem_index = current_game_gameState[row].index{ |card| card["id"] == gemmedCard }
+    if current_game_gameState[row][card_to_gem_index]["gem"] #IF THE CARD HAS A GEM
+      if current_game_gameState[row][card_to_gem_index]["gem"]["id"] == user.id
+        current_game_gameState[row][card_to_gem_index].delete("gem")
+        current_match.gems_possessed += 1
+        current_match.save
+      else
+        #OPPONENT GEM LOGIC
+        if current_match.gems_possessed > 0 && current_game.gem_placed == false
+          current_game_gameState[row][card_to_gem_index].delete("gem")
+          current_game.gem_placed = true
+          current_game.save
+          current_match.gems_possessed -= 1
+          current_match.gems_total -= 1
+          current_match.save
+          opponent_match.gems_possessed += 1
+          opponent_match.save
+        elsif current_match.gems_possessed > 0 && current_game.gem_placed == true
+          error_message = "You have already placed a gem this turn. Either click a gem to remove it, or click 'Pick Cards' to switch back to card selection."
+        else
+          error_message = "You need to be holding a gem in order to remove your opponent's"
+        end
+      end
+    else #IF THE CARD DOES NOT HAVE A GEM
+      if current_match.gems_possessed > 0 && current_game.gem_placed == false
+        card_to_gem_index = current_game_gameState[row].index{ |card| card["id"] == gemmedCard }
+        current_game_gameState[row][card_to_gem_index]["gem"] = {"id" => current_user_id, "username" => current_user_username }
+        current_game.gem_placed = true
+        current_game.save
+        current_match.gems_possessed -= 1
+        current_match.save
+      elsif current_match.gems_possessed > 0 && current_game.gem_placed == true
+        error_message = "You have already placed a gem this turn. Either click a gem to remove it, or click 'Pick Cards' to switch back to card selection."
+      else
+        error_message = "You don't have any gems left to place!"
+      end
+    end
+  return current_game_gameState, error_message
+  end
 end
