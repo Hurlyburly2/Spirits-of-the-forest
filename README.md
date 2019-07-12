@@ -4,6 +4,9 @@ Two-player card game based on the physical game of the same name.
 <h3>See the live, playable version here:</h3>
 http://spirits-of-the-forest-game.herokuapp.com/
 
+<h3>PDF detailing how the game works, database structures, database flow, and various other features:"</h3>
+https://drive.google.com/file/d/1cgSf0kZq2C_QLmAjvEJ6hDCn7A1S_7Cu/view?usp=sharing
+
 <h3>Screencast:</h3>
 https://www.youtube.com/watch?v=qZZw5Zh_8yE
 
