@@ -9,8 +9,9 @@ class Api::V1::GamesController < ApplicationController
   
   def create
     data = JSON.parse(request.body.read)
-    new_game = Game.new
-    new_match = Match.new(user: User.find(data["id"]), game: new_game, selected_cards: [], tokens: [].to_json)
+    user = data["user"]
+    new_game = Game.new(game_type: data["gameType"])
+    new_match = Match.new(user: User.find(user["id"]), game: new_game, selected_cards: [], tokens: [].to_json)
     if new_game.save && new_match.save
       new_game = GameIndexSerializer.new(new_game)
       

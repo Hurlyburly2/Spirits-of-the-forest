@@ -38,7 +38,10 @@ class MyGamesContainer extends Component {
   }
   
   createNewGame() {
-    let newGamePayload = this.state.currentUser
+    let newGamePayload = {
+      user: this.state.currentUser,
+      gameType: "long"
+    }
     fetch('/api/v1/games', {
       method: 'POST',
       body: JSON.stringify(newGamePayload),
