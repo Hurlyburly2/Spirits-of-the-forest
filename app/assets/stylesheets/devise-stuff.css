@@ -149,6 +149,19 @@
   margin-bottom: 20px;
 }
 
+.careerMessage {
+  margin: 20px 5% 0 5%;
+  text-align: left;
+  background-color: lightyellow;
+  padding: 10px;
+  font-size: 18px;
+}
+
+.forHiringManagers {
+  font-weight: 900;
+  font-size: 20px;
+}
+
 @media (max-width:320px)  {
   .window_wrapper {
     margin: 0;
