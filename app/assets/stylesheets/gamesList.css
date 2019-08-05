@@ -202,6 +202,57 @@ img.gameTile-right-image {
   }
 }
 
+/* Game type selection box */
+
+.gameTypeBox {
+  background-color: rgba(20, 27, 31, 0.95);
+  border: 3px solid #c1bf97;
+  margin: 0 15%;
+  padding: 10px 10px 50px 10px;
+  text-align: left;
+  border-radius: 0 25px 0 25px;
+  color: white;
+}
+
+.gameTypeBox h1 {
+  font-family: mr-eaves-modern, sans-serif;
+  font-size: 35px;
+}
+
+.gameSelectionCenter {
+  width: 410px;
+  margin: 0 auto;
+}
+
+.gameSelectionZone {
+  display: grid;
+  grid-template-columns: 200px 20px 200px;
+  grid-template-rows: auto;
+  grid-template-areas:
+  "one-player . two-player"
+  "description description description"
+  "ok ok ok";
+}
+
+.onePlayerIcon {
+  width: 90%;
+  align-self: center;
+  justify-self: center;
+  grid-area: one-player;
+}
+
+.twoPlayerIconOne {
+  width: 60%;
+  grid-area: two-player;
+}
+
+.twoPlayerIconTwo {
+  width: 60%;
+  align-self: end;
+  justify-self: end;
+  grid-area: two-player;
+}
+
 @media (min-width: 321px) and (max-width:480px)  {
   .gamesContainerPage {
     margin: 0;

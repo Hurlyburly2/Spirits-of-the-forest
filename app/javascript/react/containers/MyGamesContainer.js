@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 
 import GameTile from '../components/GameTile'
 import ProfilePic from '../components/ProfilePic'
+import GameTypeTile from '../components/GameTypeTile'
 
 class MyGamesContainer extends Component {
   constructor(props) {
@@ -10,7 +11,8 @@ class MyGamesContainer extends Component {
     this.state = {
       myGames: [],
       currentUser: null,
-      errorMessage: ""
+      errorMessage: "",
+      newGameType: null
     }
     this.handleNewGame = this.handleNewGame.bind(this)
     this.createNewGame = this.createNewGame.bind(this)
@@ -59,14 +61,24 @@ class MyGamesContainer extends Component {
       .then(response => response.json())
       .then(body => {
         this.setState({
-          myGames: this.state.myGames.concat(body.games)
+          myGames: this.state.myGames.concat(body.games),
+          newGameType: null
         })
       })
   }
   
   handleNewGame() {
     if (this.state.myGames.length < 18) {
-      this.createNewGame()
+      switch (this.state.newGameType) {
+        case null:
+          this.setState({
+            newGameType: "makingSelection"
+          })
+          break;
+        case "makingSelection":
+          this.createNewGame()
+          break;
+      }
     } else {
       this.setState({
         errorMessage: "You cannot have more than 18 games! Please finish games or concede to create more"
@@ -82,6 +94,12 @@ class MyGamesContainer extends Component {
     let opponentPic = ""
     let opponentRank = ""
     let profilePic;
+    let selectGameType;
+    
+    if (this.state.newGameType == "makingSelection") {
+      selectGameType = <GameTypeTile />
+    }
+    
     let games = this.state.myGames.map(game => {
       if (game.users[0].id === this.state.currentUser.id) {
         if (game.users[1]) {
@@ -133,6 +151,7 @@ class MyGamesContainer extends Component {
               </ul>
             </div>
           </div>
+          {selectGameType}
         </div>
         {this.state.errorMessage}
         <div className="gameTileContainer">{games}</div>
